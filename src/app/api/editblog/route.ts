@@ -45,5 +45,4 @@ export async function GET() {
   } catch (err) {
     console.error(err)
   }
-
 }
