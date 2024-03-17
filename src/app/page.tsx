@@ -1,6 +1,6 @@
 'use client';
-import React from "react";
-import { BlogListInterface, TeamComplete, UserOrganization } from "@/interface/organization";
+import React, { useEffect } from "react";
+import { BlogListInterface, TeamComplete, UserOrganization } from "@/interface/common";
 import { Avatar, Box, Button, CardActions, IconButton, Pagination, Stack, Tab, Tabs, Typography, styled } from "@mui/material";
 import MoreHoriz from "@mui/icons-material/MoreHoriz";
 import { useState } from "react";
@@ -12,8 +12,10 @@ import { useRouter } from 'next/navigation';
 import BasicTable from "@/components/Table";
 import { dataList } from '@/data/mydata';
 import 'swiper/css';
+import axios from "axios";
 
-const Home: NextPage = () => {
+export default function Home() {
+
   const [tabValue, setTabValue] = useState('all');
   const [swiper, setSwiper] = useState<any>(null);
   const router = useRouter()
@@ -64,7 +66,13 @@ const Home: NextPage = () => {
       }
     }),
   );
-
+  const initData = async () => {
+    const res = await axios.get('/api')
+    console.log(res)
+  }
+  useEffect(() => {
+    initData()
+  }, [])
   return (
     <Box sx={{ padding: 3 }}>
       <Typography security='h1' color='#fff'>
@@ -167,7 +175,3 @@ const Home: NextPage = () => {
     </Box>
   );
 }
-
-Home.displayName = 'Home'
-
-export default Home

@@ -1,6 +1,6 @@
 "use client"
 import MyEditor from "@/components/MyEditor";
-import { BlogListInterface } from "@/interface/organization";
+import { BlogListInterface } from "@/interface/common";
 import { Error } from "@mui/icons-material";
 import { TextField, Button, Box, Typography, Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, Dialog, Alert } from "@mui/material";
 import moment from "moment";

@@ -37,7 +37,7 @@ export const updateBlogList = () => {
 }
 
 
-export async function GET() {
+export async function POST() {
   try {
     readLocalJsonFile('../../data/mydata.json', (e) => {
       return NextResponse.json(e);

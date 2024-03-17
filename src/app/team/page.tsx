@@ -1,7 +1,7 @@
 
 "use client"
 import { useState } from "react";
-import { TeamComplete } from "@/interface/organization";
+import { TeamComplete } from "@/interface/common";
 import { stringAvatar } from "@/utils/common";
 import {
   Box, Typography, Stack, Avatar, IconButton,
@@ -261,7 +261,7 @@ export default function Login() {
         </Box>
       </StyledDraw>
       <CustomModal open={modalVisible} handleClose={() => handleClose()} title="Create a panel">
-        <Box component="form" sx={{mt: 4}}>
+        <Box component="form" sx={{ mt: 4 }}>
           <TextField
             required
             id="outlined-required"
@@ -277,7 +277,7 @@ export default function Login() {
             placeholder="Please enter the description"
             fullWidth
           />
-          <Button sx={{mt: 8}} variant="contained" fullWidth onClick={() => handleClose()}>Create</Button>
+          <Button sx={{ mt: 8 }} variant="contained" fullWidth onClick={() => handleClose()}>Create</Button>
         </Box>
       </CustomModal>
     </Box>

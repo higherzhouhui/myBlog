@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { Avatar, Box, Button, List, ListItemButton, ListItemIcon, ListItemText, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import { FC, memo, useState } from "react";
-import { UserOrganization } from '@/interface/organization'
+import { UserOrganization } from '@/interface/common'
 import { stringAvatar } from '@/utils/common'
 import CustomModal from "../CustomModal";
 import InputFileUpload from "../UploadFile";
@@ -107,7 +107,7 @@ export const LeftBar: FC = memo(() => {
                       selected={selectedIndex === index}
                       onClick={(event) => handleListItemClick(event, index)}
                     >
-                      <ListItemIcon sx={{minWidth: '34px'}}>
+                      <ListItemIcon sx={{ minWidth: '34px' }}>
                         <Avatar {...stringAvatar(item.name, 'small')} variant='square' />
                       </ListItemIcon>
                       <ListItemText primary={<span style={{ fontSize: '14px', color: '#2E2C34', fontWeight: '600' }}>{item.name}</span>} />

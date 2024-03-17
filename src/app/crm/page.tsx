@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react";
-import { TeamComplete } from "@/interface/organization";
+import { TeamComplete } from "@/interface/common";
 import { stringAvatar } from "@/utils/common";
 import {
   Box, Typography, Stack, Avatar, IconButton,
@@ -167,14 +167,14 @@ export default function Login() {
             </Stack>
           </Stack>
           <Stack>
-            <Stack direction={'row'} sx={{justifyContent: 'flex-end'}}>
+            <Stack direction={'row'} sx={{ justifyContent: 'flex-end' }}>
               <Button startIcon={<AddIcon />} variant="contained" sx={{ textTransform: 'none', mr: 2 }}>Create</Button>
               <Button variant="outlined">
                 <MoreHoriz />
               </Button>
             </Stack>
-            <Box sx={{mt: 3, display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
-              <FormControl sx={{width: 100, mr: 2}}>
+            <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+              <FormControl sx={{ width: 100, mr: 2 }}>
                 <InputLabel id="demo-simple-select-label">Role</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
@@ -189,7 +189,7 @@ export default function Login() {
                   <MenuItem value={30}>QA</MenuItem>
                 </Select>
               </FormControl>
-              <FormControl sx={{width: 130, mr: 2}}>
+              <FormControl sx={{ width: 130, mr: 2 }}>
                 <InputLabel id="demo-simple-select-label">Position</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
@@ -225,7 +225,7 @@ export default function Login() {
 
         </Box>
       </Box>
-      <Box sx={{ p: 3}}>
+      <Box sx={{ p: 3 }}>
         <DataTable />
       </Box>
     </Box>

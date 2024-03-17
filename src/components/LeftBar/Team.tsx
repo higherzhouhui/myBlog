@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Box, FormControl, InputLabel, List, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material"
 import { FC, memo, useState, useEffect } from "react"
-import { TeamComplete } from '@/interface/organization';
+import { TeamComplete } from '@/interface/common';
 import Dashboard from '@mui/icons-material/Dashboard';
 import SupervisedUserCircle from '@mui/icons-material/SupervisedUserCircle';
 import { useRouter } from 'next/navigation';
@@ -236,7 +236,7 @@ export const TeamPaner: FC<any> = memo((props) => {
                 selected={currentMenu === index}
                 onClick={(event) => handleListItemClick(index)}
               >
-                <ListItemIcon sx={{minWidth: '34px'}}>
+                <ListItemIcon sx={{ minWidth: '34px' }}>
                   {
                     currentMenu === index ? item.activeIcon : item.icon
                   }
