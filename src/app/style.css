@@ -1,0 +1,30 @@
+::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 5px;
+  border: solid 2px #ccc;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ccc;
+  border-radius: 5px;
+  border: solid 2px #ccc;
+}
+.mui-13ej7tk-MuiDataGrid-root .MuiDataGrid-columnHeaderTitleContainer {
+  color: #84818A;
+  font-size: 12px;
+}
+.mui-13ej7tk-MuiDataGrid-root {
+  color: #000;
+  font-size: 14px;
+}
