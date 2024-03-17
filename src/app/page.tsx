@@ -1,19 +1,12 @@
 'use client';
 import React, { useEffect } from "react";
-import { BlogListInterface, TeamComplete, UserOrganization } from "@/interface/common";
-import { Avatar, Box, Button, CardActions, IconButton, Pagination, Stack, Tab, Tabs, Typography, styled } from "@mui/material";
-import MoreHoriz from "@mui/icons-material/MoreHoriz";
+import { BlogListInterface } from "@/interface/common";
+import { Box, Button, Pagination, Stack, Tab, Tabs, Typography, styled } from "@mui/material";
 import { useState } from "react";
-import { stringAvatar } from "@/utils/common";
-import FullFeaturedCrudGrid from "@/components/Table";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { NextPage } from "next";
 import { useRouter } from 'next/navigation';
-import BasicTable from "@/components/Table";
-import { dataList } from '@/data/mydata';
 import 'swiper/css';
-import axios from "axios";
-
+import { getBlogListReq } from "@/service/common";
 export default function Home() {
 
   const [tabValue, setTabValue] = useState('all');
@@ -38,8 +31,8 @@ export default function Home() {
       name: '最受欢迎', code: 'most',
     }
   ])
-  const [blogList, setblogList] = useState<BlogListInterface[]>(dataList)
-  const handleToTeam = (id: number | string) => {
+  const [blogList, setblogList] = useState<BlogListInterface[]>([])
+  const handleToTeam = (id: number | undefined) => {
     router.push(`/detail?id=${id}`)
   }
   const MyCard = styled('div')(({ theme }) =>
@@ -57,7 +50,6 @@ export default function Home() {
   const MyGrid = styled('div')(({ theme }) =>
     theme.unstable_sx({
       display: 'grid',
-      gridTemplateColumns: 'repeat(2, 1fr)',
       columnGap: 2,
       rowGap: 2,
       boxShadow: 1,
@@ -67,8 +59,12 @@ export default function Home() {
     }),
   );
   const initData = async () => {
-    const res = await axios.get('/api')
-    console.log(res)
+    try {
+      const res = await getBlogListReq({})
+      setblogList(res.data.list)
+    } catch {
+
+    }
   }
   useEffect(() => {
     initData()
@@ -92,13 +88,13 @@ export default function Home() {
         >
           {blogList.map((item, index: number) => (
             <SwiperSlide key={index} style={{ width: '320px' }}>
-              <MyCard>
+              <MyCard style={{ height: 300 }}>
                 <Stack direction={'row'}>
                   <Box>
                     <Typography component="div" sx={{ color: '#2E2C34', fontWeight: 'bold', fontSize: 22, }}>
                       {item.title}
                     </Typography>
-                    <Typography security='h2'>{item.abstract}</Typography>
+                    <Typography security='h2' sx={{ height: 80, overflow: 'hidden' }}>{item.abstract}</Typography>
                     <Typography component="div" sx={{ color: '#84818A', fontSize: 14, marginTop: '8px' }}>
                       {
                         item.label.map((clabel, cindex) => {
@@ -108,7 +104,7 @@ export default function Home() {
                     </Typography>
                   </Box>
                 </Stack>
-                <Box sx={{ color: '#666', fontSize: '15px', mt: 6, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Box sx={{ color: '#666', fontSize: '15px', mt: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <Typography component="div" security="h2" sx={{ color: '#84818A', fontSize: 14, pr: 1 }}>
                     作者：{item.creator}
                     <Typography security='desc'>{item.time}</Typography>
@@ -125,10 +121,10 @@ export default function Home() {
           ))}
         </Swiper>
       </Box>
-      <Tabs value={tabValue} onChange={handleChange} aria-label="basic tabs example" sx={{ borderBottom: '1px solid #EBEAED', marginBottom: '20px' }}>
+      <Tabs value={tabValue} onChange={handleChange} aria-label="basic tabs example" sx={{ borderBottom: '1px solid #f5f5f5', marginBottom: '20px' }}>
         {
           tabList.map((item, index) => {
-            return <Tab label={item.name} key={index} value={item.code} sx={{ fontSize: '14px', color: '#2E2C34', textTransform: 'none' }} />
+            return <Tab label={item.name} key={index} value={item.code} sx={{ fontSize: '14px', color: '#fff', textTransform: 'none' }} />
           })
         }
       </Tabs>
@@ -137,13 +133,13 @@ export default function Home() {
           {blogList.map((item, index: number) => (
             <MyCard key={index}>
               <Stack direction={'row'}>
-                <img src={item.logo} style={{ width: '150px', objectFit: 'contain', minWidth: '150px' }} />
+                <img src={item.logo} style={{ width: '200px', objectFit: 'contain', minWidth: '200px' }} />
                 <Box sx={{ ml: 2 }}>
                   <Typography component="div" sx={{ color: '#2E2C34', fontWeight: 'bold', fontSize: 22, }}>
                     {item.title}
                   </Typography>
-                  <Typography security='h2'>{item.abstract}</Typography>
-
+                  <Typography security='h2' sx={{ maxHeight: 100, overflow: 'hidden' }}>{item.abstract}</Typography>
+                  <div dangerouslySetInnerHTML={{ __html: item.content || '' }} style={{ height: '120px', overflow: 'hidden' }} />
                   <Typography component="div" sx={{ color: '#84818A', fontSize: 14, marginTop: '8px' }}>
                     {
                       item.label.map((clabel, cindex) => {
@@ -168,9 +164,6 @@ export default function Home() {
             </MyCard>
           ))}
         </MyGrid>
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-          <Pagination count={10} color="primary" page={pageNum} onChange={(_, cpage) => setPageNum(cpage)} />
-        </Box>
       </Box>
     </Box>
   );

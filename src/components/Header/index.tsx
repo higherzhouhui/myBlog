@@ -20,13 +20,14 @@ export const Header: FC = memo(() => {
     router.push(path)
   }
   const StyledBoxBase = styled(Box)(({ theme }) => ({
-    height: '100px',
+    height: '80px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     padding: '0 12px',
     zIndex: 10,
-    background: '#fff',
+    background: 'rgba(255,255,255,0.7)',
+    borderBottom: '1px solid #ccc',
     '& .mui-oov0cx-MuiButtonBase-root-MuiButton-root:last-child': {
       marginRight: '0'
     }

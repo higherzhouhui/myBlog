@@ -1,19 +1,9 @@
 'use client';
-import { Roboto } from 'next/font/google';
 import { createTheme } from '@mui/material/styles';
-
-const roboto = Roboto({
-  weight: ['300', '400', '500', '700'],
-  subsets: ['latin'],
-  display: 'swap',
-});
 
 const theme = createTheme({
   palette: {
     mode: 'light',
-  },
-  typography: {
-    fontFamily: roboto.style.fontFamily,
   },
   components: {
     MuiButton: {
@@ -37,13 +27,10 @@ const theme = createTheme({
     MuiTabs: {
       styleOverrides: {
         root: () => ({
-          '.mui-177cjvx-MuiButtonBase-root-MuiTab-root': {
-            color: '#f5f5f5',
-            minWidth: '4px'
-          },
-          '.mui-177cjvx-MuiButtonBase-root-MuiTab-root.Mui-selected': {
-            color: '#fff',
-            fontWeight: 'bold'
+          '.Mui-selected': {
+            color: '#fff!important',
+            fontWeight: 'bold',
+            fontSize: '18px'
           },
           '.mui-1aquho2-MuiTabs-indicator': {
             backgroundColor: '#fff'

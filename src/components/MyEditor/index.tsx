@@ -3,24 +3,29 @@ import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import React, { useState, useEffect } from 'react'
 import { Editor, Toolbar } from '@wangeditor/editor-for-react'
 import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
+export interface MyEditerInterface {
+    content: string,
+    onChangeContent: (c: string) => void,
+    update: boolean,
+}
 
-function MyEditor(content: string, onChangeContent: (c: string) => void) {
+function MyEditor(props: MyEditerInterface) {
     // editor 实例
     const [editor, setEditor] = useState<IDomEditor | null>(null)   // TS 语法
     // const [editor, setEditor] = useState(null)                   // JS 语法
 
     // 编辑器内容
-    const [html, setHtml] = useState(content)
+    const [html, setHtml] = useState(props.content)
     const seleOnchange = (eeditor: IDomEditor) => {
         setHtml(eeditor.getHtml())
-        onChangeContent(eeditor.getHtml())
+        props.onChangeContent(eeditor.getHtml())
     }
     // 模拟 ajax 请求，异步设置 html
     useEffect(() => {
         setTimeout(() => {
-            setHtml(content)
+            setHtml(props.content)
         }, 500)
-    }, [])
+    }, [props.update])
 
     // 工具栏配置
     const toolbarConfig: Partial<IToolbarConfig> = {}  // TS 语法
@@ -42,24 +47,22 @@ function MyEditor(content: string, onChangeContent: (c: string) => void) {
     }, [editor])
 
     return (
-        <>
-            <div style={{ border: '1px solid #ccc', zIndex: 100 }}>
-                <Toolbar
-                    editor={editor}
-                    defaultConfig={toolbarConfig}
-                    mode="default"
-                    style={{ borderBottom: '1px solid #ccc' }}
-                />
-                <Editor
-                    defaultConfig={editorConfig}
-                    value={html}
-                    onCreated={setEditor}
-                    onChange={editor => seleOnchange(editor)}
-                    mode="default"
-                    style={{ height: '500px', overflowY: 'hidden' }}
-                />
-            </div>
-        </>
+        <div style={{ border: '1px solid #ccc', zIndex: 100 }}>
+            <Toolbar
+                editor={editor}
+                defaultConfig={toolbarConfig}
+                mode="default"
+                style={{ borderBottom: '1px solid #ccc' }}
+            />
+            <Editor
+                defaultConfig={editorConfig}
+                value={html}
+                onCreated={setEditor}
+                onChange={editor => seleOnchange(editor)}
+                mode="default"
+                style={{ overflowY: 'hidden', height: '700px' }}
+            />
+        </div>
     )
 }
 

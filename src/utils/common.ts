@@ -49,3 +49,19 @@ export const stringAvatar = (name: string, size?: string) => {
     children: child,
   };
 }
+
+
+export const copyUrlToClip = (phref?: string) => {
+  let href = window.location.href;
+  if (phref) {
+    href = phref;
+  }
+  const aux = document.createElement('input');
+  aux.setAttribute('value', href);
+  document.body.appendChild(aux);
+  aux.select();
+  if (document.execCommand('copy')) {
+    document.execCommand('copy');
+  }
+  document.body.removeChild(aux);
+};

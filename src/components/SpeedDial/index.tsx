@@ -1,16 +1,16 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import SaveIcon from '@mui/icons-material/Save';
 import ShareIcon from '@mui/icons-material/Share';
-import { AddCircle, Edit } from '@mui/icons-material';
-import { useRouter } from 'next/navigation';
-
+import { AddCircle, CheckCircle, Edit } from '@mui/icons-material';
+import { useRouter, useSearchParams } from 'next/navigation';
+import toast, { Toast } from 'react-hot-toast';
+import { copyUrlToClip } from '@/utils/common';
 
 export default function BasicSpeedDial() {
   const router = useRouter()
+  const id = useSearchParams().get('id')
   const actions = [
     { icon: <ShareIcon />, name: 'Share', title: '分享' },
     { icon: <Edit />, name: 'Edit', title: '修改' },
@@ -21,8 +21,16 @@ export default function BasicSpeedDial() {
     let url = ''
     if (type == 'Add') {
       url = '/blogedit'
+      router.push(url)
+    } else if (type == 'Share') {
+      toast('复制成功', { icon: <CheckCircle />, style: { color: 'green' } })
+      copyUrlToClip()
+    } else if (type == 'Edit') {
+      if (id) {
+        url = `/blogedit?id=${id}`
+        router.push(url)
+      }
     }
-    router.push(url)
   }
 
   return (

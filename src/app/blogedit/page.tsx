@@ -1,11 +1,15 @@
 "use client"
 import MyEditor from "@/components/MyEditor";
 import { BlogListInterface } from "@/interface/common";
-import { Error } from "@mui/icons-material";
-import { TextField, Button, Box, Typography, Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, Dialog, Alert } from "@mui/material";
+import { PostBlogListReq, getBlogListReq } from "@/service/common";
+import { CheckCircle, Error } from "@mui/icons-material";
+import { TextField, Button, Box, Typography, Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent } from "@mui/material";
+import axios from "axios";
 import moment from "moment";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
+
 const names = [
   'HTML5',
   'CSS',
@@ -31,9 +35,11 @@ const MenuProps = {
   },
 };
 export default function BlogEdit() {
+  const NotificationSystem = useRef<any>()
   const queryId = useSearchParams().get('id')
   const [id, setId] = useState('')
-  const [open, setOpen] = useState(false)
+  const [content, setContent] = useState('')
+  const [update, setUpdate] = useState(false)
   const [formData, setFormData] = useState<BlogListInterface>({
     title: '',
     label: [],
@@ -50,6 +56,7 @@ export default function BlogEdit() {
     const _data = JSON.stringify(formData)
     const n_data = JSON.parse(_data)
     n_data[key] = value
+    console.log(n_data)
     setFormData(n_data)
   }
   const [LabelName, setLabelName] = useState<string[]>([]);
@@ -63,50 +70,55 @@ export default function BlogEdit() {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
-  const hanleChangeEditor = (c: string) => {
-    const _data = JSON.stringify(formData)
-    const n_data = JSON.parse(_data)
-    n_data.content = c
-    setFormData(n_data)
-  }
-  const TheEditor = MyEditor(formData.content || '', hanleChangeEditor)
-  function readLocalJsonFile(url: string, callback: (c: any) => void) {
-    var xhr = new XMLHttpRequest();
-    xhr.overrideMimeType("application/json");
-    xhr.open("GET", url, true);
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        var json = JSON.parse(xhr.responseText);
-        callback(json);
-      }
-    };
-    xhr.send(null);
+  const hanleChangeEditor = (c: string): void => {
+    setContent(c)
   }
   const handleConfirm = () => {
-    readLocalJsonFile('/mydata.json', function (e) {
-      console.log(e)
-    })
-
-
-    if (formData.title && formData.content && formData.abstract && LabelName.length) {
+    console.log(LabelName, formData, content)
+    if (formData.title && content && formData.abstract && LabelName.length) {
       formData.label = LabelName;
-      formData.uptime = moment().format('YYYY-DD-MM HH:mm:ss')
+      formData.uptime = moment().format('YYYY-MM-DD HH:mm:ss')
       if (!id) {
-        formData.time = moment().format('YYYY-DD-MM HH:mm:ss')
+        formData.time = moment().format('YYYY-MM-DD HH:mm:ss')
         formData.id = Math.round(Math.random() * 100000000000000)
       }
+      formData.content = content
       formData.lookNum = Math.round(Math.random() * 10000)
       formData.type = typeList[Math.floor(Math.random() * 2)]
+      PostBlogListReq(formData).then((res: any) => {
+        if (res.code == 200) {
+          toast('操作成功!', { icon: <CheckCircle />, style: { color: 'green' } })
+        } else {
+          toast(res.msg, { icon: <Error />, style: { color: 'red' } })
+        }
+      })
     } else {
-      setOpen(true)
+      toast('请完善输入内容!', { icon: <Error />, style: { color: 'red' } })
     }
   }
   const router = useRouter()
   const handleCancel = () => {
     router.back()
   }
+
+  const initData = async (id: string | null) => {
+    if (!id) {
+      return
+    }
+    try {
+      const res = await getBlogListReq({ id: id ? parseInt(id) : null })
+      if (res.code == 200) {
+        setFormData(res.data.list)
+        setLabelName(res.data.list.label)
+        setContent(res.data.list.content)
+        setUpdate(true)
+      }
+    } catch {
+
+    }
+  }
   useEffect(() => {
-    setId(id)
+    initData(queryId)
   }, [queryId])
   return (
     <Box sx={{ background: 'rgba(255,255,255,0.9)', height: '100%', padding: 2, overflow: 'auto' }}>
@@ -119,6 +131,7 @@ export default function BlogEdit() {
         <TextField
           required
           label="标题"
+          value={formData.title}
           placeholder="请输入标题"
           sx={{ width: '100%', mt: 2 }}
           size="small"
@@ -127,10 +140,20 @@ export default function BlogEdit() {
         <TextField
           required
           label="摘要"
+          value={formData.abstract}
           placeholder="请输入摘要"
           sx={{ width: '100%', mt: 2 }}
           size="small"
           onChange={(e) => onchangeText(e, 'abstract')}
+        />
+        <TextField
+          required
+          label="封面"
+          value={formData.logo}
+          placeholder="请输入封面图片地址"
+          sx={{ width: '100%', mt: 2 }}
+          size="small"
+          onChange={(e) => onchangeText(e, 'logo')}
         />
         <FormControl sx={{ width: '100%', mt: 2 }} size="small" required>
           <InputLabel id="demo-multiple-checkbox-label">标签</InputLabel>
@@ -138,7 +161,7 @@ export default function BlogEdit() {
             labelId="demo-multiple-checkbox-label"
             id="demo-multiple-checkbox"
             multiple
-            value={LabelName}
+            value={LabelName || []}
             onChange={handleChange}
             input={<OutlinedInput label="Tag" />}
             renderValue={(selected) => selected.join(', ')}
@@ -147,26 +170,19 @@ export default function BlogEdit() {
           >
             {names.map((name) => (
               <MenuItem key={name} value={name}>
-                <Checkbox checked={LabelName.indexOf(name) > -1} />
+                <Checkbox checked={(LabelName || []).indexOf(name) > -1} />
                 <ListItemText primary={name} />
               </MenuItem>
             ))}
           </Select>
           <Typography sx={{ fontSize: 18, mt: 2, mb: 2 }}>正文</Typography>
         </FormControl>
-        {
-          TheEditor
-        }
-        <Box sx={{ margin: '12px 0', display: 'flex', justifyContent: 'center' }}>
+        <MyEditor content={content} onChangeContent={hanleChangeEditor} update={update} />
+        <Box sx={{ position: 'fixed', bottom: '20px', left: '50%', transform: 'translate(-50%, 0)' }}>
           <Button variant="outlined" onClick={() => handleCancel()} sx={{ mr: 5 }}>取消</Button>
           <Button variant="contained" onClick={() => handleConfirm()}>保存</Button>
         </Box>
       </Box>
-      <Dialog onClose={() => setOpen(false)} open={open}>
-        <Alert icon={<Error fontSize="inherit" />} severity="error">
-          请完善输入内容
-        </Alert>
-      </Dialog>
     </Box>
   );
 }
