@@ -33,7 +33,23 @@ export interface TeamComplete {
   members: Member[],
   teamLeaderId: number | string,
   totalMember?: number,
+
 }
+
+export interface BlogListInterface {
+  id?: number,
+  title: string;
+  label: string[],
+  time?: string,
+  uptime?: string,
+  creator: string,
+  lookNum?: number,
+  type: string,
+  abstract: string,
+  logo: string,
+  content?: string,
+}
+
 
 export interface UserOrganization extends Organization{
   teams: Team[]

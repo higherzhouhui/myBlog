@@ -14,7 +14,6 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: roboto.style.fontFamily,
-
   },
   components: {
     MuiButton: {
@@ -39,14 +38,15 @@ const theme = createTheme({
       styleOverrides: {
         root: () => ({
           '.mui-177cjvx-MuiButtonBase-root-MuiTab-root': {
+            color: '#f5f5f5',
             minWidth: '4px'
           },
           '.mui-177cjvx-MuiButtonBase-root-MuiTab-root.Mui-selected': {
-            color: '#000',
+            color: '#fff',
             fontWeight: 'bold'
           },
           '.mui-1aquho2-MuiTabs-indicator': {
-            backgroundColor: '#5542F6'
+            backgroundColor: '#fff'
           }
         }),
       }
@@ -72,6 +72,13 @@ const theme = createTheme({
             fontSize: '14px',
             color: '#84818A'
           }),
+        }),
+      }
+    },
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: () => ({
+          color: '#f5f5f5',
         }),
       }
     },
