@@ -28,13 +28,10 @@ const theme = createTheme({
       styleOverrides: {
         root: () => ({
           '.Mui-selected': {
-            color: '#fff!important',
             fontWeight: 'bold',
             fontSize: '18px'
           },
-          '.mui-1aquho2-MuiTabs-indicator': {
-            backgroundColor: '#fff'
-          }
+        
         }),
       }
     },

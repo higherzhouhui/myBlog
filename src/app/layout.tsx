@@ -1,5 +1,6 @@
 "use client";
 import * as React from 'react';
+import { useEffect } from 'react';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,29 +11,40 @@ import './style.css'
 import styled from '@emotion/styled';
 import BasicSpeedDial from '@/components/SpeedDial';
 import { Toaster } from 'react-hot-toast';
+import NProgress from 'nprogress';
 
+import 'nprogress/nprogress.css';
+import { usePathname } from 'next/navigation';
 export default function RootLayout(props: { children: React.ReactNode }) {
+  const path = usePathname()
+  NProgress.configure({
+    easing: 'ease', // 动画方式
+    speed: 500, // 递增进度条的速度
+    showSpinner: false, // 是否显示加载ico
+    trickleSpeed: 200, // 自动递增间隔
+    minimum: 0.3, // 初始化时的最小百分比
+  });
+  useEffect(() => {
+    NProgress.start()
+    // Router.events.on('routeChangeStart', () => NProgress.start());
+    // Router.events.on('routeChangeComplete', () => NProgress.done());
+    // Router.events.on('routeChangeError', () => NProgress.done());
+    setTimeout(() => {
+      NProgress.done()
+    }, 500);
+
+  }, [path])
+
   const StyledBox = styled(Box)(({ theme }) => ({
+    paddingTop: 80,
     fontSize: 16,
-    height: 'calc(100vh - 80px)',
-    display: 'flex',
-    overflow: 'auto',
-    bgcolor: '#FBFAFC',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: '100vw 100%',
-    backgroundPosition: 'center',
     position: 'relative',
   }));
 
   const StyledRoot = styled(Box)(({ theme }) => ({
-
-    backgroundImage: 'url(/static/images/bg.jpg)',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: '100vw 100%',
-    backgroundPosition: 'center',
-    position: 'relative',
+    background: '#f5f5f5',
+    minHeight: '100vh',
   }));
-
 
   return (
     <html lang="en">

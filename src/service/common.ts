@@ -15,3 +15,11 @@ export const PostBlogListReq = (data: BlogListInterface) => {
     data,
   });
 };
+
+export const DleteBlogListReq = (data: {id: number}) => {
+  return service<any>({
+    url: '/api/blog',
+    method: 'DELETE',
+    data,
+  });
+};

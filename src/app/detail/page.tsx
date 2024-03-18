@@ -3,9 +3,13 @@
 import { getBlogListReq } from "@/service/common";
 import { Box, Button, Divider, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { BlogListInterface } from "@/interface/common";
 export default function Detail() {
+  const router = useRouter()
+  const handleBack = () => {
+    router.back()
+  }
   const [blogInfo, setBlogInfo] = useState<BlogListInterface>({
     title: '',
     label: [],
@@ -34,14 +38,17 @@ export default function Detail() {
     <Box sx={{ background: 'rgba(255,255,255,1)', height: '100%', padding: 2, overflow: 'auto' }}>
       <Typography security='h1' sx={{ fontSize: 24 }}>{blogInfo?.title}</Typography>
       <Stack direction={'row'} sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography security='h2'>
+        <Typography security='h2' component={'div'}>
           {blogInfo?.creator}
-          <Typography security='desc'>创建时间：{blogInfo?.time}</Typography>
-          <Typography security='desc'>更新更新：{blogInfo?.uptime}</Typography>
+          <Typography security='desc' component={'div'}>创建时间：{blogInfo?.time}</Typography>
+          <Typography security='desc' component={'div'}>更新更新：{blogInfo?.uptime}</Typography>
         </Typography>
-        <Typography security='h2'>
-          {blogInfo.lookNum || 0}次浏览
-        </Typography>
+        <Box>
+          <Button variant="outlined" sx={{ mb: 4 }} onClick={() => handleBack()}>返回</Button>
+          <Typography security='h2'>
+            {blogInfo.lookNum || 0}次浏览
+          </Typography>
+        </Box>
       </Stack>
       <Typography component="div" sx={{ color: '#84818A', fontSize: 14, marginTop: '8px' }}>
         {

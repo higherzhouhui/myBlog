@@ -47,15 +47,15 @@ export async function POST(request: NextRequest) {
   const data = await response.json()
   const allSearchParams = await request.json();
   let new_data = data
+  let sameIndex: any = ''
   try {
       if (allSearchParams?.id) {
-        let sameIndex: any = ''
         new_data.map((item: any, index: number) => {
           if (item.id == allSearchParams.id) {
             sameIndex = index
           }
         })
-        if (!isNaN(sameIndex)) {
+        if (typeof sameIndex == 'number') {
           new_data[sameIndex] = allSearchParams
         } else {
           new_data.push(allSearchParams)
@@ -66,8 +66,6 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     new_data = err
   }
-
-  new_data.push(allSearchParams)
   const to_string = JSON.stringify(new_data)
   fs.writeFileSync(`${process.cwd()}\\public\\mydata.json`, to_string, 'utf-8');
   return NextResponse.json({
@@ -91,12 +89,13 @@ export async function DELETE(request: NextRequest) {
           sameIndex = index
         }
       })
-      if (!isNaN(sameIndex)) {
-        new_data.slice(sameIndex, 1)
-      }
+      new_data.splice(sameIndex, 1)
     }
   }
   const to_string = JSON.stringify(new_data)
   fs.writeFileSync(`${process.cwd()}\\public\\mydata.json`, to_string, 'utf-8');
-  return NextResponse.json(to_string);
-}
+  return NextResponse.json({
+    code: 200,
+    data: allSearchParams.id,
+    msg: '操作成功！',
+  });}

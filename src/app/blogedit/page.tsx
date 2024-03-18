@@ -3,7 +3,7 @@ import MyEditor from "@/components/MyEditor";
 import { BlogListInterface } from "@/interface/common";
 import { PostBlogListReq, getBlogListReq } from "@/service/common";
 import { CheckCircle, Error } from "@mui/icons-material";
-import { TextField, Button, Box, Typography, Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent } from "@mui/material";
+import { TextField, Button, Box, Typography, Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -22,7 +22,11 @@ const names = [
   'UNIAPP',
   'MUI',
   'STYLED-COMPONENT',
-  'IONIC'
+  'IONIC',
+  '人生思考',
+  '代码人生',
+  '谁的青春不迷茫',
+  '我的青葱岁月'
 ];
 const typeList = ['rencetly', 'recommend']
 const ITEM_HEIGHT = 42;
@@ -46,7 +50,7 @@ export default function BlogEdit() {
     time: '',
     uptime: '',
     creator: '风中追风',
-    type: 'rencetly',
+    type: 'tech',
     abstract: '',
     logo: '',
     content: '',
@@ -84,7 +88,6 @@ export default function BlogEdit() {
       }
       formData.content = content
       formData.lookNum = Math.round(Math.random() * 10000)
-      formData.type = typeList[Math.floor(Math.random() * 2)]
       PostBlogListReq(formData).then((res: any) => {
         if (res.code == 200) {
           toast('操作成功!', { icon: <CheckCircle />, style: { color: 'green' } })
@@ -118,6 +121,7 @@ export default function BlogEdit() {
     }
   }
   useEffect(() => {
+    setId(queryId)
     initData(queryId)
   }, [queryId])
   return (
@@ -156,6 +160,20 @@ export default function BlogEdit() {
           onChange={(e) => onchangeText(e, 'logo')}
         />
         <FormControl sx={{ width: '100%', mt: 2 }} size="small" required>
+          <FormLabel id="demo-row-radio-buttons-group-label">类型</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+            value={formData.type}
+            onChange={(e) => onchangeText(e, 'type')}
+          >
+            <FormControlLabel value="tech" control={<Radio />} label="技术" />
+            <FormControlLabel value="life" control={<Radio />} label="生活" />
+            <FormControlLabel value="recommend" control={<Radio />} label="推荐" />
+          </RadioGroup>
+        </FormControl>
+        <FormControl sx={{ width: '100%', mt: 2 }} size="small" required>
           <InputLabel id="demo-multiple-checkbox-label">标签</InputLabel>
           <Select
             labelId="demo-multiple-checkbox-label"
@@ -179,7 +197,7 @@ export default function BlogEdit() {
         </FormControl>
         <MyEditor content={content} onChangeContent={hanleChangeEditor} update={update} />
         <Box sx={{ position: 'fixed', bottom: '20px', left: '50%', transform: 'translate(-50%, 0)' }}>
-          <Button variant="outlined" onClick={() => handleCancel()} sx={{ mr: 5 }}>取消</Button>
+          <Button variant="contained" color="error" onClick={() => handleCancel()} sx={{ mr: 5 }}>返回</Button>
           <Button variant="contained" onClick={() => handleConfirm()}>保存</Button>
         </Box>
       </Box>
