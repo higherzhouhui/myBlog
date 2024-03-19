@@ -4,12 +4,11 @@ import { BlogListInterface } from "@/interface/common";
 import { PostBlogListReq, getBlogListReq } from "@/service/common";
 import { CheckCircle, Error } from "@mui/icons-material";
 import { TextField, Button, Box, Typography, Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
-import axios from "axios";
 import moment from "moment";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import toast, { Toaster } from 'react-hot-toast';
-
+import { useEffect, useState } from "react";
+import toast from 'react-hot-toast';
+export const dynamic = 'force-dynamic'
 const names = [
   'HTML5',
   'CSS',
@@ -39,7 +38,6 @@ const MenuProps = {
   },
 };
 export default function BlogEdit() {
-  const NotificationSystem = useRef<any>()
   const queryId = useSearchParams().get('id')
   const [id, setId] = useState<string | null>('')
   const [content, setContent] = useState('')

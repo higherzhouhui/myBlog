@@ -60,7 +60,9 @@ export default function BasicLayOut(props: { children: React.ReactNode }) {
             </React.Suspense>
           </StyledBox>
         </StyledRoot>
-        <BasicSpeedDial />
+        <React.Suspense>
+          <BasicSpeedDial />
+        </React.Suspense>
         <Toaster />
       </ThemeProvider>
     </AppRouterCacheProvider>
