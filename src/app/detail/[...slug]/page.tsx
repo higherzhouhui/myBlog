@@ -48,19 +48,19 @@ export default function Detail({ params }: { params: { slug: string[] } }) {
 }
 
 export async function generateStaticParams() {
-  // const response = await fetch('https://github.com/higherzhouhui/myBlog/blob/main/public/mydata.json')
-  // const data = await response.json()
+  const response = await fetch('https://my-blog-seven-omega.vercel.app/mydata.json')
+  const data = await response.json()
 
-  return staticList.map((item: { id: string, title: string }) => ({
+  return data.map((item: { id: string, title: string }) => ({
     slug: [String(item.id), item.title]
   }))
 }
 
 export async function generateMetadata({ params }: { params: { slug: string[] } }) {
-  // const response = await fetch('https://github.com/higherzhouhui/myBlog/blob/main/public/mydata.json')
-  // const data = await response.json()
+  const response = await fetch('https://my-blog-seven-omega.vercel.app/mydata.json')
+  const data = await response.json()
   let metaData: BlogListInterface | any = {}
-  staticList.map((item: any) => {
+  data.map((item: any) => {
     if (item.id == (params.slug[0] as any)) {
       metaData = item
     }
