@@ -30,7 +30,7 @@ export default function BasicSpeedDial() {
       copyUrlToClip()
     } else if (type == 'Edit') {
       if (id) {
-        url = `/blogedit/${id}`
+        url = `/blogedit?id=${id}`
         router.push(url)
       }
     } else if (type == 'Manage') {
