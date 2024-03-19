@@ -337,7 +337,7 @@ export default function EnhancedTable() {
     setAnchorEl(null);
   };
   const routerToDetail = (id: number) => {
-    router.push(`/detail?id=${id}`)
+    router.push(`/detail/${id}`)
   }
   const routerToEdit = (id: number) => {
     const url = `/blogedit?id=${id}`
