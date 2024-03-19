@@ -13,7 +13,7 @@ export default function SimpleAlert() {
         <Typography security='h1' color={'#fff'}>github：https://github.com/higherzhouhui</Typography>
         <Typography security='h1' color={'#fff'}>邮箱：782492184@qq.com</Typography>
         <Typography security='h1' color={'#fff'}>方式：全职远程-立即</Typography>
-        <Typography security='h1' color={'#fff'}>期望薪资：&gt;11K</Typography>
+        <Typography security='h1' color={'#fff'}>期望薪资：8-12K</Typography>
       </Box>
     </Box>
 

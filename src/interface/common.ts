@@ -13,7 +13,7 @@ export interface BlogListInterface {
 }
 
 export interface BlogRequestInterface {
-  id: number | null,
+  id: number | string | null,
   type?: string,
 }
 

@@ -1,8 +1,5 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 
-import {addPending, removePending} from './pending';
-
-
 // 处理响应
 const handleResponse = (data: GlobalRequest.Response<any>) => {
   const {code} = data;

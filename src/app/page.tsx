@@ -1,14 +1,14 @@
 'use client';
 import React, { useEffect } from "react";
 import { BlogListInterface } from "@/interface/common";
-import { Avatar, Box, Button, Skeleton, Stack, Tab, Tabs, Typography, styled } from "@mui/material";
+import { Box, Button, Skeleton, Stack, Tab, Tabs, Typography, styled } from "@mui/material";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRouter } from 'next/navigation';
-import 'swiper/css';
 import { getBlogListReq } from "@/service/common";
-export default function Home() {
+import 'swiper/css';
 
+export default function Home() {
   const [tabValue, setTabValue] = useState('all');
   const [swiper, setSwiper] = useState<any>(null);
   const router = useRouter()
@@ -56,8 +56,8 @@ export default function Home() {
   const [blogList, setblogList] = useState<BlogListInterface[]>([])
   const [recommentList, setrecommentList] = useState<BlogListInterface[]>([])
   const [changeList, setchangeList] = useState<BlogListInterface[]>([])
-  const handleToTeam = (id: number | undefined) => {
-    router.push(`/detail?id=${id}`)
+  const handleToTeam = (item: BlogListInterface) => {
+    router.push(`/detail/${item.id}/${item.title}`)
   }
   const MyCard = styled('div')(({ theme }) =>
     theme.unstable_sx({
@@ -81,7 +81,7 @@ export default function Home() {
   const initData = async () => {
     setLoading(true)
     try {
-      const res = await getBlogListReq({})
+      const res = await getBlogListReq({ id: null })
       setLoading(false)
       setblogList(res.data.list)
       setchangeList(res.data.list)
@@ -136,7 +136,7 @@ export default function Home() {
                     作者：{item.creator}
                     <Typography security='desc'>{item.time}</Typography>
                   </Typography>
-                  <Button variant="contained" onClick={() => { handleToTeam(item.id) }}>查看详情</Button>
+                  <Button variant="contained" onClick={() => { handleToTeam(item) }}>查看详情</Button>
                 </Box>
                 <Typography security='desc'>{item.lookNum}{' '}次浏览</Typography>
               </MyCard>
@@ -193,7 +193,7 @@ export default function Home() {
                 </Typography>
                 <Stack direction="row" key={index} sx={{ display: 'flex', alignItems: 'center' }}>
                   <Typography component="div" sx={{ color: '#84818A', fontSize: 14, marginLeft: '6px' }}>
-                    <Button size="large" variant="contained" onClick={() => { handleToTeam(item.id) }}>查看详情</Button>
+                    <Button size="large" variant="contained" onClick={() => { handleToTeam(item) }}>查看详情</Button>
                   </Typography>
                 </Stack>
               </Box>

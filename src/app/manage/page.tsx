@@ -362,7 +362,7 @@ export default function EnhancedTable() {
   const initData = async () => {
     setLoading(true)
     try {
-      const res = await getBlogListReq({})
+      const res = await getBlogListReq({ id: null })
       setLoading(false)
       setblogList(res.data.list)
       let total = 0
@@ -385,7 +385,7 @@ export default function EnhancedTable() {
     <Box sx={{ width: '100%', height: '100%' }}>
       <Stack direction={'row'} sx={{ justifyContent: 'space-around', alignItems: 'center', mt: 4, mb: 4, bgcolor: '#fff', borderRadius: 2, p: 4 }}>
         <Box>
-          <Typography security="h1" color={'greenyellow'}>博客总数</Typography>
+          <Typography security="h1" color={'greenyellow'}>文章总数</Typography>
           <Typography security="h2" color={'orange'} sx={{ fontSize: 20, textAlign: 'center' }}>{blogList.length}</Typography>
         </Box>
         <Box>

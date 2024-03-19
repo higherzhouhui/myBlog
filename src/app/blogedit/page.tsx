@@ -41,7 +41,7 @@ const MenuProps = {
 export default function BlogEdit() {
   const NotificationSystem = useRef<any>()
   const queryId = useSearchParams().get('id')
-  const [id, setId] = useState('')
+  const [id, setId] = useState<string | null>('')
   const [content, setContent] = useState('')
   const [update, setUpdate] = useState(false)
   const [formData, setFormData] = useState<BlogListInterface>({
