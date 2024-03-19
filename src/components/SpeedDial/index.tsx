@@ -40,7 +40,7 @@ export default function BasicSpeedDial() {
 
   return (
     <SpeedDial
-      ariaLabel="SpeedDial basic example"
+      ariaLabel="快捷工具"
       sx={{ position: 'fixed', bottom: 100, right: 100 }}
       icon={<SpeedDialIcon />}
     >
