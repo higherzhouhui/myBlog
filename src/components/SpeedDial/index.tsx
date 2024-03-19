@@ -4,13 +4,14 @@ import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import ShareIcon from '@mui/icons-material/Share';
 import { AddCircle, CheckCircle, Edit, InfoRounded, Settings } from '@mui/icons-material';
-import { useRouter, useSearchParams } from 'next/navigation';
-import toast, { Toast } from 'react-hot-toast';
+import { usePathname, useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 import { copyUrlToClip } from '@/utils/common';
 
 export default function BasicSpeedDial() {
   const router = useRouter()
-  const id = useSearchParams().get('id')
+  const path = usePathname()
+  const [id, setId] = React.useState(0)
   const actions = [
     { icon: <InfoRounded />, name: '', title: '如果是管理员则展示该按钮' },
     { icon: <Settings />, name: 'Manage', title: '管理' },
@@ -38,6 +39,13 @@ export default function BasicSpeedDial() {
     }
   }
 
+  React.useEffect(() => {
+    if (path.includes('/detail')) {
+      const _pathArray = path.split('/')
+      const id = _pathArray[2] as any
+      setId(id)
+    }
+  }, [])
   return (
     <SpeedDial
       ariaLabel="快捷工具"
