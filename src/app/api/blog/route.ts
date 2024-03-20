@@ -1,7 +1,15 @@
 import {NextRequest, NextResponse} from "next/server";
 import fs from 'fs'
 
-// 查
+/**
+ * @swagger
+ * /api/blog:
+ *   get:
+ *     description: Returns the {}
+ *     responses:
+ *       200:
+ *         description: ok!
+ */
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const allSearchParams = Object.fromEntries(searchParams);
