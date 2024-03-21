@@ -13,14 +13,17 @@ import fs from 'fs'
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const allSearchParams = Object.fromEntries(searchParams);
-  const response = await fetch('https://my-blog-seven-omega.vercel.app/mydata.json')
+  const response = await fetch('http://localhost:3356/mydata.json')
+  console.log(response)
   const id = allSearchParams.id
   const type = allSearchParams.type
   const data = await response.json()
   if (!(data instanceof Array)) {
     return NextResponse.json({
       code: 400,
-      data: [],
+      data: {
+        list: []
+      },
       msg: 'json数据异常'
     });
   }
@@ -51,7 +54,7 @@ export async function GET(request: NextRequest) {
 
 // 更新和新增
 export async function POST(request: NextRequest) {
-  const response = await fetch('https://my-blog-seven-omega.vercel.app/mydata.json')
+  const response = await fetch('http://localhost:3356/mydata.json')
   const data = await response.json()
   const allSearchParams = await request.json();
   let new_data = data
@@ -85,7 +88,7 @@ export async function POST(request: NextRequest) {
 
 // 删除
 export async function DELETE(request: NextRequest) {
-  const response = await fetch('https://my-blog-seven-omega.vercel.app/mydata.json')
+  const response = await fetch('http://localhost:3356/mydata.json')
   const data = await response.json()
   const allSearchParams = await request.json();
   let new_data = data
