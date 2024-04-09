@@ -12,7 +12,7 @@ export default function Detail({ params }: { params: { slug: string[] } }) {
 }
 
 export async function generateStaticParams() {
-  const response = await fetch('http://localhost:3356/mydata.json')
+  const response = await fetch('http://https://my-blog-seven-omega.vercel.app/mydata.json')
   const data = await response.json()
 
   return data.map((item: { id: string, title: string }) => ({
@@ -21,7 +21,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { slug: string[] } }) {
-  const response = await fetch('http://localhost:3356/mydata.json')
+  const response = await fetch('http://https://my-blog-seven-omega.vercel.app/mydata.json')
   const data = await response.json()
   let metaData: BlogListInterface | any = {}
   data.map((item: any) => {
