@@ -142,15 +142,17 @@ export default function Home() {
               </MyCard>
             </SwiperSlide>
           ))}
-          {
-            loading ? [...Array(4)].map((item, index: number) => {
-              return <SwiperSlide key={index} style={{ width: '300px' }}>
-                <Skeleton variant="rectangular" width={320} height={300} />
-              </SwiperSlide>
-            }) : null
-          }
         </Swiper>
       </Box>
+      {
+        loading ? <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', columnGap: '18px' }}>
+          {
+            [...Array(4)].map((item, index: number) => {
+              return <Skeleton variant="rectangular" height={300} key={index} />
+            })
+          }
+        </Box> : null
+      }
       <Tabs value={tabValue} onChange={handleChange} aria-label="basic tabs example" sx={{ marginBottom: '20px' }}>
         {
           tabList.map((item, index) => {
@@ -203,7 +205,7 @@ export default function Home() {
           {
             loading ? [...Array(6)].map((item, index: number) => {
               return <Box key={index} style={{ width: '100%' }}>
-                <Skeleton variant="rectangular" width={1200} height={300} />
+                <Skeleton variant="rectangular" width={1152} height={300} />
               </Box>
             }) : null
           }
