@@ -23,7 +23,7 @@ pnpm dev
 bun dev
 ```
 
-Open [http://https://my-blog-seven-omega.vercel.app](http://https://my-blog-seven-omega.vercel.app) with your browser to see the result.
+Open [ https://my-blog-seven-omega.vercel.app]( https://my-blog-seven-omega.vercel.app) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

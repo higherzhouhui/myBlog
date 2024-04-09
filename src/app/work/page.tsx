@@ -35,7 +35,7 @@ export default function MediaCard() {
     { title: '在线商城小程序', label: ['VUE', 'T-DESIGN', '云开发'], link: '', logo: 'https://18963215.s21i.faimallusr.com/2/ABUIABACGAAg_IDuiAYogK3d4wYwhAc4-wI.jpg' },
     { title: '微医多端问卷调查', label: ['UNIAPP', 'VUE3', '云开发'], link: 'https://www.wedoctor.top/', logo: 'https://img0.baidu.com/it/u=2487525016,2845941083&fm=253&fmt=auto&app=138&f=JPEG?w=600&h=400' },
     { title: '商城管理后台', label: ['REACT', 'ANT-DESIGN'], link: 'https://admin.xiaoeda.cn/', logo: 'https://img.zcool.cn/community/01frdt7qct1ywvua3saogh3832.png?x-oss-process=image/auto-orient,1/resize,m_lfit,w_1280,limit_1/sharpen,100' },
-    { title: '问卷管理后台', label: ['VUE3', 'ELEMENT-PLUS'], link: 'http://admin.wedoctor.top/', logo: 'https://img.zcool.cn/community/0134cd607d205c11013e87f445d30e.png?x-oss-process=image/auto-orient,1/resize,m_lfit,w_1280,limit_1/sharpen,100' },
+    { title: '问卷管理后台', label: ['VUE3', 'ELEMENT-PLUS'], link: ' admin.wedoctor.top/', logo: 'https://img.zcool.cn/community/0134cd607d205c11013e87f445d30e.png?x-oss-process=image/auto-orient,1/resize,m_lfit,w_1280,limit_1/sharpen,100' },
 
   ])
   const lookMore = (href: string) => {
