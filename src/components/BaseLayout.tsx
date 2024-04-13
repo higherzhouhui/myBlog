@@ -16,6 +16,7 @@ import './style.css'
 
 export default function BasicLayOut(props: { children: React.ReactNode }) {
   const path = usePathname()
+  const [isShowMange, setShowManage] = React.useState(false)
   NProgress.configure({
     easing: 'ease', // 动画方式
     speed: 500, // 递增进度条的速度
@@ -25,9 +26,6 @@ export default function BasicLayOut(props: { children: React.ReactNode }) {
   });
   React.useEffect(() => {
     NProgress.start()
-    // Router.events.on('routeChangeStart', () => NProgress.start());
-    // Router.events.on('routeChangeComplete', () => NProgress.done());
-    // Router.events.on('routeChangeError', () => NProgress.done());
     setTimeout(() => {
       NProgress.done()
     }, 500);
@@ -41,9 +39,18 @@ export default function BasicLayOut(props: { children: React.ReactNode }) {
   }));
 
   const StyledRoot = styled(Box)(({ theme }) => ({
-    background: '#f5f5f5',
     minHeight: '100vh',
+    backgroundColor: '#f5f5f5'
   }));
+  React.useEffect(() => {
+    const href = location.href
+    if (href.includes('localhost')) {
+      setShowManage(true)
+    } else {
+      setShowManage(false)
+    }
+  }, [])
+
 
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
@@ -60,9 +67,11 @@ export default function BasicLayOut(props: { children: React.ReactNode }) {
             </React.Suspense>
           </StyledBox>
         </StyledRoot>
-        <React.Suspense>
-          <BasicSpeedDial />
-        </React.Suspense>
+        {
+          isShowMange ? <React.Suspense>
+            <BasicSpeedDial />
+          </React.Suspense> : null
+        }
         <Toaster />
       </ThemeProvider>
     </AppRouterCacheProvider>

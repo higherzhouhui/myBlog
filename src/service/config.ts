@@ -1,0 +1,1 @@
+export const apiUrl = process.env.NODE_ENV == 'development' ? 'http://localhost:3356' : 'https://my-blog-seven-omega.vercel.app'

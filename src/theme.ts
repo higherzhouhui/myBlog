@@ -62,10 +62,19 @@ const theme = createTheme({
     MuiPaginationItem: {
       styleOverrides: {
         root: () => ({
-          color: '#f5f5f5',
+          color: '#333',
         }),
       }
     },
+    MuiMenu: {
+      styleOverrides: {
+        root: () => ({
+          '.MuiMenu-paper': {
+            boxShadow: '1px 1px 3px #999'
+          },
+        }),
+      }
+    }
   },
 });
 

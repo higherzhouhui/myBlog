@@ -5,7 +5,7 @@ import { apiUrl } from '@/service/config'
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const allSearchParams = Object.fromEntries(searchParams);
-  const response = await fetch(`${apiUrl}/mydata.json`)
+  const response = await fetch(`${apiUrl}/skilldata.json`)
   const id = allSearchParams.id
   const type = allSearchParams.type
   const data = await response.json()
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
 
 // 更新和新增
 export async function POST(request: NextRequest) {
-  const response = await fetch(`${apiUrl}/mydata.json`)
+  const response = await fetch(`${apiUrl}/skilldata.json`)
   const data = await response.json()
   const allSearchParams = await request.json();
   let new_data = data
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
     new_data = err
   }
   const to_string = JSON.stringify(new_data)
-  fs.writeFileSync(`${process.cwd()}\\public\\mydata.json`, to_string, 'utf-8');
+  fs.writeFileSync(`${process.cwd()}\\public\\skilldata.json`, to_string, 'utf-8');
   return NextResponse.json({
     code: 200,
     data: new_data,
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
 
 // 删除
 export async function DELETE(request: NextRequest) {
-  const response = await fetch(`${apiUrl}/mydata.json`)
+  const response = await fetch(`${apiUrl}/skilldata.json`)
   const data = await response.json()
   const allSearchParams = await request.json();
   let new_data = data
@@ -95,7 +95,7 @@ export async function DELETE(request: NextRequest) {
     }
   }
   const to_string = JSON.stringify(new_data)
-  fs.writeFileSync(`${process.cwd()}\\public\\mydata.json`, to_string, 'utf-8');
+  fs.writeFileSync(`${process.cwd()}\\public\\skilldata.json`, to_string, 'utf-8');
   return NextResponse.json({
     code: 200,
     data: allSearchParams.id,

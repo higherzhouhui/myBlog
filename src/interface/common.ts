@@ -10,6 +10,8 @@ export interface BlogListInterface {
   abstract: string,
   logo: string,
   content?: string,
+  subTitle?: string,
+  hrefList?: any[],
 }
 
 export interface BlogRequestInterface {

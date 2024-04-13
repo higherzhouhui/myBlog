@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect } from "react";
 import { BlogListInterface } from "@/interface/common";
-import { Box, Button, Skeleton, Stack, Tab, Tabs, Typography, styled } from "@mui/material";
+import { Box, Button, Skeleton, Stack, Tab, Tabs, Typography, styled, Pagination } from "@mui/material";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRouter } from 'next/navigation';
@@ -17,27 +17,6 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setTabValue(newValue);
-    if (newValue == 'tech') {
-      const nlist = blogList.filter(item => {
-        return item.type == 'tech'
-      })
-      setchangeList(nlist)
-    }
-    if (newValue == 'life') {
-      const nlist = blogList.filter(item => {
-        return item.type == 'life'
-      })
-      setchangeList(nlist)
-    }
-    if (newValue == 'recommend') {
-      const nlist = blogList.filter(item => {
-        return item.type == 'recommend'
-      })
-      setchangeList(nlist)
-    }
-    if (newValue == 'all') {
-      setchangeList(blogList)
-    }
   };
   const [tabList, setTabList] = useState([
     {
@@ -53,9 +32,9 @@ export default function Home() {
       name: '推荐', code: 'recommend',
     }
   ])
-  const [blogList, setblogList] = useState<BlogListInterface[]>([])
-  const [recommentList, setrecommentList] = useState<BlogListInterface[]>([])
-  const [changeList, setchangeList] = useState<BlogListInterface[]>([])
+  const [blogList, setBlogList] = useState<BlogListInterface[]>([])
+  const [recommendList, setRecommendList] = useState<BlogListInterface[]>([])
+  const [changeList, setChangeList] = useState<BlogListInterface[]>([])
   const handleToTeam = (item: BlogListInterface) => {
     router.push(`/detail/${item.id}/${item.title}`)
   }
@@ -75,27 +54,63 @@ export default function Home() {
     theme.unstable_sx({
       display: 'grid',
       columnGap: 2,
-      rowGap: 4,
+      rowGap: 2,
     }),
   );
+  const handleChangePage = (e: any) => {
+    setPageNum(e)
+  }
   const initData = async () => {
     setLoading(true)
     try {
       const res = await getBlogListReq({ id: null })
       setLoading(false)
-      setblogList(res.data.list)
-      setchangeList(res.data.list)
-      const nlist = res.data.list.filter((item: BlogListInterface) => {
+      setBlogList(res.data.list)
+      const nList = res.data.list.filter((item: BlogListInterface) => {
         return item.type == 'recommend'
       })
-      setrecommentList(nlist)
+      setRecommendList(nList)
     } catch {
 
     }
   }
+
+  const updateBlogList = () => {
+    if (!blogList.length) {
+      return
+    }
+    let nList: any[] = []
+    if (tabValue == 'tech') {
+      nList = blogList.filter(item => {
+        return item.type == 'tech'
+      })
+    }
+    if (tabValue == 'life') {
+      nList = blogList.filter(item => {
+        return item.type == 'life'
+      })
+    }
+    if (tabValue == 'recommend') {
+      nList = blogList.filter(item => {
+        return item.type == 'recommend'
+      })
+    }
+    if (tabValue == 'all') {
+      nList = blogList
+    }
+    setTotal(Math.ceil(nList.length / 10))
+    const _list = nList.slice(10 * (pageNum - 1), pageNum * 10)
+    setChangeList(_list)
+  }
+
   useEffect(() => {
     initData()
   }, [])
+
+  useEffect(() => {
+    updateBlogList()
+  }, [pageNum, tabValue, blogList])
+
   return (
     <Box sx={{ padding: 3 }}>
       <Typography security='h1'>
@@ -113,7 +128,7 @@ export default function Home() {
           onSwiper={setSwiper}
           style={{ padding: '12px 0' }}
         >
-          {recommentList.map((item, index: number) => (
+          {recommendList.map((item, index: number) => (
             <SwiperSlide key={index} style={{ width: '320px' }}>
               <MyCard>
                 <Stack direction={'row'}>
@@ -124,8 +139,8 @@ export default function Home() {
                     <Typography component="div" security='h2' sx={{ height: 80, mt: 1, overflow: 'hidden', textOverflow: 'ellipsis', width: '288px' }}>{item.abstract}</Typography>
                     <Typography component="div" sx={{ color: '#84818A', fontSize: 14, marginTop: '8px', overflow: 'hidden', width: '288px', height: '40px' }}>
                       {
-                        item.label.map((clabel, cindex) => {
-                          return <Button variant="outlined" key={cindex} size="small" sx={{ marginRight: 1, mt: 1 }}>{clabel}</Button>
+                        item.label.map((cLabel, cIndex) => {
+                          return <Button variant="outlined" key={cIndex} size="small" sx={{ marginRight: 1, mt: 1 }}>{cLabel}</Button>
                         })
                       }
                     </Typography>
@@ -161,51 +176,27 @@ export default function Home() {
         }
       </Tabs>
       <Box sx={{ mt: 2, width: '100%' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'right', mb: 2 }}><Pagination onChange={(e, page) => handleChangePage(page)} count={total} color="primary" page={pageNum} /></Box>
         <MyGrid>
           {changeList.map((item, index: number) => (
-            <MyCard key={index} sx={{ p: 3 }}>
+            <MyCard key={index} sx={{ p: 2 }} onClick={() => handleToTeam(item)}>
               <Stack direction={'row'}>
                 <Box>
-                  <img src={item.logo} style={{ width: '200px', objectFit: 'contain', minWidth: '200px', borderRadius: '10px', overflow: 'hidden' }} />
+                  <img src={item.logo} style={{ width: '80px', objectFit: 'contain', minWidth: '80px', borderRadius: '10px', overflow: 'hidden' }} />
                 </Box>
                 <Box sx={{ ml: 2 }}>
                   <Typography component="div" sx={{ color: '#2E2C34', fontWeight: 'bold', fontSize: 22, }}>
                     {item.title}
                   </Typography>
-                  <Typography component="div" security='h2' sx={{ height: 80, mt: 2, mb: 2, overflow: 'hidden', wordBreak: 'break-all' }}>{item.abstract}</Typography>
+                  <Typography component="div" security='h2' sx={{ maxHeight: 80, mt: 2, overflow: 'hidden', wordBreak: 'break-all' }}>{item.abstract}</Typography>
                 </Box>
               </Stack>
-
-              <Box sx={{ flex: 1 }}>
-
-                <div dangerouslySetInnerHTML={{ __html: (item.content || '').replace(/<[^>]*>/g, '') }} style={{ height: '120px', overflow: 'auto', width: '100%', fontSize: '12px', color: '#666', textOverflow: 'ellipsis' }} />
-                <Typography component="div" sx={{ color: '#84818A', fontSize: 14, marginTop: '8px' }}>
-                  {
-                    item.label.map((clabel, cindex) => {
-                      return <Button variant="outlined" key={cindex} size="small" sx={{ marginRight: 1, mt: 1 }}>{clabel}</Button>
-                    })
-                  }
-                </Typography>
-              </Box>
-              <Box sx={{ color: '#666', fontSize: '15px', mt: 6, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <Typography component="div" security="h2" sx={{ color: '#84818A', fontSize: 14, pr: 1 }}>
-                  作者：{item.creator}
-                  <Typography security='desc'>{item.time}</Typography>
-                  <Typography security='h2'>{item.lookNum}{' '}次浏览</Typography>
-                </Typography>
-                <Stack direction="row" key={index} sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Typography component="div" sx={{ color: '#84818A', fontSize: 14, marginLeft: '6px' }}>
-                    <Button size="large" variant="contained" onClick={() => { handleToTeam(item) }}>查看详情</Button>
-                  </Typography>
-                </Stack>
-              </Box>
-
             </MyCard>
           ))}
           {
             loading ? [...Array(6)].map((item, index: number) => {
               return <Box key={index} style={{ width: '100%' }}>
-                <Skeleton variant="rectangular" width={1152} height={300} />
+                <Skeleton variant="rectangular" width={1152} height={120} />
               </Box>
             }) : null
           }

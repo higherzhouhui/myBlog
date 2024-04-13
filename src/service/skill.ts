@@ -2,24 +2,24 @@ import { BlogListInterface, BlogRequestInterface, BlogResponseInterface } from '
 import service from '@/utils/request';
 
 
-export const getBlogListReq = (params: BlogRequestInterface) => {
+export const getSkillListReq = (params: BlogRequestInterface) => {
   return service<BlogResponseInterface>({
-    url: '/api/blog',
+    url: '/api/skill',
     method: 'GET',
     params,
   });
 };
-export const PostBlogListReq = (data: BlogListInterface) => {
+export const PostSkillListReq = (data: BlogListInterface) => {
   return service<any>({
-    url: '/api/blog',
+    url: '/api/skill',
     method: 'POST',
     data,
   });
 };
 
-export const DleteBlogListReq = (data: {id: number}) => {
+export const DleteSkillListReq = (data: {id: number}) => {
   return service<any>({
-    url: '/api/blog',
+    url: '/api/skill',
     method: 'DELETE',
     data,
   });

@@ -19,7 +19,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { Alert, Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Menu, MenuItem, Modal, Skeleton, Stack } from '@mui/material';
+import { Alert, Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Menu, MenuItem, Skeleton, Stack } from '@mui/material';
 import { getBlogListReq, DleteBlogListReq } from '@/service/common';
 import { useRouter } from 'next/navigation';
 import { BlogListInterface } from '@/interface/common';

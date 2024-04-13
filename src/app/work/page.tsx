@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, SxProps } from '@mui/material';
 import Modal from '@mui/material/Modal';
 const style = {
   position: 'absolute' as 'absolute',
@@ -19,6 +19,13 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+const hoverStyle: SxProps = {
+  '&:hover': {
+    boxShadow: 4
+  },
+};
+
 export default function MediaCard() {
 
   const [open, setOpen] = React.useState(false);
@@ -49,11 +56,12 @@ export default function MediaCard() {
     <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', rowGap: 5, columnGap: 5, pt: 2, pb: 2 }}>
       {
         list.map((item: any, index: number) => {
-          return <Card key={index}>
+          return <Card key={index} sx={hoverStyle}>
             <CardMedia
               sx={{ height: 240 }}
               image={item.logo}
               title={item.title}
+
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
@@ -62,7 +70,7 @@ export default function MediaCard() {
               <Box>
                 {
                   item.label.map((clabel: string, cindex: number) => {
-                    return <Button variant='contained' size='small' sx={{ mr: 1, mt: 1 }} color={Math.random() > 0.5 ? 'error' : 'success'} key={cindex}>{clabel}</Button>
+                    return <Button variant='contained' size='small' sx={{ mr: 1, mt: 1 }} color={Math.random() > 0.5 ? 'error' : Math.random() > 0.5 ? 'success' : 'info'} key={cindex}>{clabel}</Button>
                   })
                 }
               </Box>

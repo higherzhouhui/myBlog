@@ -11,8 +11,8 @@ export const Header: FC = memo(() => {
     { name: '首页', path: '/' },
     { name: '作品', path: '/work' },
     { name: 'divider', path: '' },
-    { name: '简历', path: '/profile' },
-    { name: '联系', path: '/contact' },
+    { name: '技能', path: '/skill' },
+    { name: '个人', path: '/profile' },
   ]
   const router = useRouter()
   const path = usePathname()

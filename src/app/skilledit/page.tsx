@@ -1,7 +1,7 @@
 "use client"
 import MyEditor from "@/components/MyEditor";
 import { BlogListInterface } from "@/interface/common";
-import { PostBlogListReq, getBlogListReq } from "@/service/common";
+import { PostSkillListReq, getSkillListReq } from "@/service/skill";
 import { CheckCircle, Error } from "@mui/icons-material";
 import { TextField, Button, Box, Typography, Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
 import moment from "moment";
@@ -9,25 +9,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from 'react-hot-toast';
 export const dynamic = 'force-dynamic'
-const names = [
-  'HTML5',
-  'CSS',
-  'JAVASCRIPT',
-  'NEXTJS',
-  'REACT',
-  'VUE',
-  'ANGULAR',
-  'NUSTJS',
-  'UNIAPP',
-  'MUI',
-  'STYLED-COMPONENT',
-  'IONIC',
-  '人生思考',
-  '代码人生',
-  '谁的青春不迷茫',
-  '我的青葱岁月'
-];
-const typeList = ['rencetly', 'recommend']
 const ITEM_HEIGHT = 42;
 const ITEM_PADDING_TOP = 1;
 const MenuProps = {
@@ -38,12 +19,14 @@ const MenuProps = {
   },
 };
 export default function BlogEdit() {
+  const router = useRouter()
   const queryId = useSearchParams().get('id')
   const [id, setId] = useState<string | null>('')
   const [content, setContent] = useState('')
   const [update, setUpdate] = useState(false)
   const [formData, setFormData] = useState<BlogListInterface>({
     title: '',
+    subTitle: '',
     label: [],
     time: '',
     uptime: '',
@@ -52,13 +35,13 @@ export default function BlogEdit() {
     abstract: '',
     logo: '',
     content: '',
+    hrefList: [],
   })
   const onchangeText = (e: any, key: string) => {
     const value = e.target.value
     const _data = JSON.stringify(formData)
     const n_data = JSON.parse(_data)
     n_data[key] = value
-    console.log(n_data)
     setFormData(n_data)
   }
   const [LabelName, setLabelName] = useState<string[]>([]);
@@ -76,17 +59,16 @@ export default function BlogEdit() {
     setContent(c)
   }
   const handleConfirm = () => {
-    console.log(LabelName, formData, content)
-    if (formData.title && content && formData.abstract && LabelName.length && formData.logo) {
-      formData.label = LabelName;
+    if (formData.title && formData.subTitle && formData.abstract && content.length && formData.logo) {
       formData.uptime = moment().format('YYYY-MM-DD HH:mm:ss')
       if (!id) {
         formData.time = moment().format('YYYY-MM-DD HH:mm:ss')
         formData.id = new Date().getTime()
       }
-      formData.content = content
+      formData.content = handleContentRule().content
+      formData.hrefList = handleContentRule().hrefList
       formData.lookNum = Math.round(Math.random() * 10000)
-      PostBlogListReq(formData).then((res: any) => {
+      PostSkillListReq(formData).then((res: any) => {
         if (res.code == 200) {
           toast('操作成功!', { icon: <CheckCircle />, style: { color: 'green' } })
         } else {
@@ -97,7 +79,7 @@ export default function BlogEdit() {
       toast('请完善输入内容!', { icon: <Error />, style: { color: 'red' } })
     }
   }
-  const router = useRouter()
+
   const handleCancel = () => {
     router.back()
   }
@@ -107,10 +89,9 @@ export default function BlogEdit() {
       return
     }
     try {
-      const res = await getBlogListReq({ id: id ? parseInt(id) : null })
+      const res = await getSkillListReq({ id: id ? parseInt(id) : null })
       if (res.code == 200) {
         setFormData(res.data.list)
-        setLabelName(res.data.list.label)
         setContent(res.data.list.content)
         setUpdate(true)
       }
@@ -118,6 +99,36 @@ export default function BlogEdit() {
 
     }
   }
+
+  const handleContentRule = () => {
+    let str = content
+    const hrefList: any[] = []
+    try {
+      const regex = /<a[^>]*>.*?<\/a>/g;
+      const matches = str.match(regex);
+      matches?.map((item: string) => {
+        const reget = /<a[^>]*>(.*?)<\/a>/g;
+
+        const matchs2: any = reget.exec(item)
+        const title = matchs2[1]
+        const reg = /\"#(.*?)\"/;
+        const matches1: any = reg.exec(item);
+        const name = matches1[1]
+        const itemStr = item.replace('target="_blank"', `name="${name}"`)
+        str = str.replace(item, itemStr)
+        hrefList.push({
+          name,
+          title,
+        })
+      })
+
+    } catch (error) {
+      console.error(error)
+    }
+
+    return { content: str, hrefList }
+  }
+
   useEffect(() => {
     setId(queryId)
     initData(queryId)
@@ -141,6 +152,15 @@ export default function BlogEdit() {
         />
         <TextField
           required
+          label="副标题"
+          value={formData.subTitle}
+          placeholder="请输入摘要"
+          sx={{ width: '100%', mt: 2 }}
+          size="small"
+          onChange={(e) => onchangeText(e, 'subTitle')}
+        />
+        <TextField
+          required
           label="摘要"
           value={formData.abstract}
           placeholder="请输入摘要"
@@ -157,7 +177,7 @@ export default function BlogEdit() {
           size="small"
           onChange={(e) => onchangeText(e, 'logo')}
         />
-        <FormControl sx={{ width: '100%', mt: 2 }} size="small" required>
+        {/* <FormControl sx={{ width: '100%', mt: 2 }} size="small" required>
           <FormLabel id="demo-row-radio-buttons-group-label">类型</FormLabel>
           <RadioGroup
             row
@@ -170,8 +190,8 @@ export default function BlogEdit() {
             <FormControlLabel value="life" control={<Radio />} label="生活" />
             <FormControlLabel value="recommend" control={<Radio />} label="推荐" />
           </RadioGroup>
-        </FormControl>
-        <FormControl sx={{ width: '100%', mt: 2 }} size="small" required>
+        </FormControl> */}
+        {/* <FormControl sx={{ width: '100%', mt: 2 }} size="small" required>
           <InputLabel id="demo-multiple-checkbox-label">标签</InputLabel>
           <Select
             labelId="demo-multiple-checkbox-label"
@@ -191,8 +211,8 @@ export default function BlogEdit() {
               </MenuItem>
             ))}
           </Select>
-          <Typography sx={{ fontSize: 18, mt: 2, mb: 2 }}>正文</Typography>
-        </FormControl>
+        </FormControl> */}
+        <Typography sx={{ fontSize: 18, mt: 2, mb: 2 }}>正文</Typography>
         <MyEditor content={content} onChangeContent={hanleChangeEditor} update={update} />
         <Box sx={{ position: 'fixed', bottom: '20px', left: '50%', transform: 'translate(-50%, 0)' }}>
           <Button variant="contained" color="error" onClick={() => handleCancel()} sx={{ mr: 5 }}>返回</Button>

@@ -13,12 +13,12 @@ export default function BasicSpeedDial() {
   const path = usePathname()
   const [id, setId] = React.useState(0)
   const actions = [
-    { icon: <InfoRounded />, name: '', title: '如果是管理员则展示该按钮' },
     { icon: <Settings />, name: 'Manage', title: '管理' },
     { icon: <ShareIcon />, name: 'Share', title: '分享' },
     { icon: <Edit />, name: 'Edit', title: '修改' },
     // { icon: <SaveIcon />, name: 'Save', title: '保存', },
-    { icon: <AddCircle />, name: 'Add', title: '新增' },
+    { icon: <AddCircle />, name: 'AddSkill', title: '新增技能' },
+    { icon: <AddCircle />, name: 'Add', title: '新增博客' },
   ];
   const handleClick = (type: string) => {
     let url = ''
@@ -30,17 +30,24 @@ export default function BasicSpeedDial() {
       copyUrlToClip()
     } else if (type == 'Edit') {
       if (id) {
-        url = `/blogedit?id=${id}`
+        if (path.includes('skilldetail')) {
+          url = `/skilledit?id=${id}`
+        } else {
+          url = `/blogedit?id=${id}`
+        }
         router.push(url)
       }
     } else if (type == 'Manage') {
       url = '/manage'
       router.push(url)
+    } else if (type == 'AddSkill') {
+      url = '/skilledit'
+      router.push(url)
     }
   }
 
   React.useEffect(() => {
-    if (path.includes('/detail')) {
+    if (path.includes('/detail') || path.includes('/skilldetail')) {
       const _pathArray = path.split('/')
       const id = _pathArray[2] as any
       setId(id)

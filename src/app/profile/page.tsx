@@ -1,12 +1,15 @@
+"use client"
 import * as React from 'react';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import { Avatar, Box, Typography } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
-export default function SimpleAlert() {
+export default function ProfilePage() {
+  const router = useRouter()
   return (
     <Box sx={{ display: 'flex', background: '#fff', minHeight: 'calc(100vh - 80px)', p: 4, backgroundImage: 'url(/static/images/login-bg.jpg)', backgroundSize: '100% 100%', alignItems: 'center' }}>
-      <Box sx={{ textAlign: 'center', mr: 10 }}>
+      <Box sx={{ textAlign: 'center', mr: 10, cursor: 'pointer' }} onClick={() => router.push('/contact')}>
         <Avatar src='/static/images/header.jpg' style={{ width: 150, height: 150 }} variant='circular' />
         <Typography security='h1' color={'#fff'}>风中追风</Typography>
       </Box>
