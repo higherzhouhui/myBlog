@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 export function BlogDetail(data: { id: string }) {
   const router = useRouter()
   const handleBack = () => {
-    router.back()
+    router.push('/')
   }
   const [blogInfo, setBlogInfo] = useState<BlogListInterface>({
     title: '',

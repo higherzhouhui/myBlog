@@ -57,7 +57,7 @@ export default function SkillPage() {
       <MyGrid>
         {
           list.map((item: BlogListInterface, index) => {
-            return <StyledMyCard key={index}>
+            return <StyledMyCard key={index} onClick={() => handleToDetail(item)}>
               <CardMedia
                 sx={{ height: '100%', width: 200, minWidth: 200 }}
                 image={item.logo}
@@ -73,7 +73,7 @@ export default function SkillPage() {
                 <Typography variant="body2" color="text.secondary">
                   {item.abstract}
                 </Typography>
-                <Button sx={{ mt: 2 }} onClick={() => handleToDetail(item)}>阅读更多</Button>
+                <Button sx={{ mt: 2 }}>阅读更多</Button>
               </CardContent>
             </StyledMyCard>
           })

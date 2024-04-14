@@ -330,22 +330,22 @@ export default function EnhancedTable() {
   const [chooseId, setChooseId] = React.useState(0)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleShowOperation = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleShowOperation = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
     setAnchorEl(event.currentTarget);
+    setChooseId(id)
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const routerToDetail = (id: number) => {
-    router.push(`/detail/${id}`)
+  const routerToDetail = () => {
+    router.push(`/detail/${chooseId}`)
   }
-  const routerToEdit = (id: number) => {
-    const url = `/blogedit?id=${id}`
+  const routerToEdit = () => {
+    const url = `/blogedit?id=${chooseId}`
     router.push(url)
   }
-  const handleDelete = (id: number) => {
+  const handleDelete = () => {
     setOpenModal(true)
-    setChooseId(id)
   }
   const handleConfirmDelete = () => {
     DleteBlogListReq({ id: chooseId }).then((res: any) => {
@@ -422,7 +422,6 @@ export default function EnhancedTable() {
                     hover
                     role="checkbox"
                     aria-checked={isItemSelected}
-                    tabIndex={-1}
                     key={row.id}
                     selected={isItemSelected}
                     sx={{ cursor: 'pointer' }}
@@ -440,7 +439,7 @@ export default function EnhancedTable() {
                     <TableCell align="center" sx={{ maxWidth: 150, overflow: 'auto' }}>{row.time}</TableCell>
                     <TableCell align="center" sx={{ minWidth: '110px' }}>{row.lookNum}</TableCell>
                     <TableCell align="center">
-                      <IconButton onClick={handleShowOperation}>
+                      <IconButton onClick={(e) => handleShowOperation(e, row.id)}>
                         <MoreHoriz />
                       </IconButton>
                       <Menu
@@ -452,9 +451,9 @@ export default function EnhancedTable() {
                           'aria-labelledby': 'basic-button',
                         }}
                       >
-                        <MenuItem onClick={() => { routerToDetail(row.id) }} color='success'>详情</MenuItem>
-                        <MenuItem onClick={() => { routerToEdit(row.id) }} color='warning'>修改</MenuItem>
-                        <MenuItem onClick={() => { handleDelete(row.id) }} color='danger'>删除</MenuItem>
+                        <MenuItem onClick={() => { routerToDetail() }} color='success'>详情</MenuItem>
+                        <MenuItem onClick={() => { routerToEdit() }} color='warning'>修改</MenuItem>
+                        <MenuItem onClick={() => { handleDelete() }} color='danger'>删除</MenuItem>
                       </Menu>
 
                     </TableCell>
@@ -475,11 +474,11 @@ export default function EnhancedTable() {
           {
             loading ?
               [...Array(5)].map((_, index: number) => {
-                return <Skeleton width={1200} height={300} key={index} />
+                return <Skeleton width={1200} height={120} key={index} />
               })
               : null
           }
-        </TableContainer>
+        </TableContainer >
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
@@ -489,7 +488,7 @@ export default function EnhancedTable() {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-      </Paper>
+      </Paper >
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
@@ -515,6 +514,6 @@ export default function EnhancedTable() {
           </Button>
         </DialogActions>
       </Dialog>
-    </Box>
+    </Box >
   );
 }

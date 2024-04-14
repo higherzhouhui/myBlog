@@ -99,7 +99,7 @@ export default function BlogEdit() {
   }
   const router = useRouter()
   const handleCancel = () => {
-    router.back()
+    router.push('/')
   }
 
   const initData = async (id: string | null) => {

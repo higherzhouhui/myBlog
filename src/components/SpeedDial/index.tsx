@@ -52,7 +52,7 @@ export default function BasicSpeedDial() {
       const id = _pathArray[2] as any
       setId(id)
     }
-  }, [])
+  }, [path])
   return (
     <SpeedDial
       ariaLabel="快捷工具"
