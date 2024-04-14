@@ -12,26 +12,26 @@ export default function Detail({ params }: { params: { slug: string[] } }) {
   );
 }
 
-export async function generateStaticParams() {
-  const response = await fetch(`${apiUrl}/skilldata.json`)
-  const data = await response.json()
+// export async function generateStaticParams() {
+//   const response = await fetch(`${apiUrl}/skilldata.json`)
+//   const data = await response.json()
 
-  return data.map((item: { id: string, title: string }) => ({
-    slug: [String(item.id), item.title]
-  }))
-}
+//   return data.map((item: { id: string, title: string }) => ({
+//     slug: [String(item.id), item.title]
+//   }))
+// }
 
-export async function generateMetadata({ params }: { params: { slug: string[] } }) {
-  const response = await fetch(`${apiUrl}/skilldata.json`)
-  const data = await response.json()
-  let metaData: BlogListInterface | any = {}
-  data.map((item: any) => {
-    if (item.id == (params.slug[0] as any)) {
-      metaData = item
-    }
-  })
-  return {
-    title: metaData.title,
-    description: metaData.abstract,
-  }
-}
+// export async function generateMetadata({ params }: { params: { slug: string[] } }) {
+//   const response = await fetch(`${apiUrl}/skilldata.json`)
+//   const data = await response.json()
+//   let metaData: BlogListInterface | any = {}
+//   data.map((item: any) => {
+//     if (item.id == (params.slug[0] as any)) {
+//       metaData = item
+//     }
+//   })
+//   return {
+//     title: metaData.title,
+//     description: metaData.abstract,
+//   }
+// }
