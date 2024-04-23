@@ -1,0 +1,3 @@
+### getBlog
+GET http://localhost:3356/api/blog
+Content-Type: application/json

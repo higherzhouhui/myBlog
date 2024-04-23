@@ -1,8 +1,23 @@
 import {NextRequest, NextResponse} from "next/server";
 import fs from 'fs'
 import { apiUrl } from '@/service/config'
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+async function main() {
+  // ... your Prisma Client queries will go here
+  const result = await prisma.user.findMany()
+  return result
+}
+
+
 
 export async function GET(request: NextRequest) {
+  main()
+  .catch((e) => console.error(e))
+  .finally(async () => await prisma.$disconnect())
+  const bList = await main()
   const { searchParams } = new URL(request.url);
   const allSearchParams = Object.fromEntries(searchParams);
   const response = await fetch(`${apiUrl}/mydata.json`)
@@ -38,7 +53,7 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({
     code: 200,
     data: {
-      list: backData
+      list: bList
     }
   });
 }
