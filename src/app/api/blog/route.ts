@@ -53,7 +53,8 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({
     code: 200,
     data: {
-      list: bList
+      list: backData,
+      bList: bList
     }
   });
 }
