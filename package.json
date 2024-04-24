@@ -6,7 +6,7 @@
     "dev": "next dev -p 3356",
     "prisma": "npx prisma migrate dev --name init",
     "sql": "npx prisma studio",
-    "build": "npx prisma generate --name init && next build",
+    "build": "next build",
     "start": "next start -p 3356",
     "lint": "next lint"
   },
