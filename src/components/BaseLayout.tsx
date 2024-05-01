@@ -13,6 +13,7 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { usePathname } from 'next/navigation';
 import './style.css'
+import BackGroundComp from '@/components/Background';
 
 export default function BasicLayOut(props: { children: React.ReactNode }) {
   const path = usePathname()
@@ -40,7 +41,7 @@ export default function BasicLayOut(props: { children: React.ReactNode }) {
 
   const StyledRoot = styled(Box)(({ theme }) => ({
     minHeight: '100vh',
-    backgroundColor: '#f5f5f5'
+    backgroundColor: 'rgba(0,0,0,0.8)'
   }));
   React.useEffect(() => {
     const href = location.href
@@ -54,6 +55,7 @@ export default function BasicLayOut(props: { children: React.ReactNode }) {
 
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+      <BackGroundComp />
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />

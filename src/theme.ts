@@ -4,6 +4,16 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     mode: 'light',
+    primary: {
+      light: '#f5f5f5',
+      main: '#06f',
+      dark: '#222'
+    },
+    secondary: {
+      light: '#ccc',
+      main: '#ccc',
+      dark: '#333'
+    }
   },
   components: {
     MuiButton: {
@@ -29,16 +39,14 @@ const theme = createTheme({
         root: () => ({
           '.Mui-selected': {
             fontWeight: 'bold',
-            fontSize: '18px'
+            fontSize: '18px',
           },
-        
         }),
       }
     },
     MuiTypography: {
       styleOverrides: {
         root: ({ ownerState }) => ({
-          color: '#2E2C34',
           ...(ownerState.security === 'h1' && {
             fontSize: '20px',
             fontWeight: 'bold',
@@ -54,7 +62,6 @@ const theme = createTheme({
           }),
           ...(ownerState.security === 'desc' && {
             fontSize: '14px',
-            color: '#84818A'
           }),
         }),
       }

@@ -1,6 +1,4 @@
 import * as React from 'react';
-import Alert from '@mui/material/Alert';
-import CheckIcon from '@mui/icons-material/Check';
 import { Avatar, Box, Typography } from '@mui/material';
 
 export default function SimpleAlert() {
