@@ -114,7 +114,7 @@ export default function Home() {
   return (
     <Box sx={{ padding: 3 }}>
       <Typography security='h1' color='primary.light'>
-        风中追风的博客
+        Welcome
       </Typography>
       <Typography component="div" sx={{ fontSize: 14, mt: 2, fontWeight: 'bold' }} color='primary.light'>
         博主力推

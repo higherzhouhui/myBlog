@@ -51,7 +51,7 @@ export default function SkillPage() {
         <Typography sx={{ color: '#fff', fontSize: 32, pt: 6, ml: 4, letterSpacing: 4 }}>致力于技术分享与生活记录</Typography>
         <Typography sx={{ color: '#fff', fontSize: 16, mt: 4, ml: 4, letterSpacing: 2 }}>我原要昂扬独步天下，奈何却忍辱藏于污泥；我梦在叱咤风云，却无奈苦候时机；难道登峰造极，途中遍是荆棘……
         </Typography>
-        <Typography sx={{ color: '#fff', fontSize: 16, mt: 4, ml: 4, letterSpacing: 2 }}>世界经济史是一部基于假象和谎言的连续剧。要获得财富，做法就是认清其假象，投入其中，然后在假象被公众认识之前退出游戏！
+        <Typography sx={{ color: '#fff', fontSize: 16, mt: 4, ml: 4, letterSpacing: 2 }}>一个人的一生应该是这样度过的：当他回首往事的时候，他不会因为虚度年华而悔恨，也不会因为碌碌无为而羞耻；这样，在临死的时候，他就能够说：“我的整个生命和全部精力，都已经献给世界上最壮丽的事业。
         </Typography>
       </Box>
       <MyGrid>

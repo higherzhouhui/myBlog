@@ -13,7 +13,7 @@ export const Header: FC = memo(() => {
     { name: '文章', path: '/blog' },
     { name: '作品', path: '/work' },
     { name: 'divider', path: '/' },
-    { name: '技能', path: '/skill' },
+    { name: '分享', path: '/skill' },
     { name: '个人', path: '/profile' },
   ]
   const router = useRouter()
@@ -61,7 +61,7 @@ export const Header: FC = memo(() => {
 
 
   return (
-    <StyledBoxBase sx={{ bgcolor: isScrollTop ? 'rgba(0,0,0,0.1)' : 'primary.dark', boxShadow: isScrollTop ? 'none' : '0.5px 0.5px 0.5px #ccc' }}>
+    <StyledBoxBase sx={{ bgcolor: isScrollTop ? 'rgba(0,0,0,0.1)' : 'secondary.dark', boxShadow: isScrollTop ? 'none' : '0.5px 0.5px 0.5px #ccc' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', width: '500px', justifyContent: 'space-around' }}>
         {
           menuList.map((item, index) => {

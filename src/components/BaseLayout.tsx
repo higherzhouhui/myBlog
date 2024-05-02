@@ -5,6 +5,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '@/theme';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import { Box } from '@mui/material';
 import styled from '@emotion/styled';
 import BasicSpeedDial from '@/components/SpeedDial';
@@ -65,6 +66,7 @@ export default function BasicLayOut(props: { children: React.ReactNode }) {
             <React.Suspense>
               <Box sx={{ flex: 1, height: '100%', maxWidth: 1200, width: '100%', margin: '0 auto' }}>
                 {props.children}
+                <Footer />
               </Box>
             </React.Suspense>
           </StyledBox>
