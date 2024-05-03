@@ -77,6 +77,9 @@ export default function BasicLayOut(props: { children: React.ReactNode }) {
           </React.Suspense> : null
         }
         <Toaster />
+        <Box sx={{ position: 'fixed', right: 0, top: 0, zIndex: 9999 }}>
+          <iframe frameBorder="no" width="300" height="86" src="//music.163.com/outchain/player?type=2&id=2061978961&auto=1&height=66"></iframe>
+        </Box>
       </ThemeProvider>
     </AppRouterCacheProvider>
   );
