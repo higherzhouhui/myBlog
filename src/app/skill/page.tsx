@@ -81,7 +81,7 @@ export default function SkillPage() {
         {
           loading ? [...Array(6)].map((item, index: number) => {
             return <Box key={index} style={{ width: '100%' }}>
-              <Skeleton variant="rectangular" height={220} />
+              <Skeleton sx={{ bgcolor: 'primary.light' }} variant="rectangular" height={220} />
             </Box>
           }) : null
         }

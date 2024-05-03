@@ -1,5 +1,5 @@
 'use client';
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Alert, Box, Button, Divider, Modal, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import BusinessIcon from '@mui/icons-material/Business';
@@ -149,6 +149,7 @@ export default function Home() {
       <Box sx={{ flex: 1, bgcolor: 'rgba(255,255,255,0.9)', borderRadius: 2, overflow: 'hidden' }}>
         <Box sx={{ position: 'relative', height: 300 }}>
           <Image src='/static/images/homebg.png' layout="fill" alt="bg" />
+          <Typewriter text="欢迎来到风中追风的博客!" />
         </Box>
         <Timeline position="alternate">
           {
@@ -202,3 +203,32 @@ export default function Home() {
     </Box >
   );
 }
+
+
+const Typewriter = (props: any) => {
+  const [typedText, setTypedText] = useState('');
+  const intervalRef = useRef<any>(null);
+
+  useEffect(() => {
+    const delay = 300; // 每个字符之间的延迟时间（毫秒）
+    let currentTextIndex = 0;
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    intervalRef.current = setInterval(() => {
+      if (currentTextIndex < props.text.length) {
+        setTypedText(props.text.substring(0, currentTextIndex + 1));
+        currentTextIndex++;
+      } else {
+        currentTextIndex = 0
+        setTypedText('')
+      }
+    }, delay);
+
+    return () => clearInterval(intervalRef.current);
+  }, [props.text]);
+
+  return (
+    <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)', color: '#fff', fontSize: '16px' }}>{typedText}</div>
+  );
+};

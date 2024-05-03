@@ -8,5 +8,6 @@
     "editor.codeActionsOnSave": {
       "source.fixAll": "never",
       "source.fixAll.eslint": "explicit"
-    }
+    },
+    "WillLuke.nextjs.hasPrompted": true
 }

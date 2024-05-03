@@ -16,7 +16,7 @@ const Label = styled(Paper)(({ theme }) => ({
 
 export default function SkillList() {
   return (
-    <Box sx={{ width: '100%', maxHeight: 800, mt: 1, overflow: 'auto' }}>
+    <Box sx={{ width: '100%', maxHeight: 500, mt: 1, overflow: 'auto' }}>
       <Masonry columns={2} >
         {itemData.map((item, index) => (
           <div key={index}>
@@ -78,7 +78,7 @@ const itemData = [
     title: 'ELEMENT-UI',
   },
   {
-    img: 'http://t13.baidu.com/it/u=99950752,360558944&fm=224&app=112&f=JPEG?w=406&h=500',
+    img: 'https://img0.baidu.com/it/u=788357210,2416683911&fm=253&fmt=auto&app=138&f=JPEG?w=475&h=475',
     title: 'MUI',
   },
   {

@@ -163,7 +163,7 @@ export default function Home() {
         loading ? <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', columnGap: '18px' }}>
           {
             [...Array(4)].map((item, index: number) => {
-              return <Skeleton variant="rectangular" height={300} key={index} />
+              return <Skeleton sx={{ bgcolor: 'primary.light' }} variant="rectangular" height={300} key={index} />
             })
           }
         </Box> : null
@@ -196,7 +196,7 @@ export default function Home() {
           {
             loading ? [...Array(6)].map((item, index: number) => {
               return <Box key={index} style={{ width: '100%' }}>
-                <Skeleton variant="rectangular" width={1152} height={120} />
+                <Skeleton sx={{ bgcolor: 'primary.light' }} variant="rectangular" width={1152} height={120} />
               </Box>
             }) : null
           }
