@@ -83,7 +83,7 @@ export const Header: FC = memo(() => {
           })
         }
       </Box>
-      <Box sx={{ position: 'fixed', right: 100, bottom: 20, display: scrollDis ? 'none' : 'block' }} onClick={() => scrollTop()}>
+      <Box sx={{ position: 'fixed', right: 100, bottom: 20, display: scrollDis > 200 ? 'block' : 'none' }} onClick={() => scrollTop()}>
         <IconButton aria-label="Example">
           <ArrowCircleUpIcon color='primary' sx={{ width: 50, height: 50 }} />
         </IconButton>
