@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import { Box, Stack, SxProps } from '@mui/material';
 import Modal from '@mui/material/Modal';
 const style = {
-  position: 'absolute' as 'absolute',
+  position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
@@ -22,7 +22,7 @@ const style = {
 
 const hoverStyle: SxProps = {
   '&:hover': {
-    boxShadow: 4
+    transform: 'scale(1.02)'
   },
 };
 
@@ -53,10 +53,10 @@ export default function MediaCard() {
     }
   }
   return (
-    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', rowGap: 5, columnGap: 5, pt: 2, pb: 2 }}>
+    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', rowGap: 3, columnGap: 3, pt: 2, pb: 2 }}>
       {
         list.map((item: any, index: number) => {
-          return <Card key={index} sx={hoverStyle}>
+          return <Card key={index} sx={hoverStyle} style={{ transition: 'all 0.5s' }}>
             <CardMedia
               sx={{ height: 240 }}
               image={item.logo}
@@ -75,8 +75,8 @@ export default function MediaCard() {
                 }
               </Box>
             </CardContent>
-            <CardActions>
-              <Button size="large" onClick={() => lookMore(item.link)}>了解更多</Button>
+            <CardActions sx={{ justifyContent: 'flex-end' }}>
+              <Button size="large" color='success' onClick={() => lookMore(item.link)}>了解更多</Button>
             </CardActions>
           </Card>
         })

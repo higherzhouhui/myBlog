@@ -15,7 +15,7 @@ export const Header: FC = memo(() => {
     { name: '作品', path: '/work' },
     { name: 'divider', path: '/' },
     { name: '技巧', path: '/skill' },
-    { name: '相册', path: '/profile' },
+    { name: '相册', path: '/photo' },
   ]
   const router = useRouter()
   const path = usePathname()
@@ -33,7 +33,6 @@ export const Header: FC = memo(() => {
     top: 0,
     width: '100%',
     background: 'rgba(255,255,255,0.1)',
-    transition: 'height 0.5s',
     overflow: 'hidden',
   }));
   const StyledButtonBase = styled(Button)(({ theme }) => ({
@@ -71,7 +70,7 @@ export const Header: FC = memo(() => {
 
 
   return (
-    <StyledBoxBase sx={{ bgcolor: !scrollDis ? 'rgba(0,0,0,0.1)' : 'secondary.dark', boxShadow: !scrollDis ? 'none' : '0.5px 0.5px 0.5px #ccc', height: scrollDis > 500 ? '0' : '80px' }}>
+    <StyledBoxBase sx={{ bgcolor: !scrollDis ? 'rgba(0,0,0,0.1)' : 'secondary.dark', boxShadow: !scrollDis ? 'none' : '0.5px 0.5px 0.5px #ccc', height: scrollDis > 500 ? '0' : '80px' }} style={{ transition: 'all 0.5s' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', width: '500px', justifyContent: 'space-around' }}>
         {
           menuList.map((item, index) => {

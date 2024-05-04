@@ -64,9 +64,13 @@ export default function Home() {
     setLoading(true)
     try {
       const res = await getBlogListReq({ id: null })
+      let list = res.data.list
+      list.sort((a: any, b: any) => {
+        return new Date(b.uptime).getTime() - new Date(a.uptime).getTime()
+      })
       setLoading(false)
-      setBlogList(res.data.list)
-      const nList = res.data.list.filter((item: BlogListInterface) => {
+      setBlogList(list)
+      const nList = list.filter((item: BlogListInterface) => {
         return item.type == 'recommend'
       })
       setRecommendList(nList)
