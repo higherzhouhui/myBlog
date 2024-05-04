@@ -1,20 +1,21 @@
 'use client';
 import React, { useEffect } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, IconButton } from "@mui/material";
 import { FC, memo, useState } from "react";
 import { styled } from '@mui/material/styles';
 import { useRouter, usePathname } from "next/navigation";
 import { clearTimeout } from "timers";
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 
 export const Header: FC = memo(() => {
   const [currentPath, setCurrentPath] = useState('/')
-  const [isScrollTop, setScrollTop] = useState(true)
+  const [scrollDis, setScrollTop] = useState(0)
   const menuList = [
     { name: '文章', path: '/blog' },
     { name: '作品', path: '/work' },
     { name: 'divider', path: '/' },
-    { name: '分享', path: '/skill' },
-    { name: '生活', path: '/profile' },
+    { name: '技巧', path: '/skill' },
+    { name: '相册', path: '/profile' },
   ]
   const router = useRouter()
   const path = usePathname()
@@ -32,6 +33,8 @@ export const Header: FC = memo(() => {
     top: 0,
     width: '100%',
     background: 'rgba(255,255,255,0.1)',
+    transition: 'height 0.5s',
+    overflow: 'hidden',
   }));
   const StyledButtonBase = styled(Button)(({ theme }) => ({
     fontSize: 16,
@@ -48,20 +51,27 @@ export const Header: FC = memo(() => {
         clearTimeout(timer)
       }
       timer = setTimeout(() => {
-        const isTop = window.scrollY ? false : true
-        setScrollTop(isTop)
+        setScrollTop(window.scrollY)
       }, 500);
     } catch (error: any) {
       console.log(error)
     }
   }
+
+  const scrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
+
   useEffect(() => {
     window.addEventListener('scroll', onScroll)
   }, [])
 
 
   return (
-    <StyledBoxBase sx={{ bgcolor: isScrollTop ? 'rgba(0,0,0,0.1)' : 'secondary.dark', boxShadow: isScrollTop ? 'none' : '0.5px 0.5px 0.5px #ccc' }}>
+    <StyledBoxBase sx={{ bgcolor: !scrollDis ? 'rgba(0,0,0,0.1)' : 'secondary.dark', boxShadow: !scrollDis ? 'none' : '0.5px 0.5px 0.5px #ccc', height: scrollDis > 500 ? '0' : '80px' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', width: '500px', justifyContent: 'space-around' }}>
         {
           menuList.map((item, index) => {
@@ -72,6 +82,11 @@ export const Header: FC = memo(() => {
               </StyledButtonBase>
           })
         }
+      </Box>
+      <Box sx={{ position: 'fixed', right: 100, bottom: 20, display: scrollDis ? 'none' : 'block' }} onClick={() => scrollTop()}>
+        <IconButton aria-label="Example">
+          <ArrowCircleUpIcon color='primary' sx={{ width: 50, height: 50 }} />
+        </IconButton>
       </Box>
     </StyledBoxBase>
   )

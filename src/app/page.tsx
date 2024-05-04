@@ -21,6 +21,8 @@ import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
 import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
 import ChatIcon from '@mui/icons-material/Chat';
 import SkillList from '@/components/SkillList'
+import CircularProgress from '@mui/material/CircularProgress';
+import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 
 const style = {
   position: 'absolute',
@@ -29,9 +31,18 @@ const style = {
   transform: 'translate(-50%, -50%)',
 };
 
+const iframeStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+}
 
 export default function Home() {
   const [open, setOpen] = useState(false)
+  const [companyVisible, setCompanyVisible] = useState(false)
+  const [iframeSrc, setIframeSrc] = useState('')
+  const [iframeLoading, setIframeLoading] = useState(true)
   const [tabList, setTabList] = useState([
     {
       icon: <ChatIcon color="primary" />, link: '', type: 'modal', img: '/static/images/vx.png',
@@ -58,6 +69,7 @@ export default function Home() {
       company: '上海博达数据通信有限公司',
       icon: <CellWifiIcon color="success" />,
       pos: '软件研发部->路由器应用组->软件开发',
+      link: 'https://aiqicha.baidu.com/detail/compinfo?pid=35592857020426&rq=es&pd=ee&from=ps&query=%E4%B8%8A%E6%B5%B7%E5%8D%9A%E8%BE%BE%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1',
       content: [
         '路由器应用层管理页面更新迭代',
         '混合式开发(AngularJs/IONIC)路由器管理APP'
@@ -68,6 +80,7 @@ export default function Home() {
       company: '上海红星美凯龙设计云设计云信息科技',
       icon: <DesignServicesIcon color="primary" />,
       pos: '软件研发部->BIM智能制造组->WEB初级算法工程师',
+      link: 'https://aiqicha.baidu.com/company_detail_10106615640972',
       content: [
         '2D平面图户型构建以及UI库维护',
         '编写VSCODE插件以高亮、自动补齐、提示自创的一种描述非规则的3D模型',
@@ -79,6 +92,7 @@ export default function Home() {
       company: '华夏云融航空信息科技',
       icon: <AirplanemodeActiveIcon color="info" />,
       pos: '地勤部-IT软件研发组->WEB前端开发',
+      link: 'https://aiqicha.baidu.com/company_detail_25376865573705',
       content: [
         '订票微信小程序功能迭代，UI组件封装',
         '更新迭代官网',
@@ -90,6 +104,7 @@ export default function Home() {
       company: '重庆团望科技有限公司',
       icon: <AssuredWorkloadIcon color='action' />,
       pos: 'WEB项目组->中级前端开发',
+      link: 'https://aiqicha.baidu.com/company_detail_92581425249205?t=0',
       content: [
         '新项目的技术栈选型与框架搭建，部署与自动化打包',
         `优化原有直播项目，从资源文件、接口响应流程判断、websocket实时推送修改redux数据流`,
@@ -97,7 +112,28 @@ export default function Home() {
         '使用uniapp进行混合式app开发并完成上线',
       ]
     },
+    {
+      time: '2022.10-now',
+      company: '重庆极造极信息科技有限公司',
+      icon: <CorporateFareIcon color='primary' />,
+      pos: '研发部->全站开发',
+      link: 'https://aiqicha.baidu.com/company_detail_86664768952542?t=0',
+      content: [
+        '新项目的技术栈选型与框架搭建，部署与自动化打包',
+        `官网的设计与迭代`,
+        '自媒体运营揽活/报价',
+        '与甲方/产品经理确定需求',
+      ]
+    },
   ]
+  const handleShowCompany = (link: string) => {
+    setIframeSrc(link)
+    setCompanyVisible(true)
+    setIframeLoading(true)
+    setTimeout(() => {
+      setIframeLoading(false)
+    }, 2000);
+  }
   return (
     <Box sx={{ padding: 3, display: 'flex', gap: 2 }}>
       <Box sx={{ width: 300, bgcolor: 'rgba(255,255,255,0.9)', borderRadius: 2, p: 2 }}>
@@ -162,7 +198,7 @@ export default function Home() {
                   color="text.secondary"
                 >
                   <Typography>{item.time}</Typography>
-                  <Typography sx={{ fontSize: 15 }} color={'primary.dark'}>
+                  <Typography sx={{ fontSize: 15, cursor: 'pointer' }} color={'primary.dark'} onClick={() => { handleShowCompany(item.link) }}>
                     {item.company}
                   </Typography>
                 </TimelineOppositeContent>
@@ -198,6 +234,15 @@ export default function Home() {
       >
         <Box sx={style}>
           <Image src='/static/images/vx.png' width={400} height={500} alt="vx" />
+        </Box>
+      </Modal>
+      <Modal open={companyVisible} onClose={() => setCompanyVisible(false)} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description"
+      >
+        <Box sx={iframeStyle}>
+          <iframe src={iframeSrc} width={'1100'} height={'700'} loading="eager" id="iframe-id" frameBorder={'0'} />
+          <Box sx={{ display: iframeLoading ? 'flex' : 'none', width: 1100, height: 700, position: 'absolute', left: 0, top: 0, zIndex: 9, bgcolor: 'primary.light', alignItems: 'center', justifyContent: 'center' }}>
+            <CircularProgress />
+          </Box>
         </Box>
       </Modal>
     </Box >

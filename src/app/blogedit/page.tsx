@@ -25,9 +25,10 @@ const names = [
   '人生思考',
   '代码人生',
   '谁的青春不迷茫',
-  '我的青葱岁月'
+  '我的青葱岁月',
+  'Prisma',
+  'SSR',
 ];
-const typeList = ['rencetly', 'recommend']
 const ITEM_HEIGHT = 42;
 const ITEM_PADDING_TOP = 1;
 const MenuProps = {

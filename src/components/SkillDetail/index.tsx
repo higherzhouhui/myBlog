@@ -11,9 +11,9 @@ const StyledMyMenu = styled(Box)(({ theme }) => ({
   background: '#fff',
   padding: '1rem',
   borderRadius: '6px',
-  top: 100,
+  top: 80,
   maxHeight: 'calc(100vh - 200px)',
-  boxShadow: '2px 3px 3px #ccc',
+  boxShadow: '1px 2px 2px #ccc',
   maxWidth: 250,
 }));
 
@@ -64,13 +64,14 @@ export function SkillDetail(data: { id: string }) {
       </Box>
     </Stack>
     <Divider sx={{ mt: 4, mb: 4 }} />
+    <div dangerouslySetInnerHTML={{ __html: blogInfo.content || '' }}></div>
     <StyledMyMenu>
+      <Box sx={{ textAlign: 'center', mb: 1 }}><Button onClick={() => handleBack()} variant="contained">上一页</Button></Box>
       {
         blogInfo.hrefList?.map((item: any, index: number) => {
-          return <Box key={item.title} sx={{ mb: 1 }}><Link href={`#${item.name}`} color={'secondary'}>{index + 1}.{item.title}</Link></Box>
+          return <Box key={item.title} sx={{ mb: 1 }}><Link href={`#${item.name}`} color={'primary'}>{index + 1}.{item.title}</Link></Box>
         })
       }
     </StyledMyMenu>
-    <div dangerouslySetInnerHTML={{ __html: blogInfo.content || '' }}></div>
   </Box>
 }

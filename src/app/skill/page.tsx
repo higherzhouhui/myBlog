@@ -41,6 +41,7 @@ export default function SkillPage() {
   }
   const handleToDetail = (item: BlogListInterface) => {
     router.push(`/skilldetail/${item.id}/${item.title}`)
+    // window.open(`/skilldetail/${item.id}/${item.title}`)
   }
   React.useEffect(() => {
     initData()
@@ -59,7 +60,7 @@ export default function SkillPage() {
           list.map((item: BlogListInterface, index) => {
             return <StyledMyCard key={index} onClick={() => handleToDetail(item)}>
               <CardMedia
-                sx={{ height: '100%', width: 200, minWidth: 200 }}
+                sx={{ height: '100%', width: 200, minWidth: 200, backgroundSize: 'contain', bgcolor: 'secondary' }}
                 image={item.logo}
                 title="green iguana"
               />
