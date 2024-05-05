@@ -185,7 +185,8 @@ export default function Home() {
       <Box sx={{ flex: 1, bgcolor: 'rgba(255,255,255,0.9)', borderRadius: 2, overflow: 'hidden' }}>
         <Box sx={{ position: 'relative', height: 300 }}>
           <Image src='/static/images/homebg.png' layout="fill" alt="bg" />
-          <Typewriter text="欢迎来到风中追风的博客!" />
+          <Typewriter text="欢迎来到风中追风的博客!" style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)', color: '#fff', fontSize: '16px' }} />
+          <Typewriter text="承接各类商务合作!" style={{ position: 'absolute', left: '50%', top: '70%', transform: 'translate(-50%,-50%)', color: '#06f', fontSize: '16px', fontWeight: 'bold' }} />
         </Box>
         <Timeline position="alternate">
           {
@@ -274,6 +275,6 @@ const Typewriter = (props: any) => {
   }, [props.text]);
 
   return (
-    <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)', color: '#fff', fontSize: '16px' }}>{typedText}</div>
+    <div style={props.style}>{typedText}</div>
   );
 };
