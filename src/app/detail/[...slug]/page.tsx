@@ -6,7 +6,7 @@ import { Box } from "@mui/material";
 
 export default function Detail({ params }: { params: { slug: string[] } }) {
   return (
-    <Box sx={{ background: 'rgba(255,255,255,1)', height: '100%', padding: 2, overflow: 'auto' }}>
+    <Box sx={{ background: 'rgba(255,255,255,0.9)', borderRadius: 1, height: '100%', padding: 2, overflow: 'auto' }}>
       <BlogDetail id={params.slug[0]} />
     </Box>
   );

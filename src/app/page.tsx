@@ -116,7 +116,7 @@ export default function Home() {
       time: '2022.10-now',
       company: '重庆极造极信息科技有限公司',
       icon: <CorporateFareIcon color='primary' />,
-      pos: '研发部->全站开发',
+      pos: '研发部->全栈开发/合伙人',
       link: 'https://aiqicha.baidu.com/company_detail_86664768952542?t=0',
       content: [
         '新项目的技术栈选型与框架搭建，部署与自动化打包',

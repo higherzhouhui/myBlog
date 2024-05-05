@@ -10,6 +10,7 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 export const Header: FC = memo(() => {
   const [currentPath, setCurrentPath] = useState('/')
   const [scrollDis, setScrollTop] = useState(0)
+  const [isShowHeader, setIsShowHeader] = useState(true)
   const menuList = [
     { name: '文章', path: '/blog' },
     { name: '作品', path: '/work' },
@@ -51,6 +52,14 @@ export const Header: FC = memo(() => {
       }
       timer = setTimeout(() => {
         setScrollTop(window.scrollY)
+        if (window.scrollY > 500) {
+          let flag = menuList.some(item => {
+            return item.path == path
+          })
+          setIsShowHeader(flag)
+        } else {
+          setIsShowHeader(true)
+        }
       }, 500);
     } catch (error: any) {
       console.log(error)
@@ -70,7 +79,7 @@ export const Header: FC = memo(() => {
 
 
   return (
-    <StyledBoxBase sx={{ bgcolor: !scrollDis ? 'rgba(0,0,0,0.1)' : 'secondary.dark', boxShadow: !scrollDis ? 'none' : '0.5px 0.5px 0.5px #ccc', height: scrollDis > 500 ? '0' : '80px' }} style={{ transition: 'all 0.5s' }}>
+    <StyledBoxBase sx={{ bgcolor: !scrollDis ? 'rgba(0,0,0,0.1)' : 'secondary.dark', boxShadow: !scrollDis ? 'none' : '0.5px 0.5px 0.5px #ccc', height: isShowHeader ? '80px' : '0' }} style={{ transition: 'all 0.5s' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', width: '500px', justifyContent: 'space-around' }}>
         {
           menuList.map((item, index) => {
