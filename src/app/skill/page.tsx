@@ -68,13 +68,13 @@ export default function SkillPage() {
                 <Typography gutterBottom variant="h5" component="div">
                   {item.title}
                 </Typography>
-                <Typography variant="h6" color="text.secondary">
+                <Typography variant="h6" color="text.secondary" sx={{ maxHeight: 60, overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {item.subTitle}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" sx={{ maxHeight: 60, overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {item.abstract}
                 </Typography>
-                <Button sx={{ mt: 2 }}>阅读更多</Button>
+                <Button sx={{ mt: 2, fontSize: 16 }} variant='contained'>阅读更多</Button>
               </CardContent>
             </StyledMyCard>
           })

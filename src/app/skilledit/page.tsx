@@ -115,6 +115,8 @@ export default function BlogEdit() {
         const matches1: any = reg.exec(item);
         const name = matches1[1]
         let itemStr = item.replace('target=""', `name="${name}"`)
+        itemStr = item.replace('target="_blank"', `name="${name}"`)
+        itemStr = item.replace('target', `name="${name}"`)
         str = str.replace(item, itemStr)
         hrefList.push({
           name,
