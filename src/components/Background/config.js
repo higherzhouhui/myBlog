@@ -2,7 +2,7 @@ export const Tunnel = {
   "autoPlay": true,
   "background": {
     "color": {
-      "value": "#000"
+      "value": "#0b1120"
     },
     "image": "",
     "position": "",
@@ -575,7 +575,7 @@ export const AmongUs = {
   "autoPlay": true,
   "background": {
     "color": {
-      "value": "#000000"
+      "value": "#0b1120"
     },
     "image": "",
     "position": "",
@@ -1171,7 +1171,7 @@ export const Colors = {
   "autoPlay": true,
   "background": {
     "color": {
-      "value": "#000"
+      "value": "#0b1120"
     },
     "image": "",
     "position": "",

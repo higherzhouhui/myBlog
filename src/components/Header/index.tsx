@@ -84,7 +84,7 @@ export const Header: FC = memo(() => {
         {
           menuList.map((item, index) => {
             // eslint-disable-next-line @next/next/no-img-element
-            return item.name == 'divider' ? <div onClick={() => handleMenuClick(item.path)} key={index}><img style={{ width: '50px', objectFit: 'contain', borderRadius: '50%', border: path == item.path ? '2px solid #06f' : '2px solid transparent', cursor: 'pointer' }} src="/static/images/logo.jpg" alt="logo" /></div> :
+            return item.name == 'divider' ? <div onClick={() => handleMenuClick(item.path)} key={index}><img style={{ width: '50px', objectFit: 'contain', borderRadius: '50%', border: path == item.path ? '2px solid #06f' : '2px solid transparent', cursor: 'pointer' }} src="/static/images/logo.png" alt="logo" /></div> :
               <StyledButtonBase variant={currentPath == item.path ? 'contained' : 'text'} key={index} onClick={() => handleMenuClick(item.path)}>
                 {item.name}
               </StyledButtonBase>
