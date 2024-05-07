@@ -23,6 +23,10 @@ import ChatIcon from '@mui/icons-material/Chat';
 import SkillList from '@/components/SkillList'
 import CircularProgress from '@mui/material/CircularProgress';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+
+import 'swiper/css';
 
 const style = {
   position: 'absolute',
@@ -37,6 +41,16 @@ const iframeStyle = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
 }
+
+const imageList = [
+  '/static/images/swiper/2.png',
+  '/static/images/swiper/1.png',
+  '/static/images/swiper/3.png',
+  '/static/images/swiper/4.png',
+  '/static/images/swiper/5.png',
+  '/static/images/swiper/6.png',
+]
+
 
 export default function Home() {
   const [open, setOpen] = useState(false)
@@ -184,7 +198,22 @@ export default function Home() {
       </Box>
       <Box sx={{ flex: 1, bgcolor: 'rgba(255,255,255,0.9)', borderRadius: 2, overflow: 'hidden' }}>
         <Box sx={{ position: 'relative', height: 300 }}>
-          <Image src='/static/images/homebg.png' layout="fill" alt="bg" />
+          <Swiper
+            loop
+            centeredSlides={true}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            modules={[Autoplay]}
+          >
+            {imageList.map((item, index: number) => (
+              <SwiperSlide key={index} style={{ width: '100%', height: '300px', position: 'relative' }}>
+                <Image src={item} layout="fill" alt="bg" />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
         </Box>
         <Timeline position="alternate">
           {
