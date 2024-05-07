@@ -55,7 +55,7 @@ export default function Home() {
     },
   ])
   const labelList = [
-    'Web前端开发', '7年程序猿', 'UniApp', '微信小程序', '网站设计/搭建', '正规科班', '一类本科', '计算机专业', '项目整包', '多渠道结算', '快速高效'
+    'Web前端开发', '经验丰富', '数字游民', '远程办公', 'UniApp', '微信小程序', '网站设计/搭建', '正规科班', '一类本科', '计算机专业', '项目整包', '多渠道结算', '快速高效'
   ]
   const skillList = [
     'React', 'Vue2', 'Vue3', 'Angular', 'JQuery', 'NextJs', 'NustJs', 'NodeJs', 'Ant-Design', 'Element-Ui', 'Element-Plus', 'Mysql', 'Prisma', 'Pwa', 'EtherJs', 'Web3Js', 'Solidity', 'Mui', 'Component-Styled'
