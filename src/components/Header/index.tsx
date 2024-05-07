@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles';
 import { useRouter, usePathname } from "next/navigation";
 import { clearTimeout } from "timers";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import HomeIcon from '@mui/icons-material/Home';
 
 export const Header: FC = memo(() => {
   const [currentPath, setCurrentPath] = useState('/')
@@ -33,7 +34,6 @@ export const Header: FC = memo(() => {
     position: 'fixed',
     top: 0,
     width: '100%',
-    background: 'rgba(255,255,255,0.1)',
     overflow: 'hidden',
   }));
   const StyledButtonBase = styled(Button)(({ theme }) => ({
@@ -79,12 +79,12 @@ export const Header: FC = memo(() => {
 
 
   return (
-    <StyledBoxBase sx={{ bgcolor: !scrollDis ? 'rgba(0,0,0,0.1)' : 'secondary.dark', boxShadow: !scrollDis ? 'none' : '0.5px 0.5px 0.5px #ccc', height: isShowHeader ? '80px' : '0' }} style={{ transition: 'all 0.5s' }}>
+    <StyledBoxBase sx={{ bgcolor: !scrollDis ? 'rgba(0,0,0,0.1)' : '#0b1120', boxShadow: !scrollDis ? 'none' : '0.5px 0.5px 0.5px #ccc', height: isShowHeader ? '80px' : '0', transition: 'all 0.5s' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', width: '500px', justifyContent: 'space-around' }}>
         {
           menuList.map((item, index) => {
             // eslint-disable-next-line @next/next/no-img-element
-            return item.name == 'divider' ? <div onClick={() => handleMenuClick(item.path)} key={index}><img style={{ width: '50px', objectFit: 'contain', borderRadius: '50%', border: path == item.path ? '2px solid #06f' : '2px solid transparent', cursor: 'pointer' }} src="/static/images/logo.png" alt="logo" /></div> :
+            return item.name == 'divider' ? <Box sx={{ color: '#fff', cursor: 'pointer' }} onClick={() => handleMenuClick(item.path)} key={index}><HomeIcon color={currentPath == item.path ? 'inherit' : 'primary'} sx={{ width: 40, height: 40 }} /></Box> :
               <StyledButtonBase variant={currentPath == item.path ? 'contained' : 'text'} key={index} onClick={() => handleMenuClick(item.path)}>
                 {item.name}
               </StyledButtonBase>
