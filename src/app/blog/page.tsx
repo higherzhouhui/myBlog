@@ -38,12 +38,12 @@ export default function Home() {
   const handleToTeam = (item: BlogListInterface) => {
     router.push(`/detail/${item.id}/${item.title}`)
   }
-  const MyCard = styled('div')(({ theme }) =>
+  const MyCard = styled(Box)(({ theme }) =>
     theme.unstable_sx({
       padding: 2,
       pt: 1,
       borderRadius: 1,
-      bgcolor: 'primary.light',
+      backgroundColor: theme.palette.mode == 'dark' ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.6)',
       boxShadow: 2,
       '&:hover': {
         boxShadow: 4,
@@ -117,10 +117,10 @@ export default function Home() {
 
   return (
     <Box sx={{ padding: 3 }}>
-      <Typography security='h1' color='primary.light'>
+      <Typography security='h1' sx={{ color: 'secondary.light' }}>
         Welcome
       </Typography>
-      <Typography component="div" sx={{ fontSize: 14, mt: 2, fontWeight: 'bold' }} color='primary.light'>
+      <Typography component="div" sx={{ fontSize: 14, mt: 2, fontWeight: 'bold' }} color='primary'>
         博主力推
       </Typography>
       <Box sx={{ margin: '12px 0' }}>
@@ -137,11 +137,11 @@ export default function Home() {
               <MyCard>
                 <Stack direction={'row'}>
                   <Box>
-                    <Typography component="div" sx={{ color: 'primary.dark', overflow: 'hidden', fontWeight: 'bold', fontSize: 22, whiteSpace: 'nowrap', textOverflow: 'ellipsis', width: '288px' }}>
+                    <Typography component="div" sx={{ color: 'primary.light', overflow: 'hidden', fontWeight: 'bold', fontSize: 22, whiteSpace: 'nowrap', textOverflow: 'ellipsis', width: '288px' }}>
                       {item.title}
                     </Typography>
-                    <Typography component="div" security='h2' sx={{ height: 80, mt: 1, overflow: 'hidden', textOverflow: 'ellipsis', width: '288px' }}>{item.abstract}</Typography>
-                    <Typography component="div" sx={{ color: 'secondary.dark', fontSize: 14, marginTop: '8px', overflow: 'hidden', width: '288px', height: '40px' }}>
+                    <Typography component="div" security='h2' color={'primary'} sx={{ height: 80, mt: 1, overflow: 'hidden', textOverflow: 'ellipsis', width: '288px' }}>{item.abstract}</Typography>
+                    <Typography component="div" sx={{ fontSize: 14, marginTop: '8px', overflow: 'hidden', width: '288px', height: '40px' }}>
                       {
                         item.label.map((cLabel, cIndex) => {
                           return <Button variant="outlined" key={cIndex} size="small" sx={{ marginRight: 1, mt: 1 }}>{cLabel}</Button>
@@ -157,7 +157,7 @@ export default function Home() {
                   </Typography>
                   <Button variant="contained" onClick={() => { handleToTeam(item) }}>查看详情</Button>
                 </Box>
-                <Typography security='desc'>{item.lookNum}{' '}次浏览</Typography>
+                <Typography color={'GrayText'} security='desc'>{item.lookNum}{' '}次浏览</Typography>
               </MyCard>
             </SwiperSlide>
           ))}
@@ -189,10 +189,10 @@ export default function Home() {
                   <img src={item.logo} style={{ width: '80px', objectFit: 'contain', minWidth: '80px', borderRadius: '10px', overflow: 'hidden' }} />
                 </Box>
                 <Box sx={{ ml: 2 }}>
-                  <Typography component="div" sx={{ color: '#2E2C34', fontWeight: 'bold', fontSize: 22, }}>
+                  <Typography component="div" sx={{ color: 'primary.light', fontWeight: 'bold', fontSize: 22, }}>
                     {item.title}
                   </Typography>
-                  <Typography component="div" security='h2' sx={{ maxHeight: 80, mt: 2, overflow: 'hidden', wordBreak: 'break-all' }}>{item.abstract}</Typography>
+                  <Typography component="div" security='h2' color={'primary'} sx={{ maxHeight: 80, mt: 2, overflow: 'hidden', wordBreak: 'break-all' }}>{item.abstract}</Typography>
                 </Box>
               </Stack>
             </MyCard>

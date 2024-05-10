@@ -20,6 +20,7 @@ const StyledMyCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   transition: 'all 0.2s',
   cursor: 'pointer',
+
   '&:hover': {
     transform: 'scale(1.01)'
   }

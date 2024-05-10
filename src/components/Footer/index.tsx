@@ -6,7 +6,7 @@ import { FC, memo } from "react";
 export const Footer: FC = memo(() => {
 
   return (
-    <Box sx={{ color: '#fff', textAlign: 'center', lineHeight: 3 }}>
+    <Box sx={{ color: 'primary.light', textAlign: 'center', lineHeight: 3 }}>
       CopyRight@2014-2028
     </Box>
   )

@@ -2,11 +2,10 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import theme from '@/theme';
+import { darkTheme, lightTheme } from '@/theme';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Box } from '@mui/material';
-import styled from '@emotion/styled';
+import { Box, styled } from '@mui/material';
 import BasicSpeedDial from '@/components/SpeedDial';
 import { Toaster } from 'react-hot-toast';
 import NProgress from "nprogress"
@@ -16,11 +15,14 @@ import '@/app/globals.css'
 import './style.css'
 
 import BackGroundComp from '@/components/Background';
-import { ReactNode, useState, useEffect, Suspense } from 'react';
+import { ReactNode, useState, useEffect, Suspense, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
+import { EventBus, EventTypes } from '@/utils/event';
 
 export default function BasicLayOut(props: { children: ReactNode }) {
   const [isShowMange, setShowManage] = useState(false)
+  const [themeStyle, setThemeStyle] = useState('dark')
+
   const path = usePathname()
   const StyledBox = styled(Box)(({ theme }) => ({
     paddingTop: 80,
@@ -28,9 +30,19 @@ export default function BasicLayOut(props: { children: ReactNode }) {
     position: 'relative',
   }));
 
+  const ThemeProps: any = useMemo(() => {
+    let c = darkTheme
+    if (themeStyle == 'dark') {
+      c = darkTheme
+    } else {
+      c = lightTheme
+    }
+    return c
+  }, [themeStyle])
+
   const StyledRoot = styled(Box)(({ theme }) => ({
     minHeight: '100vh',
-    backgroundColor: 'rgba(0,0,0,0.8)'
+    backgroundColor: theme.palette.mode == 'dark' ? '#0b1120' : 'rgba(255,255,255,0.8)'
   }));
   useEffect(() => {
     const href = location.href
@@ -39,7 +51,12 @@ export default function BasicLayOut(props: { children: ReactNode }) {
     } else {
       setShowManage(false)
     }
+    const listenThemeSwitch = (data: any) => {
+      setThemeStyle(data.theme)
+    }
+    EventBus.addListener(EventTypes.SwitchTheme, listenThemeSwitch)
   }, [])
+
   NProgress.configure({
     easing: 'ease', // 动画方式
     speed: 500, // 递增进度条的速度
@@ -47,6 +64,7 @@ export default function BasicLayOut(props: { children: ReactNode }) {
     trickleSpeed: 200, // 自动递增间隔
     minimum: 0.3, // 初始化时的最小百分比
   });
+
   useEffect(() => {
     NProgress.start()
     setTimeout(() => {
@@ -56,8 +74,8 @@ export default function BasicLayOut(props: { children: ReactNode }) {
   }, [path])
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-      <BackGroundComp />
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={ThemeProps}>
+        <BackGroundComp theme={themeStyle} />
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <StyledRoot>
@@ -77,9 +95,9 @@ export default function BasicLayOut(props: { children: ReactNode }) {
           </Suspense> : null
         }
         <Toaster />
-        <Box sx={{ position: 'fixed', right: 0, top: 0, zIndex: 9999 }}>
+        {/* <Box sx={{ position: 'fixed', right: 0, top: 0, zIndex: 9999 }}>
           <iframe frameBorder="no" width="300" height="86" src="//music.163.com/outchain/player?type=2&id=2061978961&auto=1&height=66"></iframe>
-        </Box>
+        </Box> */}
       </ThemeProvider>
     </AppRouterCacheProvider>
   );

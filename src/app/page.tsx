@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useRef } from "react";
-import { Alert, Box, Button, Divider, Modal, Stack, Typography } from "@mui/material";
+import { Alert, Box, Button, Divider, Modal, Stack, Typography, styled } from "@mui/material";
 import { useState } from "react";
 import BusinessIcon from '@mui/icons-material/Business';
 import SchoolIcon from '@mui/icons-material/School';
@@ -41,6 +41,11 @@ const iframeStyle = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
 }
+
+
+const BoxStyles = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.mode == 'dark' ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.8)'
+}));
 
 const imageList = [
   '/static/images/swiper/2.png',
@@ -150,7 +155,7 @@ export default function Home() {
   }
   return (
     <Box sx={{ padding: 3, display: 'flex', gap: 2 }}>
-      <Box sx={{ width: 300, bgcolor: 'rgba(255,255,255,0.9)', borderRadius: 2, p: 2 }}>
+      <BoxStyles sx={{ width: 300, borderRadius: 2, p: 2 }}>
         <Box sx={{ textAlign: 'center', mb: 1 }}>
           <Box sx={{ position: 'relative', height: 50, width: 50, margin: '0 auto' }}>
             <Image src='/static/images/avatar.png' layout="fill" alt="bg" />
@@ -167,12 +172,12 @@ export default function Home() {
         </Stack>
         <Divider />
         <Box sx={{ mt: 1 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}><SchoolIcon sx={{ mr: 1 }} />毕业院校(2013-2017)：</Box>
+          <Typography component={'div'} sx={{ color: 'primary.dark', display: 'flex', alignItems: 'center', mb: 1 }}><SchoolIcon sx={{ mr: 1 }} />毕业院校(2013-2017)：</Typography>
           <Divider />
-          <Typography sx={{ fontSize: 14, mt: 1 }}>陕西科技大学——计算机系——物联网工程</Typography>
+          <Typography sx={{ fontSize: 14, mt: 1, color: 'primary.light' }}>陕西科技大学——计算机系——物联网工程</Typography>
         </Box>
         <Box sx={{ mt: 1 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 1 }}><SettingsAccessibilityIcon sx={{ mr: 1 }} />标签：</Box>
+          <Typography component={'div'} sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 1, color: 'primary.dark', }}><SettingsAccessibilityIcon sx={{ mr: 1 }} />标签：</Typography>
           <Divider />
           <Box>
             {
@@ -183,7 +188,7 @@ export default function Home() {
           </Box>
         </Box>
         <Box sx={{ mt: 1 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 1 }}><LaptopWindowsIcon sx={{ mr: 1 }} />技能：</Box>
+          <Typography component={'div'} sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 1, color: 'primary.dark', }}><LaptopWindowsIcon sx={{ mr: 1 }} />技能：</Typography>
           <Divider />
           <SkillList />
           {/* <Box>
@@ -195,8 +200,8 @@ export default function Home() {
           </Box> */}
         </Box>
 
-      </Box>
-      <Box sx={{ flex: 1, bgcolor: 'rgba(255,255,255,0.9)', borderRadius: 2, overflow: 'hidden' }}>
+      </BoxStyles>
+      <BoxStyles sx={{ flex: 1, borderRadius: 2, overflow: 'hidden' }}>
         <Box sx={{ position: 'relative', height: 300 }}>
           <Swiper
             loop
@@ -209,7 +214,7 @@ export default function Home() {
           >
             {imageList.map((item, index: number) => (
               <SwiperSlide key={index} style={{ width: '100%', height: '300px', position: 'relative' }}>
-                <Image src={item} layout="fill" alt="bg" />
+                <Image src={item} fill alt="bg" />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -253,7 +258,7 @@ export default function Home() {
             })
           }
         </Timeline>
-      </Box>
+      </BoxStyles>
       <Modal
         open={open}
         onClose={() => setOpen(false)}
