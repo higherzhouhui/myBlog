@@ -15,7 +15,8 @@
 
 # production
 /build
-
+./package-lock.json
+./pnpm-lock.yaml
 # misc
 .DS_Store
 *.pem

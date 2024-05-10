@@ -9,6 +9,7 @@ export default function BackGroundComp({ theme }: { theme: string }) {
 
   const [init, setInit] = useState(false);
   const [type, setType] = useState<any>('Colors')
+  const [myTheme, setMyTheme] = useState(theme)
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
@@ -44,10 +45,17 @@ export default function BackGroundComp({ theme }: { theme: string }) {
     return c
   }, [theme, type])
 
-  const listenBgStyleSwitch = (data: any) => {
-    setType(data.type)
-  }
-  EventBus.addListener(EventTypes.SwitchBgStyle, listenBgStyleSwitch)
+  useEffect(() => {
+    const listenBgStyleSwitch = (data: any) => {
+      setType(data.type)
+    }
+    EventBus.addListener(EventTypes.SwitchBgStyle, listenBgStyleSwitch)
+  }, [])
+
+  useEffect(() => {
+    setMyTheme(theme)
+  }, [theme])
+
 
   return (
     <>

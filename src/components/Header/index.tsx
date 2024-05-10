@@ -151,8 +151,6 @@ export const Header: FC = memo(() => {
   useEffect(() => {
     const storageTheme = localStorage.getItem('themeMode') || 'dark'
     const storageType = localStorage.getItem('storageType') || 'Colors'
-    setType(storageType)
-    switchBgStyle({ type: storageType })
     if (storageTheme == 'dark') {
       switchTheme({ theme: 'dark' })
       setTheme(true)
@@ -160,6 +158,8 @@ export const Header: FC = memo(() => {
       switchTheme({ theme: 'light' })
       setTheme(false)
     }
+    setType(storageType)
+    switchBgStyle({ type: storageType })
     window.addEventListener('scroll', onScroll)
   }, [])
 
