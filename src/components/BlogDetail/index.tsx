@@ -33,7 +33,7 @@ export function BlogDetail(data: { id: string }) {
     initData(data.id)
   }, [data.id])
 
-  return <Box>
+  return <Box sx={{ background: 'rgba(255,255,255,0.9)', padding: 2, borderRadius: 2 }}>
     <Typography security='h1' sx={{ fontSize: 24 }}>{blogInfo?.title}</Typography>
     <Stack direction={'row'} sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
       <Typography security='h2' component={'div'}>

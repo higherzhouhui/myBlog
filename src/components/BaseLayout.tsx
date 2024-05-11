@@ -57,6 +57,7 @@ export default function BasicLayOut(props: { children: ReactNode }) {
     const storageTheme = localStorage.getItem('themeMode') || 'dark'
     setThemeMode(storageTheme)
     switchTheme({ theme: storageTheme })
+    setLoadInit(true)
   }, [])
 
   NProgress.configure({
@@ -69,7 +70,6 @@ export default function BasicLayOut(props: { children: ReactNode }) {
 
   const handleSwitchTheme = (e: any) => {
     const value = e.target.checked
-    console.log(value)
     const themeData = value ? 'dark' : 'light'
     localStorage.setItem('themeMode', value ? 'dark' : 'light')
     setThemeMode(themeData)

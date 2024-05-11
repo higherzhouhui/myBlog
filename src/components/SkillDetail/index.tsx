@@ -2,7 +2,7 @@
 import { BlogListInterface } from "@/interface/common";
 import { getSkillListReq } from "@/service/skill";
 import { Typography, Stack, Box, Button, Divider, Link, styled } from "@mui/material";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const StyledMyMenu = styled(Box)(({ theme }) => ({
@@ -19,7 +19,6 @@ const StyledMyMenu = styled(Box)(({ theme }) => ({
 
 export function SkillDetail(data: { id: string }) {
   const router = useRouter()
-  const path = usePathname()
   const handleBack = () => {
     router.push('/skill')
   }
@@ -46,11 +45,7 @@ export function SkillDetail(data: { id: string }) {
     initData(data.id)
   }, [data.id])
 
-  useEffect(() => {
-    console.log(path)
-  }, [path])
-
-  return <Box>
+  return <Box sx={{ background: 'rgba(255,255,255,0.9)', padding: 2, borderRadius: 2 }}>
     <Typography security='h1' sx={{ fontSize: 24 }}>{blogInfo?.title}</Typography>
     <Stack direction={'row'} sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
       <Typography security='h2' component={'div'}>
