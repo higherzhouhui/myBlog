@@ -51,7 +51,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
   '& .MuiSwitch-track': {
     opacity: 1,
-    backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
+    backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#fff',
     borderRadius: 20 / 2,
   },
 }));
@@ -187,7 +187,7 @@ export const Header: FC = memo(() => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Type"
-              sx={{ color: '#eee' }}
+              sx={{ color: 'primary.light' }}
               onChange={handleChange}
               value={type}
             >

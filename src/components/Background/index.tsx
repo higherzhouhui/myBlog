@@ -24,9 +24,6 @@ export default function BackGroundComp({ theme }: { theme: string }) {
     });
   }, [])
 
-  const FireWorksStyle: any = useMemo(() => {
-    return AmongUs
-  }, [])
 
   const ColorsTheme: any = useMemo(() => {
     const typeObj: any = {
@@ -37,13 +34,13 @@ export default function BackGroundComp({ theme }: { theme: string }) {
       FireWorks,
     }
     const c = typeObj[type]
-    if (theme == 'dark') {
+    if (myTheme == 'dark') {
       c.background.color.value = '#0b1120'
     } else {
       c.background.color.value = '#ddd'
     }
     return c
-  }, [theme, type])
+  }, [myTheme, type])
 
   useEffect(() => {
     const listenBgStyleSwitch = (data: any) => {

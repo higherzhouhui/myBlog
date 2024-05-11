@@ -95,7 +95,7 @@ const itemData = [
     title: 'ANT-DESIGN',
   },
   {
-    img: 'https://www.gonwe.cn/usr/uploads/2023/01/1871578179.jpeg',
+    img: 'https://img2.baidu.com/it/u=1285684926,1468970170&fm=253&fmt=auto&app=138&f=JPEG?w=958&h=500',
     title: 'ELEMENT-UI',
   },
   {

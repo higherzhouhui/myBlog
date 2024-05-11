@@ -38,7 +38,7 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: () => ({
           '.MuiFormLabel-root': {
-            color: '#eee'
+            color: '#06f'
           },
         }),
       }
