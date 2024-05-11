@@ -8,6 +8,7 @@ import { EventBus, EventTypes } from '@/utils/event';
 export default function BackGroundComp({ theme }: { theme: string }) {
 
   const [init, setInit] = useState(false);
+  const [loadInit, setLoadInit] = useState(false)
   const [type, setType] = useState<any>('Colors')
   const [myTheme, setMyTheme] = useState(theme)
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function BackGroundComp({ theme }: { theme: string }) {
       Explosions,
       FireWorks,
     }
+    console.log(myTheme, type)
     const c = typeObj[type]
     if (myTheme == 'dark') {
       c.background.color.value = '#0b1120'
@@ -45,6 +47,7 @@ export default function BackGroundComp({ theme }: { theme: string }) {
   useEffect(() => {
     const listenBgStyleSwitch = (data: any) => {
       setType(data.type)
+      setLoadInit(true)
     }
     EventBus.addListener(EventTypes.SwitchBgStyle, listenBgStyleSwitch)
   }, [])
@@ -57,7 +60,7 @@ export default function BackGroundComp({ theme }: { theme: string }) {
   return (
     <>
       {
-        init ? <Particles
+        init && loadInit ? <Particles
           id="tsparticles"
           options={ColorsTheme}
         /> : null

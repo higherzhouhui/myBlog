@@ -160,6 +160,7 @@ export const Header: FC = memo(() => {
     }
     setType(storageType)
     switchBgStyle({ type: storageType })
+    onScroll()
     window.addEventListener('scroll', onScroll)
   }, [])
 
