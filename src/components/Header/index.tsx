@@ -1,13 +1,13 @@
 'use client';
 import React, { useEffect } from "react";
 import { Box, Button, FormControl, FormControlLabel, IconButton, InputLabel, MenuItem, Select, Switch, styled } from "@mui/material";
-import { FC, memo, useState } from "react";
+import { memo, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { clearTimeout } from "timers";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import Link from "next/link";
 import Image from "next/image"
-import { switchBgStyle, switchTheme } from "@/utils/event";
+import { switchBgStyle } from "@/utils/event";
 
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -58,11 +58,10 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 
 
-export const Header: FC = memo(() => {
+export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handleSwitchTheme: (e: any) => void }) => {
   const [currentPath, setCurrentPath] = useState('/')
   const [scrollDis, setScrollTop] = useState(0)
   const [isShowHeader, setIsShowHeader] = useState(true)
-  const [theme, setTheme] = useState(true)
   const [type, setType] = useState('Colors')
 
   const typeList = [
@@ -137,27 +136,10 @@ export const Header: FC = memo(() => {
     })
   }
 
-  const handleSwitchTheme = (e: any) => {
-    const value = e.target.checked
-    const themeData = {
-      theme: value ? 'dark' : 'light'
-    }
-    localStorage.setItem('themeMode', value ? 'dark' : 'light')
-    switchTheme(themeData)
-  }
-
 
 
   useEffect(() => {
-    const storageTheme = localStorage.getItem('themeMode') || 'dark'
     const storageType = localStorage.getItem('storageType') || 'Colors'
-    if (storageTheme == 'dark') {
-      switchTheme({ theme: 'dark' })
-      setTheme(true)
-    } else {
-      switchTheme({ theme: 'light' })
-      setTheme(false)
-    }
     setType(storageType)
     switchBgStyle({ type: storageType })
     onScroll()
@@ -201,7 +183,7 @@ export const Header: FC = memo(() => {
           </FormControl>
           <FormControlLabel
             onChange={(e) => handleSwitchTheme(e)}
-            control={<MaterialUISwitch checked={theme} />}
+            control={<MaterialUISwitch checked={theme == 'dark' ? true : false} />}
             label=""
           />
         </Box>
