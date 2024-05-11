@@ -22,7 +22,7 @@ import { EventBus, EventTypes } from '@/utils/event';
 export default function BasicLayOut(props: { children: ReactNode }) {
   const [isShowMange, setShowManage] = useState(false)
   const [themeStyle, setThemeStyle] = useState('dark')
-
+  const [loadInit, setLoadInit] = useState(false)
   const path = usePathname()
   const StyledBox = styled(Box)(({ theme }) => ({
     paddingTop: 80,
@@ -32,13 +32,16 @@ export default function BasicLayOut(props: { children: ReactNode }) {
 
   const ThemeProps: any = useMemo(() => {
     let c = darkTheme
-    if (themeStyle == 'dark') {
-      c = darkTheme
-    } else {
-      c = lightTheme
+    if (loadInit) {
+      console.log(themeStyle)
+      if (themeStyle == 'dark') {
+        c = darkTheme
+      } else {
+        c = lightTheme
+      }
     }
     return c
-  }, [themeStyle])
+  }, [themeStyle, loadInit])
 
   const StyledRoot = styled(Box)(({ theme }) => ({
     minHeight: '100vh',
@@ -53,6 +56,7 @@ export default function BasicLayOut(props: { children: ReactNode }) {
     }
     const listenThemeSwitch = (data: any) => {
       setThemeStyle(data.theme)
+      setLoadInit(true)
     }
     EventBus.addListener(EventTypes.SwitchTheme, listenThemeSwitch)
   }, [])
