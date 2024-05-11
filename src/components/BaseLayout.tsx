@@ -75,7 +75,7 @@ export default function BasicLayOut(props: { children: ReactNode }) {
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
       <ThemeProvider theme={ThemeProps}>
-        <BackGroundComp theme={themeStyle} />
+        <BackGroundComp />
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <StyledRoot>

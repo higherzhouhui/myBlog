@@ -5,12 +5,12 @@ import { loadSlim } from "@tsparticles/slim"; // if you are going to use `loadSl
 import { Colors, AmongUs, Confetti, Explosions, FireWorks } from './config'
 import { EventBus, EventTypes } from '@/utils/event';
 
-export default function BackGroundComp({ theme }: { theme: string }) {
+export default function BackGroundComp() {
 
   const [init, setInit] = useState(false);
   const [loadInit, setLoadInit] = useState(false)
   const [type, setType] = useState<any>('Colors')
-  const [myTheme, setMyTheme] = useState(theme)
+  const [myTheme, setMyTheme] = useState('dark')
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
@@ -27,40 +27,44 @@ export default function BackGroundComp({ theme }: { theme: string }) {
 
 
   const ColorsTheme: any = useMemo(() => {
-    const typeObj: any = {
-      Colors,
-      AmongUs,
-      Confetti,
-      Explosions,
-      FireWorks,
+    if (loadInit) {
+      const typeObj: any = {
+        Colors,
+        AmongUs,
+        Confetti,
+        Explosions,
+        FireWorks,
+      }
+      console.log(myTheme, type)
+      const c = typeObj[type]
+      if (myTheme == 'dark') {
+        c.background.color.value = '#0b1120'
+      } else {
+        c.background.color.value = '#ddd'
+      }
+      return c
     }
-    console.log(myTheme, type)
-    const c = typeObj[type]
-    if (myTheme == 'dark') {
-      c.background.color.value = '#0b1120'
-    } else {
-      c.background.color.value = '#ddd'
-    }
-    return c
-  }, [myTheme, type])
+
+  }, [myTheme, type, loadInit])
 
   useEffect(() => {
     const listenBgStyleSwitch = (data: any) => {
       setType(data.type)
       setLoadInit(true)
     }
+    const listenThemeSwitch = (data: any) => {
+      setMyTheme(data.theme)
+    }
     EventBus.addListener(EventTypes.SwitchBgStyle, listenBgStyleSwitch)
+    EventBus.addListener(EventTypes.SwitchTheme, listenThemeSwitch)
   }, [])
 
-  useEffect(() => {
-    setMyTheme(theme)
-  }, [theme])
 
 
   return (
     <>
       {
-        init && loadInit ? <Particles
+        init ? <Particles
           id="tsparticles"
           options={ColorsTheme}
         /> : null

@@ -201,7 +201,7 @@ export const Header: FC = memo(() => {
           </FormControl>
           <FormControlLabel
             onChange={(e) => handleSwitchTheme(e)}
-            control={<MaterialUISwitch defaultChecked={theme} />}
+            control={<MaterialUISwitch checked={theme} />}
             label=""
           />
         </Box>
