@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box, Stack, SxProps } from '@mui/material';
 import Modal from '@mui/material/Modal';
+import { MediaQueryContext } from '@/components/BaseLayout';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -30,6 +31,7 @@ export default function MediaCard() {
 
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
+  const { Sm, Middle, Big } = React.useContext(MediaQueryContext);
 
   const [list, setList] = React.useState([
     { title: 'forkfrenpet链游', label: ['Nextjs', 'React', 'Pwa', 'SSR', 'TailwindCss', 'Etherjs', 'sol/web3'], link: 'https://www.forkfrenpet.com/', logo: '/static/images/fork.png' },
@@ -54,7 +56,7 @@ export default function MediaCard() {
     }
   }
   return (
-    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', rowGap: 3, columnGap: 3, pt: 2, pb: 2 }}>
+    <Box sx={{ display: 'grid', gridTemplateColumns: Big ? 'repeat(4, 1fr)' : Middle ? 'repeat(3, 1fr)' : 'repeat(1, 1fr)', rowGap: Big ? 3 : 2, columnGap: Big ? 3 : 2, padding: Sm ? '0 12px' : '12px 0' }}>
       {
         list.map((item: any, index: number) => {
           return <Card key={index} sx={hoverStyle} style={{ transition: 'all 0.5s' }}>

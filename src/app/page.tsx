@@ -1,6 +1,6 @@
 'use client';
-import React, { useEffect, useRef } from "react";
-import { Alert, Box, Button, Divider, Modal, Stack, Typography, styled } from "@mui/material";
+import React, { useContext, useEffect, useRef } from "react";
+import { Alert, Box, Button, Divider, Grid, Modal, Stack, Typography, styled } from "@mui/material";
 import { useState } from "react";
 import BusinessIcon from '@mui/icons-material/Business';
 import SchoolIcon from '@mui/icons-material/School';
@@ -25,6 +25,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
+import { MediaQueryContext } from "@/components/BaseLayout";
 
 import 'swiper/css';
 
@@ -43,7 +44,7 @@ const iframeStyle = {
 }
 
 
-const BoxStyles = styled(Box)(({ theme }) => ({
+const GridStyles = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.mode == 'dark' ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.8)'
 }));
 
@@ -62,6 +63,8 @@ export default function Home() {
   const [companyVisible, setCompanyVisible] = useState(false)
   const [iframeSrc, setIframeSrc] = useState('')
   const [iframeLoading, setIframeLoading] = useState(true)
+  const { Sm, Middle, Big } = useContext(MediaQueryContext);
+
   const [tabList, setTabList] = useState([
     {
       icon: <ChatIcon color="primary" />, link: '', type: 'modal', img: '/static/images/vx.png',
@@ -154,8 +157,8 @@ export default function Home() {
     }, 2000);
   }
   return (
-    <Box sx={{ padding: 3, display: 'flex', gap: 2 }}>
-      <BoxStyles sx={{ width: 300, borderRadius: 2, p: 2 }}>
+    <Grid container={Sm ? false : true} sx={{ padding: Sm ? '0 12px' : '12px 0' }}>
+      <GridStyles sx={{ borderRadius: 2, p: 2 }} item xs={4}>
         <Box sx={{ textAlign: 'center', mb: 1 }}>
           <Box sx={{ position: 'relative', height: 50, width: 50, margin: '0 auto' }}>
             <Image src='/static/images/avatar.png' layout="fill" alt="bg" />
@@ -200,9 +203,10 @@ export default function Home() {
           </Box> */}
         </Box>
 
-      </BoxStyles>
-      <BoxStyles sx={{ flex: 1, borderRadius: 2, overflow: 'hidden' }}>
-        <Box sx={{ position: 'relative', height: 300 }}>
+      </GridStyles>
+      <Grid item xs={0.25} />
+      <GridStyles sx={{ borderRadius: 2, overflow: 'hidden' }} item xs={7.75}>
+        <Box sx={{ position: 'relative', height: Sm ? 120 : 300 }}>
           <Swiper
             loop
             centeredSlides={true}
@@ -213,7 +217,7 @@ export default function Home() {
             modules={[Autoplay]}
           >
             {imageList.map((item, index: number) => (
-              <SwiperSlide key={index} style={{ width: '100%', height: '300px', position: 'relative' }}>
+              <SwiperSlide key={index} style={{ width: '100%', height: Sm ? '150px' : '300px', position: 'relative' }}>
                 <Image src={item} fill alt="bg" />
               </SwiperSlide>
             ))}
@@ -258,7 +262,7 @@ export default function Home() {
             })
           }
         </Timeline>
-      </BoxStyles>
+      </GridStyles>
       <Modal
         open={open}
         onClose={() => setOpen(false)}
@@ -278,7 +282,7 @@ export default function Home() {
           </Box>
         </Box>
       </Modal>
-    </Box >
+    </Grid >
   );
 }
 

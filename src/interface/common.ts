@@ -25,3 +25,9 @@ export interface BlogResponseInterface {
     list: BlogListInterface[],
   }
 }
+
+export interface AppContextProps {
+  Sm: boolean,
+  Middle: boolean,
+  Big: boolean,
+}

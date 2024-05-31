@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { BlogListInterface } from "@/interface/common";
 import { Box, Button, Skeleton, Stack, Tab, Tabs, Typography, styled, Pagination } from "@mui/material";
 import { useState } from "react";
@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRouter } from 'next/navigation';
 import { getBlogListReq } from "@/service/common";
 import 'swiper/css';
+import { MediaQueryContext } from "@/components/BaseLayout";
 
 export default function Home() {
   const [tabValue, setTabValue] = useState('all');
@@ -15,6 +16,8 @@ export default function Home() {
   const [pageNum, setPageNum] = useState(1)
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)
+  const { Sm } = useContext(MediaQueryContext);
+
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setTabValue(newValue);
   };
@@ -116,7 +119,7 @@ export default function Home() {
   }, [pageNum, tabValue, blogList])
 
   return (
-    <Box sx={{ padding: 3 }}>
+    <Box sx={{ padding: Sm ? '0 12px' : '12px 0' }}>
       <Typography security='h1' sx={{ color: 'secondary.light' }}>
         Welcome
       </Typography>
@@ -133,7 +136,7 @@ export default function Home() {
           style={{ padding: '12px 0' }}
         >
           {recommendList.map((item, index: number) => (
-            <SwiperSlide key={index} style={{ width: '320px' }}>
+            <SwiperSlide key={index} style={{ width: Sm ? '100%' : '320px' }}>
               <MyCard>
                 <Stack direction={'row'}>
                   <Box>
@@ -200,7 +203,7 @@ export default function Home() {
           {
             loading ? [...Array(6)].map((item, index: number) => {
               return <Box key={index} style={{ width: '100%' }}>
-                <Skeleton sx={{ bgcolor: 'primary.light' }} variant="rectangular" width={1152} height={120} />
+                <Skeleton sx={{ bgcolor: 'primary.light' }} variant="rectangular" width={'100%'} height={120} />
               </Box>
             }) : null
           }

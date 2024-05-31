@@ -1,20 +1,11 @@
 "use client"
 import * as React from 'react';
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardMedia, Skeleton, Typography, styled } from '@mui/material';
+import { Box, Button, Card, CardContent, CardMedia, Skeleton, Typography, styled } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { getSkillListReq } from '@/service/skill';
 import { BlogListInterface } from '@/interface/common';
+import { MediaQueryContext } from '@/components/BaseLayout';
 
-const MyGrid = styled('div')(({ theme }) =>
-  theme.unstable_sx({
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    columnGap: 2,
-    rowGap: 2,
-    mt: 2,
-    mb: 2,
-  }),
-);
 
 const StyledMyCard = styled(Card)(({ theme }) => ({
   display: 'flex',
@@ -30,6 +21,17 @@ export default function SkillPage() {
   const router = useRouter()
   const [list, setList] = React.useState([])
   const [loading, setLoading] = React.useState(true)
+  const { Sm } = React.useContext(MediaQueryContext);
+  const MyGrid = styled('div')(({ theme }) =>
+    theme.unstable_sx({
+      display: 'grid',
+      gridTemplateColumns: Sm ? 'repeat(1, 1fr)' : 'repeat(2, 1fr)',
+      columnGap: 2,
+      rowGap: 2,
+      mt: 2,
+      mb: 2,
+    }),
+  );
   const initData = async () => {
     setLoading(true)
     try {
@@ -48,8 +50,8 @@ export default function SkillPage() {
     initData()
   }, [])
   return (
-    <Box sx={{ minHeight: 'calc(100vh - 80px)' }}>
-      <Box sx={{ backgroundImage: 'url(http://cn.bing.com/iod/1366/1024/201706221600)', height: 320, width: '100%' }}>
+    <Box sx={{ minHeight: 'calc(100vh - 80px)', padding: Sm ? '0 12px' : '12px 0' }}>
+      <Box sx={{ backgroundImage: 'url(http://cn.bing.com/iod/1366/1024/201706221600)', height: Sm ? 420 : 320, width: '100%' }}>
         <Typography sx={{ color: '#fff', fontSize: 32, pt: 6, ml: 4, letterSpacing: 4 }}>致力于技术分享与生活记录</Typography>
         <Typography sx={{ color: '#fff', fontSize: 16, mt: 4, ml: 4, letterSpacing: 2 }}>我原要昂扬独步天下，奈何却忍辱藏于污泥；我梦在叱咤风云，却无奈苦候时机；难道登峰造极，途中遍是荆棘……
         </Typography>
@@ -61,7 +63,7 @@ export default function SkillPage() {
           list.map((item: BlogListInterface, index) => {
             return <StyledMyCard key={index} onClick={() => handleToDetail(item)}>
               <CardMedia
-                sx={{ height: '100%', width: 200, minWidth: 200, backgroundSize: 'contain', bgcolor: 'secondary' }}
+                sx={{ height: '100%', width: Sm ? 100 : 200, minWidth: Sm ? 100 : 200, backgroundSize: 'contain', bgcolor: 'secondary' }}
                 image={item.logo}
                 title="green iguana"
               />

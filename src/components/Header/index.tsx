@@ -1,6 +1,6 @@
 'use client';
-import React, { useEffect } from "react";
-import { Box, Button, FormControl, FormControlLabel, IconButton, InputLabel, MenuItem, Select, Switch, styled } from "@mui/material";
+import React, { useContext, useEffect } from "react";
+import { Box, Button, Divider, Drawer, FormControl, FormControlLabel, IconButton, InputLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Select, Switch, styled } from "@mui/material";
 import { memo, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { clearTimeout } from "timers";
@@ -8,6 +8,8 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import Link from "next/link";
 import Image from "next/image"
 import { switchBgStyle } from "@/utils/event";
+import { MediaQueryContext } from "@/components/BaseLayout";
+import { MenuBook, Home, Menu as MenuIcon, Computer, CameraAlt, Assignment } from "@mui/icons-material";
 
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -63,6 +65,12 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
   const [scrollDis, setScrollTop] = useState(0)
   const [isShowHeader, setIsShowHeader] = useState(true)
   const [type, setType] = useState('Colors')
+  const { Sm, Middle, Big } = useContext(MediaQueryContext);
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
 
   const typeList = [
     { label: '五彩线条', value: 'Colors' },
@@ -73,15 +81,16 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
   ]
 
   const menuList = [
-    { name: '首页', path: '/' },
-    { name: '文章', path: '/blog' },
-    { name: '技能', path: '/skill' },
-    { name: '作品', path: '/work' },
-    { name: '相册', path: '/photo' },
+    { name: '首页', path: '/', icon: <Home sx={{ color: currentPath == '/' ? 'primary.main' : '' }} /> },
+    { name: '文章', path: '/blog', icon: <MenuBook sx={{ color: currentPath == '/blog' ? 'primary.main' : '' }} /> },
+    { name: '技能', path: '/skill', icon: <Computer sx={{ color: currentPath == '/skill' ? 'primary.main' : '' }} /> },
+    { name: '作品', path: '/work', icon: <Assignment sx={{ color: currentPath == '/work' ? 'primary.main' : '' }} /> },
+    { name: '相册', path: '/photo', icon: <CameraAlt sx={{ color: currentPath == '/photo' ? 'primary.main' : '' }} /> },
   ]
   const router = useRouter()
   const path = usePathname()
   const handleMenuClick = (path: string) => {
+    toggleDrawer(false)
     router.push(path)
   }
   const StyledBoxBase = styled(Box)(({ theme }) => ({
@@ -148,11 +157,11 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
 
 
   return (
-    <StyledBoxBase sx={{ bgcolor: !scrollDis ? 'rgba(0,0,0,0.2)' : '#0b1120', boxShadow: !scrollDis ? 'none' : '0.5px 0.5px 0.5px #333', height: isShowHeader ? '80px' : '0', transition: 'all 0.5s' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '100%', alignItems: 'center', width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+    <StyledBoxBase sx={{ bgcolor: !scrollDis ? 'rgba(0,0,0,0.2)' : '#0b1120', boxShadow: !scrollDis ? 'none' : '0.5px 0.5px 0.5px #333', height: isShowHeader ? Sm ? '60px' : '80px' : '0', transition: 'all 0.5s' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '100%', alignItems: 'center', width: '100%', maxWidth: Big ? 1400 : Middle ? 1160 : '100%', margin: '0 auto', padding: Sm ? '0 12px' : 0 }}>
         <Box sx={{ display: 'flex' }}>
-          <Link href='/'><Image src={'/static/images/logo.png'} objectFit="contain" alt="logo" width={100} height={40} /></Link>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px', marginLeft: 8 }}>
+          <Link href='/'><Image src={'/static/images/logo.png'} objectFit="contain" alt="logo" width={Sm ? 70 : 100} height={Sm ? 30 : 40} /></Link>
+          <Box sx={{ display: Sm ? 'none' : 'flex', alignItems: 'center', gap: '20px', marginLeft: 8 }}>
             {
               menuList.map((item, index) => {
                 // eslint-disable-next-line @next/next/no-img-element
@@ -163,37 +172,71 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
             }
           </Box>
         </Box>
-        <Box sx={{ marginRight: '-1rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <FormControl sx={{ width: '130px', color: '#fff' }} size="small">
-            <InputLabel id="demo-simple-select-label">BgStyle</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Type"
-              sx={{ color: 'primary.light' }}
-              onChange={handleChange}
-              value={type}
-            >
-              {
-                typeList.map((item) => {
-                  return <MenuItem key={item.label} value={item.value}>{item.label}</MenuItem>
-                })
-              }
-            </Select>
-          </FormControl>
-          <FormControlLabel
-            onChange={(e) => handleSwitchTheme(e)}
-            control={<MaterialUISwitch checked={theme == 'dark' ? true : false} />}
-            label=""
-          />
-        </Box>
-      </Box>
+        <Box>
+          {
+            Sm ? <Box>
+              <Button onClick={toggleDrawer(true)}><MenuIcon sx={{ fontSize: 30 }} /></Button>
+              <Drawer open={open} onClose={toggleDrawer(false)} anchor='right'>
+                <Box sx={{ width: 250 }} role="presentation">
+                  <List>
+                    <ListItem sx={{ bgcolor: '#ccc' }}>
+                      <FormControlLabel
+                        onChange={(e) => handleSwitchTheme(e)}
+                        control={<MaterialUISwitch checked={theme == 'dark' ? true : false} />}
+                        label="主题"
+                      />
+                    </ListItem>
+                  </List>
+                  <Divider />
+                  <List>
+                    {menuList.map((item, index) => (
+                      <ListItem key={item.name} disablePadding onClick={() => handleMenuClick(item.path)}>
+                        <ListItemButton sx={{ color: currentPath == item.path ? 'primary.main' : '' }}>
+                          <ListItemIcon>
+                            {item.icon}
+                          </ListItemIcon>
+                          <ListItemText primary={item.name} />
+                        </ListItemButton>
+                      </ListItem>
+                    ))}
+                  </List>
 
-      <Box sx={{ position: 'fixed', right: 100, bottom: 20, display: scrollDis > 200 ? 'block' : 'none' }} onClick={() => scrollTop()}>
+                </Box>
+              </Drawer>
+            </Box> : <Box sx={{ marginRight: '-1rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <FormControl sx={{ width: '130px', color: '#fff' }} size="small">
+                <InputLabel id="demo-simple-select-label">BgStyle</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Type"
+                  sx={{ color: 'primary.light' }}
+                  onChange={handleChange}
+                  value={type}
+                >
+                  {
+                    typeList.map((item) => {
+                      return <MenuItem key={item.label} value={item.value}>{item.label}</MenuItem>
+                    })
+                  }
+                </Select>
+              </FormControl>
+              <FormControlLabel
+                onChange={(e) => handleSwitchTheme(e)}
+                control={<MaterialUISwitch checked={theme == 'dark' ? true : false} />}
+                label=""
+              />
+            </Box>
+          }
+        </Box>
+
+      </Box>
+      <Box sx={{ position: 'fixed', right: Big ? 100 : Middle ? 80 : 20, bottom: 20, display: scrollDis > 200 ? 'block' : 'none' }} onClick={() => scrollTop()}>
         <IconButton aria-label="Example">
-          <ArrowCircleUpIcon sx={{ width: 50, height: 50, color: 'primary.light' }} />
+          <ArrowCircleUpIcon sx={{ width: Big ? 50 : 30, height: Big ? 50 : 30, color: 'primary.light' }} />
         </IconButton>
       </Box>
+
     </StyledBoxBase>
   )
 })

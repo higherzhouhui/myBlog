@@ -1,25 +1,37 @@
 "use client"
+import BackGroundComp from '@/components/Background';
+import { ReactNode, useState, useEffect, Suspense, useMemo, createContext } from 'react';
+import { usePathname } from 'next/navigation';
+import { switchTheme } from '@/utils/event';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { darkTheme, lightTheme } from '@/theme';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Box, styled } from '@mui/material';
+import { Box, styled, useMediaQuery } from '@mui/material';
 import BasicSpeedDial from '@/components/SpeedDial';
 import { Toaster } from 'react-hot-toast';
 import NProgress from "nprogress"
+import { AppContextProps } from '@/interface/common'
+
 import 'nprogress/nprogress.css' //这个样式必须引入
 
 import '@/app/globals.css'
 import './style.css'
 
-import BackGroundComp from '@/components/Background';
-import { ReactNode, useState, useEffect, Suspense, useMemo } from 'react';
-import { usePathname } from 'next/navigation';
-import { EventBus, EventTypes, switchTheme } from '@/utils/event';
+
+export const MediaQueryContext = createContext<AppContextProps>({
+  Sm: false,
+  Middle: false,
+  Big: false,
+});
 
 export default function BasicLayOut(props: { children: ReactNode }) {
+  const Sm = useMediaQuery('(max-width: 1200px)')
+  const Middle = useMediaQuery('(min-width: 1200px) and (max-width: 1440px)')
+  const Big = useMediaQuery('(min-width: 1440px)')
+
   const [isShowMange, setShowManage] = useState(false)
   const [themeMode, setThemeMode] = useState('dark')
   const [loadInit, setLoadInit] = useState(false)
@@ -89,17 +101,22 @@ export default function BasicLayOut(props: { children: ReactNode }) {
         <BackGroundComp />
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <StyledRoot>
-          <Header theme={themeMode} handleSwitchTheme={handleSwitchTheme} />
-          <StyledBox>
-            <Suspense>
-              <Box sx={{ flex: 1, height: '100%', maxWidth: 1200, width: '100%', margin: '0 auto' }}>
-                {props.children}
-                <Footer />
-              </Box>
-            </Suspense>
-          </StyledBox>
-        </StyledRoot>
+        <MediaQueryContext.Provider value={{ Sm, Middle, Big }}>
+          {
+            (Sm || Middle || Big) ? <StyledRoot>
+              <Header theme={themeMode} handleSwitchTheme={handleSwitchTheme} />
+              <StyledBox>
+                <Suspense>
+                  <Box sx={{ flex: 1, height: '100%', maxWidth: Big ? 1400 : Middle ? 1160 : '100%', width: '100%', margin: '0 auto' }}>
+                    {props.children}
+                    <Footer />
+                  </Box>
+                </Suspense>
+              </StyledBox>
+            </StyledRoot> : null
+          }
+
+        </MediaQueryContext.Provider>
         {
           isShowMange ? <Suspense>
             <BasicSpeedDial />
