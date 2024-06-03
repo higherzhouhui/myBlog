@@ -1,0 +1,62 @@
+{
+  "dir": "ltr",
+  "lang": "en-US",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "name": "Wind",
+  "short_name": "Wind",
+  "description": "Grow and battle Fren Pets with Frens.",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "permissions": ["clipboard-write"],
+  "icons": [
+    {
+      "src": "icons/64x64.png",
+      "sizes": "64x64",
+      "type": "image/x-icon",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/228x228.png",
+      "sizes": "228x228",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "splash_pages": null,
+  "screenshots": [
+    {
+      "src": "icons/512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "icons/512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "form_factor": "wide"
+    }
+  ],
+  "features": [
+    "Cross Platform",
+    "fast",
+    "simple"
+  ],
+  "categories": [
+    "utilities"
+  ]
+}

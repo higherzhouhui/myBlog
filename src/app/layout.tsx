@@ -11,6 +11,8 @@ export const metadata: Metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <link rel="manifest" href="/manifest.json" />
+      <link rel="icon" href="/favicon.ico" />
       <body>
         <BasicLayOut>
           {props.children}
