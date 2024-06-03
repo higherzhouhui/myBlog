@@ -6,7 +6,7 @@ import { Box } from "@mui/material";
 
 export default function Detail({ params }: { params: { slug: string[] } }) {
   return (
-    <Box sx={{ height: '100%', padding: '24px', overflow: 'auto' }}>
+    <Box sx={{ height: '100%', padding: '24px 0', overflow: 'auto' }}>
       <SkillDetail id={params.slug[0]} />
     </Box>
   );

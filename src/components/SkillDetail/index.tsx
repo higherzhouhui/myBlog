@@ -21,7 +21,7 @@ export function SkillDetail(data: { id: string }) {
     position: 'fixed',
     top: 160,
     right: Middle ? 60 : 100,
-    width: Middle ? 250 : 300,
+    maxWidth: Middle ? 250 : 300,
   }));
   const [blogInfo, setBlogInfo] = useState<BlogListInterface>({
     title: '',
