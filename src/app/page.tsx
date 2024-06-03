@@ -158,7 +158,7 @@ export default function Home() {
   }
   return (
     <Grid container={Sm ? false : true} sx={{ padding: Sm ? '0 12px' : '12px 0' }}>
-      <GridStyles sx={{ borderRadius: 2, p: 2 }} item xs={4}>
+      <GridStyles sx={{ borderRadius: 2, p: 2 }} item xs={3.25}>
         <Box sx={{ textAlign: 'center', mb: 1 }}>
           <Box sx={{ position: 'relative', height: 50, width: 50, margin: '0 auto' }}>
             <Image src='/static/images/avatar.png' layout="fill" alt="bg" />
@@ -205,7 +205,7 @@ export default function Home() {
 
       </GridStyles>
       <Grid item xs={0.25} />
-      <GridStyles sx={{ borderRadius: 2, overflow: 'hidden' }} item xs={7.75}>
+      <GridStyles sx={{ borderRadius: 2, overflow: 'hidden' }} item xs={8.5}>
         <Box sx={{ position: 'relative', height: Sm ? 120 : 300 }}>
           <Swiper
             loop
