@@ -5,11 +5,12 @@ import { Typography, Stack, Box, Button, Divider, Link, styled, Grid } from "@mu
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { MediaQueryContext } from "../BaseLayout";
-
+import ArticleIcon from '@mui/icons-material/Article';
 
 export function SkillDetail(data: { id: string }) {
   const { Sm, Middle } = useContext(MediaQueryContext);
   const router = useRouter()
+  const [isShowMenu, setIsShowMenu] = useState(!Sm)
   const handleBack = () => {
     router.push('/skill')
   }
@@ -19,8 +20,8 @@ export function SkillDetail(data: { id: string }) {
     borderRadius: '6px',
     boxShadow: '1px 2px 2px #ccc',
     position: 'fixed',
-    top: 160,
-    right: Middle ? 60 : 100,
+    top: Sm ? 130 : 160,
+    right: Middle ? 60 : Sm ? 30 : 100,
     maxWidth: Middle ? 250 : 300,
   }));
   const [blogInfo, setBlogInfo] = useState<BlogListInterface>({
@@ -62,18 +63,21 @@ export function SkillDetail(data: { id: string }) {
     <Divider sx={{ mt: 4, mb: 4 }} />
     <Grid container sx={{ position: 'relative', overflow: 'auto' }}>
       <Grid item xs={Sm ? 12 : 9.5}>
-        <div dangerouslySetInnerHTML={{ __html: blogInfo.content || '' }}></div>
+        <div dangerouslySetInnerHTML={{ __html: blogInfo.content || '' }} style={{ wordBreak: 'break-all' }}></div>
       </Grid>
     </Grid>
     {
-      Sm ? null : <StyledMyMenu>
+      Sm ? <Box sx={{ position: 'fixed', top: 100, right: 30, }} onClick={() => setIsShowMenu(!isShowMenu)}><ArticleIcon sx={{ color: 'primary.main', fontSize: 32 }} /></Box> : null
+    }
+    {
+      isShowMenu ? <StyledMyMenu>
         <Box sx={{ textAlign: 'center', mb: 1 }}><Button onClick={() => handleBack()} variant="contained">返回</Button></Box>
         {
           blogInfo.hrefList?.map((item: any, index: number) => {
             return <Box key={item.title} sx={{ mb: 1 }}><Link href={`#${item.name}`} color={'primary'}>{index + 1}.{item.title}</Link></Box>
           })
         }
-      </StyledMyMenu>
+      </StyledMyMenu> : null
     }
   </Box>
 }

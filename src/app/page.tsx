@@ -77,7 +77,7 @@ export default function Home() {
     },
   ])
   const labelList = [
-    'Web前端开发', '经验丰富', '数字游民', '远程办公', 'UniApp', '微信小程序', '网站设计/搭建', '正规科班', '一类本科', '计算机专业', '项目整包', '多渠道结算', '快速高效'
+    'Web前端开发', '8年+经验', 'WEB3.0', '日活10w+项目', '区块链', '数字游民', '远程办公', 'UniApp', '微信小程序', '网站设计/搭建', '正规科班', '一类本科', '计算机专业', '项目整包', '多渠道结算', '快速高效', '全栈开发',
   ]
   const skillList = [
     'React', 'Vue2', 'Vue3', 'Angular', 'JQuery', 'NextJs', 'NustJs', 'NodeJs', 'Ant-Design', 'Element-Ui', 'Element-Plus', 'Mysql', 'Prisma', 'Pwa', 'EtherJs', 'Web3Js', 'Solidity', 'Mui', 'Component-Styled'
@@ -165,7 +165,7 @@ export default function Home() {
           </Box>
           <Typography color={'primary'}>风中追风</Typography>
         </Box>
-        <Alert icon={false} severity="success">世界经济史是一部基于假象和谎言的连续剧。要获得财富，做法就是认清其假象，投入其中，然后在假象被公众认识之前退出游戏！</Alert>
+        <Alert icon={false} severity="success">我曾踏足山巅，也曾进入低谷，二者都让我受益良多，攀登的过程虽然漫长，但巅峰的风景却是值得的，失败始终是最好的导师，掌控命运，否则命运将掌控你。</Alert>
         <Stack direction={'row'} sx={{ gap: 2, justifyContent: 'center', mt: 2 }}>
           {
             tabList.map(item => {

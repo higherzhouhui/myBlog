@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useContext } from "react";
 import { BlogListInterface } from "@/interface/common";
-import { Box, Button, Skeleton, Stack, Tab, Tabs, Typography, styled, Pagination } from "@mui/material";
+import { Box, Button, Skeleton, Stack, Tab, Tabs, Typography, styled, Pagination, Grid } from "@mui/material";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRouter } from 'next/navigation';
@@ -167,13 +167,13 @@ export default function Home() {
         </Swiper>
       </Box>
       {
-        loading ? <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', columnGap: '18px' }}>
+        loading ? <Grid container spacing={2}>
           {
-            [...Array(4)].map((item, index: number) => {
-              return <Skeleton sx={{ bgcolor: 'primary.light' }} variant="rectangular" height={300} key={index} />
+            [...Array(Sm ? 1 : 4)].map((item, index: number) => {
+              return <Grid item xs={Sm ? 12 : 3} key={index}><Skeleton sx={{ bgcolor: 'primary.light' }} variant="rectangular" height={300} key={index} /></Grid>
             })
           }
-        </Box> : null
+        </Grid> : null
       }
       <Tabs value={tabValue} onChange={handleChange} aria-label="basic tabs example" sx={{ marginBottom: '20px' }}>
         {
