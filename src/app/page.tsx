@@ -77,7 +77,7 @@ export default function Home() {
     },
   ])
   const labelList = [
-    'Web前端开发', '8年+经验', 'WEB3.0', '日活10w+项目', '区块链', '数字游民', '网站设计/搭建', '远程办公', 'UniApp', '微信小程序', '正规科班', '专业对口', '计算机专业', '项目整包', '多渠道结算', '快速高效', '全栈开发', '性价比超高',
+    'Web前端开发', '8年+经验', '日活10w+项目', 'WEB3.0', '网站设计/搭建', '区块链', '数字游民', '网站设计/搭建', '远程办公', 'UniApp', '微信小程序', '正规科班', '专业对口', '计算机专业', '项目整包', '多渠道结算', '快速高效', '全栈开发', '性价比超高',
   ]
   const skillList = [
     'React', 'Vue2', 'Vue3', 'Angular', 'JQuery', 'NextJs', 'NustJs', 'NodeJs', 'Ant-Design', 'Element-Ui', 'Element-Plus', 'Mysql', 'Prisma', 'Pwa', 'EtherJs', 'Web3Js', 'Solidity', 'Mui', 'Component-Styled'
@@ -182,7 +182,7 @@ export default function Home() {
         <Box sx={{ mt: 1 }}>
           <Typography component={'div'} sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 1, color: 'primary.dark', }}><SettingsAccessibilityIcon sx={{ mr: 1 }} />标签：</Typography>
           <Divider />
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 2, justifyContent: 'space-around' }}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 2, justifyContent: 'space-between' }}>
             {
               labelList.map((item, index) => {
                 return <Button variant={'contained'} color={colorList[Math.floor(Math.random() * 6)]} size="small" key={item}>{item}</Button>
