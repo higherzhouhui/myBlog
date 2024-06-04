@@ -21,3 +21,6 @@
   border: solid 2px #ccc;
 }
 
+.divRichText p{
+  word-break: break-all;
+}

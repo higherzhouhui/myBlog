@@ -63,7 +63,7 @@ export default function Home() {
   const [companyVisible, setCompanyVisible] = useState(false)
   const [iframeSrc, setIframeSrc] = useState('')
   const [iframeLoading, setIframeLoading] = useState(true)
-  const { Sm, Middle, Big } = useContext(MediaQueryContext);
+  const { Sm } = useContext(MediaQueryContext);
 
   const [tabList, setTabList] = useState([
     {
@@ -77,13 +77,13 @@ export default function Home() {
     },
   ])
   const labelList = [
-    'Web前端开发', '8年+经验', 'WEB3.0', '日活10w+项目', '区块链', '数字游民', '远程办公', 'UniApp', '微信小程序', '网站设计/搭建', '正规科班', '一类本科', '计算机专业', '项目整包', '多渠道结算', '快速高效', '全栈开发',
+    'Web前端开发', '8年+经验', 'WEB3.0', '日活10w+项目', '区块链', '数字游民', '网站设计/搭建', '远程办公', 'UniApp', '微信小程序', '正规科班', '专业对口', '计算机专业', '项目整包', '多渠道结算', '快速高效', '全栈开发', '性价比超高',
   ]
   const skillList = [
     'React', 'Vue2', 'Vue3', 'Angular', 'JQuery', 'NextJs', 'NustJs', 'NodeJs', 'Ant-Design', 'Element-Ui', 'Element-Plus', 'Mysql', 'Prisma', 'Pwa', 'EtherJs', 'Web3Js', 'Solidity', 'Mui', 'Component-Styled'
   ]
   const colorList: any = [
-    "primary", "success", "error", "warning"
+    "primary", "success", "error", "warning", "info"
   ]
   const workList = [
     {
@@ -122,7 +122,7 @@ export default function Home() {
       ]
     },
     {
-      time: '2022.03-2024.04',
+      time: '2022.03-2024.05',
       company: '重庆团望科技有限公司',
       icon: <AssuredWorkloadIcon color='action' />,
       pos: 'WEB项目组->中级前端开发',
@@ -182,10 +182,10 @@ export default function Home() {
         <Box sx={{ mt: 1 }}>
           <Typography component={'div'} sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 1, color: 'primary.dark', }}><SettingsAccessibilityIcon sx={{ mr: 1 }} />标签：</Typography>
           <Divider />
-          <Box>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 2, justifyContent: 'space-around' }}>
             {
               labelList.map((item, index) => {
-                return <Button variant={'contained'} color={colorList[Math.floor(Math.random() * 5)]} size="small" key={item} sx={{ mb: 1, mt: 1, mr: '3px' }}>{item}</Button>
+                return <Button variant={'contained'} color={colorList[Math.floor(Math.random() * 6)]} size="small" key={item}>{item}</Button>
               })
             }
           </Box>
@@ -204,7 +204,7 @@ export default function Home() {
         </Box>
 
       </GridStyles>
-      <Grid item xs={0.25} />
+      <Grid item xs={0.25} sx={{ mb: Sm ? 2 : 0 }} />
       <GridStyles sx={{ borderRadius: 2, overflow: 'hidden' }} item xs={8.5}>
         <Box sx={{ position: 'relative', height: Sm ? 120 : 300 }}>
           <Swiper
@@ -224,7 +224,7 @@ export default function Home() {
           </Swiper>
 
         </Box>
-        <Timeline position="alternate">
+        <Timeline position={Sm ? 'right' : 'alternate-reverse'}>
           {
             workList.reverse().map(item => {
               return <TimelineItem key={item.time}>
@@ -270,7 +270,7 @@ export default function Home() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Image src='/static/images/vx.png' width={400} height={500} alt="vx" />
+          <Image src='/static/images/vx.png' width={375} height={450} alt="vx" />
         </Box>
       </Modal>
       <Modal open={companyVisible} onClose={() => setCompanyVisible(false)} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description"

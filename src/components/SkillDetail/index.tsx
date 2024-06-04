@@ -63,7 +63,7 @@ export function SkillDetail(data: { id: string }) {
     <Divider sx={{ mt: 4, mb: 4 }} />
     <Grid container sx={{ position: 'relative', overflow: 'auto' }}>
       <Grid item xs={Sm ? 12 : 9.5}>
-        <div dangerouslySetInnerHTML={{ __html: blogInfo.content || '' }} style={{ wordBreak: 'break-all' }}></div>
+        <div className="divRichText" dangerouslySetInnerHTML={{ __html: blogInfo.content || '' }} style={{ wordBreak: 'break-all' }}></div>
       </Grid>
     </Grid>
     {

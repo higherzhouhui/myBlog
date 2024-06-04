@@ -231,9 +231,9 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
         </Box>
 
       </Box>
-      <Box sx={{ position: 'fixed', right: Big ? 100 : Middle ? 80 : 20, bottom: 20, display: scrollDis > 200 ? 'block' : 'none' }} onClick={() => scrollTop()}>
+      <Box sx={{ position: 'fixed', right: Big ? 100 : Middle ? 80 : 30, bottom: 60, display: scrollDis > 200 ? 'block' : 'none', zIndex: 999 }} onClick={() => scrollTop()}>
         <IconButton aria-label="Example">
-          <ArrowCircleUpIcon sx={{ width: Big ? 50 : 30, height: Big ? 50 : 30, color: 'primary.light' }} />
+          <ArrowCircleUpIcon sx={{ width: Big ? 50 : 30, height: Big ? 50 : 40, color: 'primary.light' }} />
         </IconButton>
       </Box>
 
