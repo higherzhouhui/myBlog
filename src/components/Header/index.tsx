@@ -9,7 +9,7 @@ import Link from "next/link";
 import Image from "next/image"
 import { switchBgStyle } from "@/utils/event";
 import { MediaQueryContext } from "@/components/BaseLayout";
-import { MenuBook, Home, Menu as MenuIcon, Computer, CameraAlt, Assignment } from "@mui/icons-material";
+import { MenuBook, Home, Menu as MenuIcon, Computer, CameraAlt, Assignment, PermContactCalendar } from "@mui/icons-material";
 
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -84,7 +84,8 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
     { name: '首页', path: '/', icon: <Home sx={{ color: currentPath == '/' ? 'primary.main' : '' }} /> },
     { name: '文章', path: '/blog', icon: <MenuBook sx={{ color: currentPath == '/blog' ? 'primary.main' : '' }} /> },
     { name: '技能', path: '/skill', icon: <Computer sx={{ color: currentPath == '/skill' ? 'primary.main' : '' }} /> },
-    { name: '作品', path: '/work', icon: <Assignment sx={{ color: currentPath == '/work' ? 'primary.main' : '' }} /> },
+    { name: '项目', path: '/work', icon: <Assignment sx={{ color: currentPath == '/work' ? 'primary.main' : '' }} /> },
+    { name: '关于', path: '/about', icon: <PermContactCalendar sx={{ color: currentPath == '/about' ? 'primary.main' : '' }} /> },
     { name: '相册', path: '/photo', icon: <CameraAlt sx={{ color: currentPath == '/photo' ? 'primary.main' : '' }} /> },
   ]
   const router = useRouter()
