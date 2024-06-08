@@ -65,8 +65,9 @@ export default function BlogEdit() {
         formData.time = moment().format('YYYY-MM-DD HH:mm:ss')
         formData.id = new Date().getTime()
       }
-      formData.content = handleContentRule().content
-      formData.hrefList = handleContentRule().hrefList
+      const { content, hrefList } = handleContentRule()
+      formData.content = content
+      formData.hrefList = hrefList
       formData.lookNum = Math.round(Math.random() * 10000)
       PostSkillListReq(formData).then((res: any) => {
         if (res.code == 200) {
@@ -113,15 +114,17 @@ export default function BlogEdit() {
         const title = matchs2[1]
         const reg = /\"#(.*?)\"/;
         const matches1: any = reg.exec(item);
-        const name = matches1[1]
-        let itemStr = item.replace('target=""', `name="${name}"`)
-        itemStr = item.replace('target="_blank"', `name="${name}"`)
-        itemStr = item.replace('target', `name="${name}"`)
-        str = str.replace(item, itemStr)
-        hrefList.push({
-          name,
-          title,
-        })
+        if (matches1 && matches1[1]) {
+          const name = matches1[1]
+          let itemStr = item.replace('target=""', `name="${name}"`)
+          itemStr = item.replace('target="_blank"', `name="${name}"`)
+          itemStr = item.replace('target', `name="${name}"`)
+          str = str.replace(item, itemStr)
+          hrefList.push({
+            name,
+            title,
+          })
+        }
       })
 
     } catch (error) {
