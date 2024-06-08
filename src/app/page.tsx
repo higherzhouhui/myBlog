@@ -1,30 +1,22 @@
 'use client';
-import React, { useContext, useEffect, useRef } from "react";
-import { Alert, Box, Button, ButtonGroup, Divider, Grid, Modal, Stack, Typography, styled } from "@mui/material";
+import React, { useEffect, useRef } from "react";
+import { Box, Button, ButtonGroup, Typography } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { MediaQueryContext } from "@/components/BaseLayout";
-import { MenuBook, Home as HomeIcon, Menu as MenuIcon, Computer, CameraAlt, Assignment, PermContactCalendar } from "@mui/icons-material";
-
-import 'swiper/css';
-
-
-let currentPath = '/'
 
 const menuList = [
-  { name: '首页', path: '/', icon: <HomeIcon sx={{ color: currentPath == '/' ? 'primary.main' : '' }} /> },
-  { name: '文章', path: '/blog', icon: <MenuBook sx={{ color: currentPath == '/blog' ? 'primary.main' : '' }} /> },
-  { name: '技能', path: '/skill', icon: <Computer sx={{ color: currentPath == '/skill' ? 'primary.main' : '' }} /> },
-  { name: '项目', path: '/work', icon: <Assignment sx={{ color: currentPath == '/work' ? 'primary.main' : '' }} /> },
-  { name: '关于', path: '/about', icon: <PermContactCalendar sx={{ color: currentPath == '/about' ? 'primary.main' : '' }} /> },
-  { name: '相册', path: '/photo', icon: <CameraAlt sx={{ color: currentPath == '/photo' ? 'primary.main' : '' }} /> },
+  { name: '首页', path: '/' },
+  { name: '文章', path: '/blog' },
+  { name: '技能', path: '/skill' },
+  { name: '项目', path: '/work' },
+  { name: '关于', path: '/about' },
+  { name: '相册', path: '/photo' },
 ]
 
 
 export default function Home() {
   const router = useRouter()
   const text = '欢迎来到风中追风的Blog！'
-  const { Sm } = useContext(MediaQueryContext);
   const handleMenuClick = (path: string) => {
     router.push(path)
   }
