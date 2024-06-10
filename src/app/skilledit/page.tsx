@@ -3,21 +3,12 @@ import MyEditor from "@/components/MyEditor";
 import { BlogListInterface } from "@/interface/common";
 import { PostSkillListReq, getSkillListReq } from "@/service/skill";
 import { CheckCircle, Error } from "@mui/icons-material";
-import { TextField, Button, Box, Typography, Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
+import { TextField, Button, Box, Typography, SelectChangeEvent } from "@mui/material";
 import moment from "moment";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from 'react-hot-toast';
-export const dynamic = 'force-dynamic'
-const ITEM_HEIGHT = 42;
-const ITEM_PADDING_TOP = 1;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 5 + ITEM_PADDING_TOP,
-    },
-  },
-};
+
 export default function BlogEdit() {
   const router = useRouter()
   const queryId = useSearchParams().get('id')

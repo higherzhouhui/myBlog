@@ -9,6 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { darkTheme, lightTheme } from '@/theme';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Loading from '@/components/Loading';
 import { Box, styled, useMediaQuery } from '@mui/material';
 import BasicSpeedDial from '@/components/SpeedDial';
 import { Toaster } from 'react-hot-toast';
@@ -93,7 +94,6 @@ export default function BasicLayOut(props: { children: ReactNode }) {
     setTimeout(() => {
       NProgress.done()
     }, 500);
-
   }, [path])
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
@@ -106,14 +106,14 @@ export default function BasicLayOut(props: { children: ReactNode }) {
             (Sm || Middle || Big) ? <StyledRoot>
               <Header theme={themeMode} handleSwitchTheme={handleSwitchTheme} />
               <StyledBox>
-                <Suspense>
+                <Suspense fallback={<Loading />}>
                   <Box sx={{ flex: 1, height: '100%', maxWidth: Big ? 1400 : Middle ? 1160 : '100%', width: '100%', margin: '0 auto' }}>
                     {props.children}
                     <Footer />
                   </Box>
                 </Suspense>
               </StyledBox>
-            </StyledRoot> : null
+            </StyledRoot> : <Loading />
           }
 
         </MediaQueryContext.Provider>
