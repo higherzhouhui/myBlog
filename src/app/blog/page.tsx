@@ -136,7 +136,7 @@ export default function Home() {
           style={{ padding: '12px 0' }}
         >
           {recommendList.map((item, index: number) => (
-            <SwiperSlide key={index} style={{ width: Sm ? '100%' : '320px' }}>
+            <SwiperSlide key={index} style={{ width: Sm ? '100%' : '320px' }} onClick={() => { handleToTeam(item) }}>
               <MyCard>
                 <Stack direction={'row'}>
                   <Box>

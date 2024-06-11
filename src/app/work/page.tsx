@@ -36,6 +36,7 @@ export default function MediaCard() {
   const [list, setList] = React.useState([
     { title: 'forkfrenpet链游', label: ['Nextjs', 'React', 'Pwa', 'SSR', 'TailwindCss', 'Etherjs', 'sol/web3'], link: 'https://www.forkfrenpet.com/', logo: '/static/images/fork.png' },
     { title: 'AI METASPACE DAO', label: ['web3.js', 'Nextjs', 'React', 'Pwa', 'SSR', 'TailwindCss'], link: 'https://insta-gilt-nu.vercel.app/', logo: '/static/images/metaspace.png' },
+    { title: '简历在线生成器', label: ['Nextjs', 'React', 'SSR', 'TailwindCss'], link: 'https://resume-generation.vercel.app/', logo: '/static/images/resume.png' },
     { title: '上海博达数据通信有限公司官网', label: ['jquery', 'bootstrap', 'html5', 'css3', 'angular'], link: 'https://www.bdcom.com.cn/', logo: 'https://img1.baidu.com/it/u=757460992,874884504&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=326' },
     { title: '上海红星美凯龙设计云家居设计平台', label: ['REACT', 'ANT-DESIGN', 'THREE', 'TYPESCRIPT', 'CHROME-PLUGIN', 'WORKER', 'WEBGL'], link: 'https://www.mshejiyun.com/', logo: 'https://5b0988e595225.cdn.sohucs.com/images/20190407/41606f640b5744bebc67eea7bfac33c4.jpeg' },
     { title: '华夏云融航空科技官网', label: ['VUE2', 'ELEMENT-UI', 'NUST', 'SSR', 'SEO'], link: 'https://www.ceyat.net/#/', logo: 'https://gbres.dfcfw.com/Files/iimage/20240220/3FF797A80ADD30A79CB1B309043BAD94_w1269h841.png' },
@@ -59,7 +60,7 @@ export default function MediaCard() {
     <Box sx={{ display: 'grid', gridTemplateColumns: Big ? 'repeat(4, 1fr)' : Middle ? 'repeat(3, 1fr)' : 'repeat(1, 1fr)', rowGap: Big ? 3 : 2, columnGap: Big ? 3 : 2, padding: Sm ? '0 12px' : '12px 0' }}>
       {
         list.map((item: any, index: number) => {
-          return <Card key={index} sx={hoverStyle} style={{ transition: 'all 0.5s' }}>
+          return <Card key={index} sx={hoverStyle} style={{ transition: 'all 0.5s' }} onClick={() => lookMore(item.link)}>
             <CardMedia
               sx={{ height: 240 }}
               image={item.logo}
@@ -70,10 +71,10 @@ export default function MediaCard() {
               <Typography gutterBottom variant="h5" component="div">
                 {item.title}
               </Typography>
-              <Box>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                 {
                   item.label.map((clabel: string, cindex: number) => {
-                    return <Button variant='contained' size='small' sx={{ mr: 1, mt: 1 }} color={Math.random() > 0.5 ? 'error' : Math.random() > 0.5 ? 'success' : 'info'} key={cindex}>{clabel}</Button>
+                    return <Button variant='contained' size='small' color={Math.random() > 0.5 ? 'error' : Math.random() > 0.5 ? 'success' : 'info'} key={cindex}>{clabel}</Button>
                   })
                 }
               </Box>
