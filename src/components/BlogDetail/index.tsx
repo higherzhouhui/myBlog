@@ -16,7 +16,7 @@ export function BlogDetail(data: { id: string }) {
     time: '',
     uptime: '',
     creator: '风中追风',
-    type: 'rencetly',
+    type: 'recently',
     abstract: '',
     logo: '',
     content: '',
