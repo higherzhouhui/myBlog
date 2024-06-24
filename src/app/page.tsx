@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const menuList = [
-  { name: '首页', path: '/' },
   { name: '文章', path: '/blog' },
   { name: '技能', path: '/skill' },
   { name: '项目', path: '/work' },
