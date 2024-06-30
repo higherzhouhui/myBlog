@@ -31,8 +31,9 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
     }
   })
   return {
-    title: metaData.title,
+    title: metaData.title || '风中追风的博客',
     description: metaData.abstract,
+    keywords: metaData.subTitle,
     viewport: 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no',
   }
 }

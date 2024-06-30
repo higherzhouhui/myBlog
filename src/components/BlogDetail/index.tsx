@@ -35,9 +35,10 @@ export function BlogDetail(data: { id: string }) {
 
   return <Box sx={{ background: 'rgba(255,255,255,0.9)', padding: 2, borderRadius: 2 }}>
     <Typography security='h1' sx={{ fontSize: 24 }}>{blogInfo?.title}</Typography>
+    <Typography security='h2'>{blogInfo?.abstract}</Typography>
     <Stack direction={'row'} sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
       <Typography security='h2' component={'div'}>
-        {blogInfo?.creator}
+        <Typography security='desc' component={'div'}>作者：{blogInfo?.creator}</Typography>
         <Typography security='desc' component={'div'}>创建时间：{blogInfo?.time}</Typography>
         <Typography security='desc' component={'div'}>更新更新：{blogInfo?.uptime}</Typography>
       </Typography>

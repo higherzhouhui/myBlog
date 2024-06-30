@@ -60,6 +60,7 @@ const imageList = [
 
 export default function Home() {
   const [open, setOpen] = useState(false)
+  const [skillOpen, setSkillOpen] = useState(false)
   const [companyVisible, setCompanyVisible] = useState(false)
   const [iframeSrc, setIframeSrc] = useState('')
   const [iframeLoading, setIframeLoading] = useState(true)
@@ -77,7 +78,7 @@ export default function Home() {
     },
   ])
   const labelList = [
-    'Web前端开发', '8年+经验', '日活10w+项目', 'WEB3.0', '网站设计/搭建', '区块链', '数字游民', '网站设计/搭建', '远程办公', 'UniApp', '微信小程序', '正规科班', '专业对口', '计算机专业', '项目整包', '多渠道结算', '快速高效', '全栈开发', '性价比超高',
+    'Web前端开发', '8年+经验', '日活10w+', 'WEB3.0', '数字游民', '网站设计/搭建', '区块链Dapp', '远程办公', 'UniApp', '微信小程序', '正规科班', '专业对口', '计算机专业', '项目整包', '多渠道结算', '快速高效', '全栈开发', '性价比超高',
   ]
   const skillList = [
     'React', 'Vue2', 'Vue3', 'Angular', 'JQuery', 'NextJs', 'NustJs', 'NodeJs', 'Ant-Design', 'Element-Ui', 'Element-Plus', 'Mysql', 'Prisma', 'Pwa', 'EtherJs', 'Web3Js', 'Solidity', 'Mui', 'Component-Styled'
@@ -189,6 +190,9 @@ export default function Home() {
               })
             }
           </Box>
+          <Box sx={{ position: 'relative', width: '100%', height: 0, paddingBottom: '135%' }} onClick={() => setSkillOpen(!skillOpen)}>
+            <Image src='/static/images/skill.png' fill alt="skill" />
+          </Box>
         </Box>
         <Box sx={{ mt: 1 }}>
           <Typography component={'div'} sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 1, color: 'primary.dark', }}><LaptopWindowsIcon sx={{ mr: 1 }} />技能：</Typography>
@@ -222,7 +226,6 @@ export default function Home() {
               </SwiperSlide>
             ))}
           </Swiper>
-
         </Box>
         <Timeline position={Sm ? 'right' : 'alternate-reverse'}>
           {
@@ -273,6 +276,16 @@ export default function Home() {
           <Image src='/static/images/vx.png' width={375} height={450} alt="vx" />
         </Box>
       </Modal>
+      <Modal
+        open={skillOpen}
+        onClose={() => setSkillOpen(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Image src='/static/images/skill.png' width={Sm ? 375 : 500} height={Sm ? 450 : 650} alt="vx" />
+        </Box>
+      </Modal>
       <Modal open={companyVisible} onClose={() => setCompanyVisible(false)} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description"
       >
         <Box sx={iframeStyle}>
@@ -285,32 +298,3 @@ export default function Home() {
     </Grid >
   );
 }
-
-
-const Typewriter = (props: any) => {
-  const [typedText, setTypedText] = useState('');
-  const intervalRef = useRef<any>(null);
-
-  useEffect(() => {
-    const delay = 300; // 每个字符之间的延迟时间（毫秒）
-    let currentTextIndex = 0;
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-    intervalRef.current = setInterval(() => {
-      if (currentTextIndex < props.text.length) {
-        setTypedText(props.text.substring(0, currentTextIndex + 1));
-        currentTextIndex++;
-      } else {
-        currentTextIndex = 0
-        setTypedText('')
-      }
-    }, delay);
-
-    return () => clearInterval(intervalRef.current);
-  }, [props.text]);
-
-  return (
-    <div style={props.style}>{typedText}</div>
-  );
-};

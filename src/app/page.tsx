@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <Box sx={{ mb: 5 }}>
       <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-        <Typewriter text={text} style={{ height: '30px', lineHeight: '30px', margin: '20px 0', fontSize: '22px' }} />
+        <Typewriter text={text} style={{ height: '30px', lineHeight: '30px', margin: '20px 0', fontSize: '22px', fontWeight: 'bold' }} />
         <img src={'/static/images/task.png'} alt="bg" style={{ width: '350px', objectFit: 'contain' }} />
         <ButtonGroup color="secondary" aria-label="Medium-sized button group" sx={{ mt: 4 }}>
           {
@@ -53,8 +53,9 @@ const Typewriter = (props: any) => {
         setTypedText(props.text.substring(0, currentTextIndex + 1));
         currentTextIndex++;
       } else {
-        currentTextIndex = 0
-        setTypedText('')
+        clearInterval(intervalRef.current)
+        // currentTextIndex = 0
+        // setTypedText('')
       }
     }, delay);
 
