@@ -22,7 +22,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { slug: string[] } }) {
-  const response = await fetch(`${apiUrl}/mydata.json`)
+  const response = await fetch(`${apiUrl}/mydata.json`, { cache: 'no-store' })
   const data = await response.json()
   let metaData: BlogListInterface | any = {}
   data.map((item: any) => {
