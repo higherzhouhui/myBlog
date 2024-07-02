@@ -57,18 +57,13 @@ const imageList = [
   '/static/images/swiper/6.png',
 ]
 
-interface IIframeObj {
-  width: number | string,
-  height: number | string,
-}
-
 export default function Home() {
   const [open, setOpen] = useState(false)
   const [skillOpen, setSkillOpen] = useState(false)
   const [companyVisible, setCompanyVisible] = useState(false)
   const [iframeSrc, setIframeSrc] = useState('')
   const [iframeLoading, setIframeLoading] = useState(true)
-  const { Big, Middle, Sm, width, height } = useContext(MediaQueryContext);
+  const { Sm, width, height } = useContext(MediaQueryContext);
   const [tabList, setTabList] = useState([
     {
       icon: <ChatIcon color="primary" />, link: '', type: 'modal', img: '/static/images/vx.png',

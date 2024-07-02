@@ -97,7 +97,7 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
   }
   const StyledBoxBase = styled(Box)(({ theme }) => ({
     height: '80px',
-    zIndex: 10001,
+    zIndex: 99,
     position: 'fixed',
     top: 0,
     width: '100%',
