@@ -56,7 +56,7 @@ export default function MediaCard() {
     <Box sx={{ display: 'grid', gridTemplateColumns: Big ? 'repeat(4, 1fr)' : Middle ? 'repeat(3, 1fr)' : 'repeat(1, 1fr)', rowGap: Big ? 3 : 2, columnGap: Big ? 3 : 2, padding: Sm ? '0 12px' : '12px 0' }}>
       {
         imageList.map((item: any, index: number) => {
-          return <Card key={index} sx={hoverStyle} style={{ transition: 'all 0.5s' }}>
+          return <Card key={index} sx={hoverStyle} style={{ transition: 'all 0.5s' }} onClick={() => lookMore(item.link)}>
             <CardMedia
               sx={{ height: 240 }}
               image={`/static/images/photo/${item.cover}`}
@@ -70,7 +70,7 @@ export default function MediaCard() {
 
             </CardContent>
             <CardActions sx={{ justifyContent: 'flex-end' }}>
-              <Button variant='contained' color='success' onClick={() => lookMore(item.link)}>查看更多</Button>
+              <Button variant='contained' color='success'>查看更多</Button>
             </CardActions>
           </Card>
         })
@@ -82,7 +82,7 @@ export default function MediaCard() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2" style={{ textAlign: 'center' }}>
+          <Typography id="modal-modal-title" variant="h6" component="h2" style={{ textAlign: 'center' }} color={'primary.light'}>
             暂未开放
           </Typography>
         </Box>

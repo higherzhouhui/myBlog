@@ -49,7 +49,8 @@ export default function MediaCard() {
     { title: '问卷管理后台', label: ['VUE3', 'ELEMENT-PLUS'], link: ' http://admin.wedoctor.top', logo: 'https://img.zcool.cn/community/0134cd607d205c11013e87f445d30e.png?x-oss-process=image/auto-orient,1/resize,m_lfit,w_1280,limit_1/sharpen,100' },
 
   ])
-  const lookMore = (href: string) => {
+  const lookMore = (e: any, href: string) => {
+    e.stopPropagation()
     if (href) {
       window.open(href)
     } else {
@@ -60,7 +61,7 @@ export default function MediaCard() {
     <Box sx={{ display: 'grid', gridTemplateColumns: Big ? 'repeat(4, 1fr)' : Middle ? 'repeat(3, 1fr)' : 'repeat(1, 1fr)', rowGap: Big ? 3 : 2, columnGap: Big ? 3 : 2, padding: Sm ? '0 12px' : '12px 0' }}>
       {
         list.map((item: any, index: number) => {
-          return <Card key={index} sx={hoverStyle} style={{ transition: 'all 0.5s' }} onClick={() => lookMore(item.link)}>
+          return <Card key={index} sx={hoverStyle} style={{ transition: 'all 0.5s' }} onClick={(e) => lookMore(e, item.link)}>
             <CardMedia
               sx={{ height: 240 }}
               image={item.logo}
@@ -80,7 +81,7 @@ export default function MediaCard() {
               </Box>
             </CardContent>
             <CardActions sx={{ justifyContent: 'flex-end' }}>
-              <Button size="large" color='success' onClick={() => lookMore(item.link)}>了解更多</Button>
+              <Button size="large" variant='contained' color='success' onClick={(e) => lookMore(e, item.link)}>了解更多</Button>
             </CardActions>
           </Card>
         })
