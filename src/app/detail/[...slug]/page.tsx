@@ -3,7 +3,6 @@ import { BlogDetail } from "@/components/BlogDetail";
 import { BlogListInterface } from "@/interface/common";
 import { APIURL } from "@/service/config";
 import { Box } from "@mui/material";
-import { Viewport } from "next";
 
 export default function Detail({ params }: { params: { slug: string[] } }) {
   return (
@@ -11,14 +10,6 @@ export default function Detail({ params }: { params: { slug: string[] } }) {
       <BlogDetail id={params.slug[0]} />
     </Box>
   );
-}
-
-export const viewport: Viewport = {
-  userScalable: false,
-  initialScale: 1,
-  maximumScale: 1,
-  minimumScale: 1,
-  width: 'device-width'
 }
 
 export async function generateStaticParams() {
