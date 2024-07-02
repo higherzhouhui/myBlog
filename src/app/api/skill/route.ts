@@ -1,11 +1,11 @@
 import {NextRequest, NextResponse} from "next/server";
 import fs from 'fs'
-import { apiUrl } from '@/service/config'
+import { APIURL } from '@/service/config'
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const allSearchParams = Object.fromEntries(searchParams);
-  const response = await fetch(`${apiUrl}/skilldata.json`)
+  const response = await fetch(`${APIURL}/skilldata.json`)
   const id = allSearchParams.id
   const type = allSearchParams.type
   const data = await response.json()
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
 
 // 更新和新增
 export async function POST(request: NextRequest) {
-  const response = await fetch(`${apiUrl}/skilldata.json`)
+  const response = await fetch(`${APIURL}/skilldata.json`)
   const data = await response.json()
   const allSearchParams = await request.json();
   let new_data = data
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
 
 // 删除
 export async function DELETE(request: NextRequest) {
-  const response = await fetch(`${apiUrl}/skilldata.json`)
+  const response = await fetch(`${APIURL}/skilldata.json`)
   const data = await response.json()
   const allSearchParams = await request.json();
   let new_data = data

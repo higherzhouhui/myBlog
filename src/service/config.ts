@@ -1,1 +1,1 @@
-export const apiUrl = process.env.NODE_ENV == 'development' ? 'http://localhost:3356' : 'https://blog.jizaoji.top'
+export const APIURL = process.env.NODE_ENV == 'development' ? 'http://localhost:3356' : 'https://blog.jizaoji.top'

@@ -1,3 +1,4 @@
+import { APIURL } from "@/service/config";
 import { NextResponse } from "next/server";
 
 export async function POST(
@@ -16,4 +17,13 @@ export async function POST(
   const json = await request.json();
 
   return NextResponse.json(allSearchParams);
+}
+
+export async function generateStaticParams() {
+  const response = await fetch(`${APIURL}/mydata.json`, { cache: 'no-store' })
+  const data = await response.json()
+
+  return data.map((item: { id: string, title: string }) => ({
+    slug: [String(item.id), item.title]
+  }))
 }

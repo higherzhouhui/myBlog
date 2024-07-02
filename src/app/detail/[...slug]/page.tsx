@@ -1,7 +1,7 @@
 
 import { BlogDetail } from "@/components/BlogDetail";
 import { BlogListInterface } from "@/interface/common";
-import { apiUrl } from "@/service/config";
+import { APIURL } from "@/service/config";
 import { Box } from "@mui/material";
 import { Viewport } from "next";
 
@@ -22,7 +22,7 @@ export const viewport: Viewport = {
 }
 
 export async function generateStaticParams() {
-  const response = await fetch(`${apiUrl}/mydata.json`, { cache: 'no-store' })
+  const response = await fetch(`${APIURL}/mydata.json`, { cache: 'no-store' })
   const data = await response.json()
 
   return data.map((item: { id: string, title: string }) => ({
@@ -31,7 +31,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { slug: string[] } }) {
-  const response = await fetch(`${apiUrl}/mydata.json`, { cache: 'no-store' })
+  const response = await fetch(`${APIURL}/mydata.json`, { cache: 'no-store' })
   const data = await response.json()
   let metaData: BlogListInterface | any = {}
   data.map((item: any) => {
