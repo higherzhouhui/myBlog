@@ -15,7 +15,6 @@ import BasicSpeedDial from '@/components/SpeedDial';
 import { Toaster } from 'react-hot-toast';
 import NProgress from "nprogress"
 import { AppContextProps } from '@/interface/common'
-
 import 'nprogress/nprogress.css' //这个样式必须引入
 
 import '@/app/globals.css'
@@ -26,12 +25,15 @@ export const MediaQueryContext = createContext<AppContextProps>({
   Sm: false,
   Middle: false,
   Big: false,
+  width: 500,
+  height: 500,
 });
 
 export default function BasicLayOut(props: { children: ReactNode }) {
   const Sm = useMediaQuery('(max-width: 1200px)')
   const Middle = useMediaQuery('(min-width: 1200px) and (max-width: 1440px)')
   const Big = useMediaQuery('(min-width: 1440px)')
+  const [layoutScreen, setLayoutScreen] = useState({ width: 0, height: 0 })
 
   const [isShowMange, setShowManage] = useState(false)
   const [themeMode, setThemeMode] = useState('dark')
@@ -73,6 +75,13 @@ export default function BasicLayOut(props: { children: ReactNode }) {
     setLoadInit(true)
   }, [])
 
+  useEffect(() => {
+    setLayoutScreen({
+      width: window.screen.availWidth,
+      height: window.screen.availHeight
+    })
+  }, [Sm, Middle, Big])
+
   NProgress.configure({
     easing: 'ease', // 动画方式
     speed: 500, // 递增进度条的速度
@@ -101,7 +110,7 @@ export default function BasicLayOut(props: { children: ReactNode }) {
         <BackGroundComp />
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <MediaQueryContext.Provider value={{ Sm, Middle, Big }}>
+        <MediaQueryContext.Provider value={{ Sm, Middle, Big, width: layoutScreen.width, height: layoutScreen.height }}>
           {
             (Sm || Middle || Big) ? <StyledRoot>
               <Header theme={themeMode} handleSwitchTheme={handleSwitchTheme} />

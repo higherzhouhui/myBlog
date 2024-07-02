@@ -21,13 +21,12 @@ import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
 import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
 import ChatIcon from '@mui/icons-material/Chat';
 import SkillList from '@/components/SkillList'
-import CircularProgress from '@mui/material/CircularProgress';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import { MediaQueryContext } from "@/components/BaseLayout";
-
 import 'swiper/css';
+import Loading from "@/components/Loading";
 
 const style = {
   position: 'absolute',
@@ -41,6 +40,7 @@ const iframeStyle = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
+  Background: '#fff'
 }
 
 
@@ -57,6 +57,10 @@ const imageList = [
   '/static/images/swiper/6.png',
 ]
 
+interface IIframeObj {
+  width: number | string,
+  height: number | string,
+}
 
 export default function Home() {
   const [open, setOpen] = useState(false)
@@ -64,8 +68,7 @@ export default function Home() {
   const [companyVisible, setCompanyVisible] = useState(false)
   const [iframeSrc, setIframeSrc] = useState('')
   const [iframeLoading, setIframeLoading] = useState(true)
-  const { Sm } = useContext(MediaQueryContext);
-
+  const { Big, Middle, Sm, width, height } = useContext(MediaQueryContext);
   const [tabList, setTabList] = useState([
     {
       icon: <ChatIcon color="primary" />, link: '', type: 'modal', img: '/static/images/vx.png',
@@ -153,10 +156,24 @@ export default function Home() {
     setIframeSrc(link)
     setCompanyVisible(true)
     setIframeLoading(true)
-    setTimeout(() => {
-      setIframeLoading(false)
-    }, 2000);
   }
+  useEffect(() => {
+    if (companyVisible && iframeLoading && iframeSrc) {
+      let iframe = document.getElementById('companyIframe');
+      if (!iframe) {
+        setTimeout(() => {
+          iframe = document.getElementById('companyIframe')!;
+          iframe.onload = function () {
+            setIframeLoading(false)
+          }
+        }, 300)
+      }
+    }
+  }, [companyVisible, iframeLoading, iframeSrc])
+
+  useEffect(() => {
+
+  }, [])
   return (
     <Grid container={Sm ? false : true} sx={{ padding: Sm ? '0 12px' : '12px 0' }}>
       <GridStyles sx={{ borderRadius: 2, p: 2 }} item xs={3.25}>
@@ -289,10 +306,10 @@ export default function Home() {
       <Modal open={companyVisible} onClose={() => setCompanyVisible(false)} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description"
       >
         <Box sx={iframeStyle}>
-          <iframe src={iframeSrc} width={'1100'} height={'700'} loading="eager" id="iframe-id" frameBorder={'0'} />
-          <Box sx={{ display: iframeLoading ? 'flex' : 'none', width: 1100, height: 700, position: 'absolute', left: 0, top: 0, zIndex: 9, bgcolor: 'primary.light', alignItems: 'center', justifyContent: 'center' }}>
-            <CircularProgress />
-          </Box>
+          <iframe src={iframeSrc} width={width > 1100 ? 1100 : width} height={height > 700 ? 700 : height} id="companyIframe" />
+          {
+            iframeLoading ? <Loading /> : null
+          }
         </Box>
       </Modal>
     </Grid >

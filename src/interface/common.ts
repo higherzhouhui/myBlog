@@ -30,4 +30,6 @@ export interface AppContextProps {
   Sm: boolean,
   Middle: boolean,
   Big: boolean,
+  width: number,
+  height: number,
 }

@@ -86,7 +86,8 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
     { name: '技能', path: '/skill', icon: <Computer sx={{ color: currentPath == '/skill' ? 'primary.main' : '' }} /> },
     { name: '项目', path: '/work', icon: <Assignment sx={{ color: currentPath == '/work' ? 'primary.main' : '' }} /> },
     { name: '关于', path: '/about', icon: <PermContactCalendar sx={{ color: currentPath == '/about' ? 'primary.main' : '' }} /> },
-    { name: '相册', path: '/photo', icon: <CameraAlt sx={{ color: currentPath == '/photo' ? 'primary.main' : '' }} /> },
+    // { name: '相册', path: '/photo', icon: <CameraAlt sx={{ color: currentPath == '/photo' ? 'primary.main' : '' }} /> },
+    { name: '工具', path: '/tool', icon: <CameraAlt sx={{ color: currentPath == '/tool' ? 'primary.main' : '' }} /> },
   ]
   const router = useRouter()
   const path = usePathname()
@@ -96,7 +97,7 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
   }
   const StyledBoxBase = styled(Box)(({ theme }) => ({
     height: '80px',
-    zIndex: 10,
+    zIndex: 10001,
     position: 'fixed',
     top: 0,
     width: '100%',
