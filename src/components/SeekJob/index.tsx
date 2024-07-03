@@ -106,7 +106,7 @@ function JobListItem(props: { list: JobListInterface[], total: number, handleExp
                 </StyledBadge>
                 <Typography security='desc' color={'GrayText'} sx={{ transition: 'all 0.3s', maxHeight: item.expand ? 300 : 0, overflow: 'hidden', wordBreak: 'break-all' }}>{item.summary}...</Typography>
                 <Stack direction="row" spacing={2} sx={{ mt: 1, alignItems: 'center', flexWrap: 'wrap', }}>
-                  <Button Button color={getCateColor(item.category.id)} variant="contained" size="small">
+                  <Button color={getCateColor(item.category.id)} variant="contained" size="small">
                     {item.category.name}
                   </Button>
                   <Typography color='primary.light'>{item.user.nickname}</Typography>
@@ -151,7 +151,7 @@ function SkeletonList() {
 }
 
 
-function getCateColor(type: number) {
+function getCateColor(type: number): "inherit" | "info" | "primary" | "secondary" | "error" | "warning" | "success" {
   let color: any = 'info'
   if (type == 22 || type == 24 || type == 26) {
     color = 'primary'
