@@ -9,7 +9,8 @@ const menuList = [
   { name: '技能', path: '/skill' },
   { name: '项目', path: '/work' },
   { name: '关于', path: '/about' },
-  { name: '相册', path: '/photo' },
+  { name: '工具', path: '/tool' },
+  // { name: '相册', path: '/photo' },
 ]
 
 
