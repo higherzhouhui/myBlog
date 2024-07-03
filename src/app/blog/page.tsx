@@ -9,7 +9,7 @@ import { getBlogListReq } from "@/service/common";
 import 'swiper/css';
 import { MediaQueryContext } from "@/components/BaseLayout";
 
-export default function Home() {
+export default function Blog() {
   const [tabValue, setTabValue] = useState('all');
   const [swiper, setSwiper] = useState<any>(null);
   const router = useRouter()

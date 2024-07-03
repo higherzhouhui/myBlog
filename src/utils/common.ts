@@ -65,3 +65,19 @@ export const copyUrlToClip = (phref?: string) => {
   }
   document.body.removeChild(aux);
 };
+
+
+export function calculateTimeAgo(timestamp: string) {
+  var currentTime = Math.floor(Date.now() / 1000); // 当前时间戳（秒）
+  var timeDiff = currentTime - new Date(timestamp).getTime() / 1000; // 时间差（秒）
+
+  if (timeDiff < 60) {
+      return timeDiff + "秒之前";
+  } else if (timeDiff < 3600) {
+      return Math.floor(timeDiff / 60) + "分钟之前";
+  } else if (timeDiff < 86400) {
+      return Math.floor(timeDiff / 3600) + "小时之前";
+  } else {
+      return Math.floor(timeDiff / 86400) + "天之前";
+  }
+}
