@@ -1,14 +1,23 @@
-import ToolComp from '@/components/Tool';
-import { Metadata } from 'next';
+"use client"
+import * as React from 'react';
+import { Box } from '@mui/material';
+import Loading from '@/components/Loading';
 
-export const metadata: Metadata = {
-  title: '前端工具箱',
-  description: '分享前端常用工具',
-  keywords: '链游,html5, 简历在线生成, 上海博达数据通信有限公司, 上海红星美凯龙设计云信息科技有限公司, 动态壁纸官网;vue;前端;react,javascript;博客;技术分享;生活记录,etherjs,wb3js, uniapp, nodejs',
-}
 
-export default function Tool() {
+export default function MediaCard() {
+  const [loading, setLoading] = React.useState(true)
+  React.useEffect(() => {
+    const iframe = document.getElementById('myIframe')!;
+    iframe.onload = function () {
+      setLoading(false)
+    }
+  }, [])
   return (
-    <ToolComp />
+    <Box sx={{ padding: '12px 0', height: 'calc(100vh - 130px)' }}>
+      {
+        loading ? <Loading /> : null
+      }
+      <iframe id='myIframe' src='https://www.runjs.cool/' width={'100%'} height={'100%'} />
+    </Box>
   );
 }

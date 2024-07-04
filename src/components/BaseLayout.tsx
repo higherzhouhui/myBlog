@@ -16,7 +16,6 @@ import { Toaster } from 'react-hot-toast';
 import NProgress from "nprogress"
 import { AppContextProps } from '@/interface/common'
 import 'nprogress/nprogress.css' //这个样式必须引入
-
 import '@/app/globals.css'
 import './style.css'
 
@@ -48,7 +47,6 @@ export default function BasicLayOut(props: { children: ReactNode }) {
   const ThemeProps: any = useMemo(() => {
     let c = darkTheme
     if (loadInit) {
-      console.log(themeMode)
       if (themeMode == 'dark') {
         c = darkTheme
       } else {
@@ -62,6 +60,7 @@ export default function BasicLayOut(props: { children: ReactNode }) {
     minHeight: '100vh',
     backgroundColor: theme.palette.mode == 'dark' ? '#0b1120' : 'rgba(255,255,255,0.8)'
   }));
+
   useEffect(() => {
     const href = location.href
     if (href.includes('localhost')) {
@@ -124,7 +123,6 @@ export default function BasicLayOut(props: { children: ReactNode }) {
               </StyledBox>
             </StyledRoot> : <Loading />
           }
-
         </MediaQueryContext.Provider>
         {
           isShowMange ? <Suspense>
