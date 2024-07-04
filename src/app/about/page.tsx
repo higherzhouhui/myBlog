@@ -174,7 +174,7 @@ export default function AboutComp() {
       <GridStyles sx={{ borderRadius: 2, p: 2 }} item xs={3.25}>
         <Box sx={{ textAlign: 'center', mb: 1 }}>
           <Box sx={{ position: 'relative', height: 50, width: 50, margin: '0 auto' }}>
-            <Image src='/static/images/avatar.png' layout="fill" alt="bg" />
+            <Image src='/static/images/avatar.png' layout="fill" alt="bg" sizes="100" />
           </Box>
           <Typography color={'primary'}>风中追风</Typography>
         </Box>
