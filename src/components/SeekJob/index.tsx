@@ -66,7 +66,7 @@ export default function SeekJobComp() {
   }
   const handlePage = (page: number) => {
     setPage(page)
-    router.push(`/seekjob?page=${page}`)
+    router.push(`/seekJob?page=${page}`)
   }
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function SeekJobComp() {
       {
         loading ? <SkeletonList /> : <JobListItem list={dataList} total={backObj.total_count} handleExpand={handleExpand} Sm={Sm} />
       }
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', pt: 2, borderTop: '1px solid #999' }}>
         <Pagination onChange={(e, page) => handlePage(page)} count={backObj.total_pages} color="primary" page={page} />
       </Box>
     </BoxStyles>
@@ -101,7 +101,7 @@ function JobListItem(props: { list: JobListInterface[], total: number, handleExp
             <Stack direction="row" sx={{ alignItems: 'center' }} spacing={Sm ? 0 : 2}>
               <Avatar src={item.user.avatar_url} sx={{ height: 50, width: 50, display: Sm ? 'none' : 'block' }} />
               <Stack>
-                <StyledBadge badgeContent={item.marks_count} color="info" sx={{ width: 'fit-content' }}>
+                <StyledBadge badgeContent={item.comments_count} color="info" sx={{ width: 'fit-content' }}>
                   <Button sx={{ pl: 0, wordBreak: 'break-all', textAlign: 'left' }} variant="text" size="large" onClick={() => handleToDetail(item.id)}>{item.title}</Button>
                 </StyledBadge>
                 <Typography security='desc' color={'GrayText'} sx={{ transition: 'all 0.3s', maxHeight: item.expand ? 300 : 0, overflow: 'hidden', wordBreak: 'break-all' }}>{item.summary}...</Typography>
@@ -118,13 +118,12 @@ function JobListItem(props: { list: JobListInterface[], total: number, handleExp
                     </> : null
                   }
                   {
-                    item.marks_count ? <Rating
+                    item.comments_count ? <Rating
                       name="simple-controlled"
                       readOnly
-                      value={getRatingValue(item.marks_count)}
+                      value={getRatingValue(item.comments_count)}
                     /> : null
                   }
-
                 </Stack>
               </Stack>
             </Stack>

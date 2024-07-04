@@ -23,17 +23,17 @@ export default function BasicSpeedDial() {
   const handleClick = (type: string) => {
     let url = ''
     if (type == 'Add') {
-      url = '/blogedit'
+      url = '/blogEdit'
       router.push(url)
     } else if (type == 'Share') {
       toast('复制成功', { icon: <CheckCircle />, style: { color: 'green' } })
       copyUrlToClip()
     } else if (type == 'Edit') {
       if (id) {
-        if (path.includes('skilldetail')) {
-          url = `/skilledit?id=${id}`
+        if (path.includes('skillDetail')) {
+          url = `/skillEdit?id=${id}`
         } else {
-          url = `/blogedit?id=${id}`
+          url = `/blogEdit?id=${id}`
         }
         router.push(url)
       }
@@ -41,13 +41,13 @@ export default function BasicSpeedDial() {
       url = '/manage'
       router.push(url)
     } else if (type == 'AddSkill') {
-      url = '/skilledit'
+      url = '/skillEdit'
       router.push(url)
     }
   }
 
   React.useEffect(() => {
-    if (path.includes('/detail') || path.includes('/skilldetail')) {
+    if (path.includes('/blogDetail') || path.includes('/skillDetail')) {
       const _pathArray = path.split('/')
       const id = _pathArray[2] as any
       setId(id)

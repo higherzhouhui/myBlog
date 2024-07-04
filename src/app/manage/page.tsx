@@ -338,10 +338,10 @@ export default function EnhancedTable() {
     setAnchorEl(null);
   };
   const routerToDetail = () => {
-    router.push(`/detail/${chooseId}`)
+    router.push(`/blogDetail/${chooseId}`)
   }
   const routerToEdit = () => {
-    const url = `/blogedit?id=${chooseId}`
+    const url = `/blogEdit?id=${chooseId}`
     router.push(url)
   }
   const handleDelete = () => {

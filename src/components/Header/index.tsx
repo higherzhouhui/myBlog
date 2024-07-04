@@ -88,7 +88,7 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
     { name: '关于', path: '/about', icon: <PermContactCalendar sx={{ color: currentPath == '/about' ? 'primary.main' : '' }} /> },
     // { name: '相册', path: '/photo', icon: <CameraAlt sx={{ color: currentPath == '/photo' ? 'primary.main' : '' }} /> },
     { name: '工具', path: '/tool', icon: <CameraAlt sx={{ color: currentPath == '/tool' ? 'primary.main' : '' }} /> },
-    { name: '机会', path: '/seekjob', icon: <CameraAlt sx={{ color: currentPath == '/seekjob' ? 'primary.main' : '' }} /> },
+    { name: '机会', path: '/seekJob', icon: <CameraAlt sx={{ color: currentPath == '/seekJob' ? 'primary.main' : '' }} /> },
   ]
   const router = useRouter()
   const path = usePathname()

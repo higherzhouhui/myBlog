@@ -1,69 +1,14 @@
-'use client';
-import React, { useEffect, useRef } from "react";
-import { Box, Button, ButtonGroup, Typography } from "@mui/material";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import HomeComp from '@/components/Home';
+import { Metadata } from 'next';
 
-const menuList = [
-  { name: '文章', path: '/blog' },
-  { name: '技能', path: '/skill' },
-  { name: '项目', path: '/work' },
-  { name: '关于', path: '/about' },
-  { name: '工具', path: '/tool' },
-  // { name: '相册', path: '/photo' },
-]
-
-
-export default function Home() {
-  const router = useRouter()
-  const text = '欢迎来到风中追风的Blog！'
-  const handleMenuClick = (path: string) => {
-    router.push(path)
-  }
-
-  return (
-    <Box sx={{ mb: 5 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-        <Typewriter text={text} style={{ height: '30px', lineHeight: '30px', margin: '20px 0', fontSize: '22px', fontWeight: 'bold' }} />
-        <img src={'/static/images/task.png'} alt="bg" style={{ width: '350px', objectFit: 'contain' }} />
-        <ButtonGroup color="secondary" aria-label="Medium-sized button group" sx={{ mt: 4 }}>
-          {
-            menuList.map(item => {
-              return <Button key={item.name} variant="contained" onClick={() => handleMenuClick(item.path)}>{item.name}</Button>
-            })
-          }
-        </ButtonGroup>
-      </Box>
-    </Box >
-  );
+export const metadata: Metadata = {
+  title: '欢迎来到-风中追风的BLOG！',
+  description: '致力于分享互联网技术、人生、生活、推荐以及求职机会',
+  keywords: 'web,html, css, nextjs, nustjs, javascript;vue;前端;react,javascript;博客;技术分享;生活记录,etherjs,wb3js, uniapp, nodejs',
 }
 
-
-const Typewriter = (props: any) => {
-  const [typedText, setTypedText] = useState('');
-  const intervalRef = useRef<any>(null);
-
-  useEffect(() => {
-    const delay = 300; // 每个字符之间的延迟时间（毫秒）
-    let currentTextIndex = 0;
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-    intervalRef.current = setInterval(() => {
-      if (currentTextIndex < props.text.length) {
-        setTypedText(props.text.substring(0, currentTextIndex + 1));
-        currentTextIndex++;
-      } else {
-        clearInterval(intervalRef.current)
-        // currentTextIndex = 0
-        // setTypedText('')
-      }
-    }, delay);
-
-    return () => clearInterval(intervalRef.current);
-  }, [props.text]);
-
+export default function Home() {
   return (
-    <Typography color={'primary.dark'} style={{ ...props.style }}>{typedText}</Typography>
+    <HomeComp />
   );
-};
+}
