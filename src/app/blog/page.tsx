@@ -188,8 +188,8 @@ export default function Blog() {
           {changeList.map((item, index: number) => (
             <MyCard key={index} sx={{ p: 2 }} onClick={() => handleToTeam(item)}>
               <Stack direction={'row'}>
-                <Box>
-                  <img src={item.logo} style={{ width: '80px', objectFit: 'contain', minWidth: '80px', borderRadius: '10px', overflow: 'hidden' }} />
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <img src={item.logo} style={{ width: '100px', objectFit: 'contain', minWidth: '100px', borderRadius: '10px', overflow: 'hidden' }} />
                 </Box>
                 <Box sx={{ ml: 2 }}>
                   <Typography component="div" sx={{ color: 'primary.light', fontWeight: 'bold', fontSize: 22, }}>

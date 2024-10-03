@@ -173,8 +173,8 @@ export default function AboutComp() {
     <Grid container={Sm ? false : true} sx={{ padding: Sm ? '0 12px' : '12px 0' }}>
       <GridStyles sx={{ borderRadius: 2, p: 2 }} item xs={3.25}>
         <Box sx={{ textAlign: 'center', mb: 1 }}>
-          <Box sx={{ position: 'relative', height: 50, width: 50, margin: '0 auto' }}>
-            <Image src='/static/images/avatar.png' layout="fill" alt="bg" sizes="100" />
+          <Box sx={{ position: 'relative', height: 80, width: 80, margin: '0 auto' }}>
+            <Image src='/static/images/avatar4.png' layout="fill" alt="bg" sizes="100" />
           </Box>
           <Typography color={'primary'}>风中追风</Typography>
         </Box>
@@ -277,6 +277,9 @@ export default function AboutComp() {
             })
           }
         </Timeline>
+        <Box sx={{ position: 'relative', width: '100%', height: 0, paddingBottom: '47%' }}>
+          <Image src={'/static/images/team.png'} layout="fill" alt="team" />
+        </Box>
       </GridStyles>
       <Modal
         open={open}

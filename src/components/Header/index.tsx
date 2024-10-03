@@ -9,8 +9,7 @@ import Link from "next/link";
 import Image from "next/image"
 import { switchBgStyle } from "@/utils/event";
 import { MediaQueryContext } from "@/components/BaseLayout";
-import { MenuBook, Home, Menu as MenuIcon, Computer, CameraAlt, Assignment, PermContactCalendar } from "@mui/icons-material";
-
+import { MenuBook, Home, Menu as MenuIcon, Computer, CameraAlt, Assignment, PermContactCalendar, BrightnessHigh, Camera } from "@mui/icons-material";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   height: 34,
@@ -87,8 +86,8 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
     { name: '项目', path: '/work', icon: <Assignment sx={{ color: currentPath == '/work' ? 'primary.main' : '' }} /> },
     { name: '关于', path: '/about', icon: <PermContactCalendar sx={{ color: currentPath == '/about' ? 'primary.main' : '' }} /> },
     // { name: '相册', path: '/photo', icon: <CameraAlt sx={{ color: currentPath == '/photo' ? 'primary.main' : '' }} /> },
-    { name: '工具', path: '/tool', icon: <CameraAlt sx={{ color: currentPath == '/tool' ? 'primary.main' : '' }} /> },
-    { name: '机会', path: '/seekJob', icon: <CameraAlt sx={{ color: currentPath == '/seekJob' ? 'primary.main' : '' }} /> },
+    { name: '工具', path: '/tool', icon: <BrightnessHigh sx={{ color: currentPath == '/tool' ? 'primary.main' : '' }} /> },
+    { name: '机会', path: '/seekJob', icon: <Camera sx={{ color: currentPath == '/seekJob' ? 'primary.main' : '' }} /> },
   ]
   const router = useRouter()
   const path = usePathname()
@@ -135,7 +134,7 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
         } else {
           setIsShowHeader(true)
         }
-      }, 500);
+      }, 300);
     } catch (error: any) {
       console.log(error)
     }
@@ -160,7 +159,7 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
 
 
   return (
-    <StyledBoxBase sx={{ bgcolor: !scrollDis ? 'rgba(0,0,0,0.2)' : '#0b1120', boxShadow: !scrollDis ? 'none' : '0.5px 0.5px 0.5px #333', height: isShowHeader ? Sm ? '60px' : '80px' : '0', transition: 'all 0.5s' }}>
+    <StyledBoxBase sx={{ bgcolor: !scrollDis ? 'rgba(0,0,0,0.2)' : theme == 'dark' ? '#0b1120' : '#ccc', boxShadow: !scrollDis ? 'none' : '0.5px 0.5px 0.5px #333', height: isShowHeader ? Sm ? '60px' : '80px' : '0', transition: 'all 0.5s' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '100%', alignItems: 'center', width: '100%', maxWidth: Big ? 1400 : Middle ? 1160 : '100%', margin: '0 auto', padding: Sm ? '0 12px' : 0 }}>
         <Box sx={{ display: 'flex' }}>
           <Link href='/'><Image src={'/static/images/logo.png'} objectFit="contain" alt="logo" width={Sm ? 70 : 100} height={Sm ? 30 : 40} /></Link>

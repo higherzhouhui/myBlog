@@ -26,7 +26,7 @@ export default function Home() {
     <Box sx={{ mb: 5 }}>
       <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
         <Typewriter text={text} style={{ height: '30px', lineHeight: '30px', margin: '20px 0', fontSize: '22px', fontWeight: 'bold' }} />
-        <img src={'/static/images/task.png'} alt="bg" style={{ width: '350px', objectFit: 'contain' }} />
+        <img src={'/static/images/money.png'} alt="bg" style={{ width: '750px', objectFit: 'contain', maxWidth: '100%', borderRadius: '4px' }} />
         <ButtonGroup color="secondary" aria-label="Medium-sized button group" sx={{ mt: 4 }}>
           {
             menuList.map(item => {
