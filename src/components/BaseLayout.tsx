@@ -1,8 +1,7 @@
 "use client"
 import BackGroundComp from '@/components/Background';
-import { ReactNode, useState, useEffect, Suspense, useMemo, createContext } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
-import { switchTheme } from '@/utils/event';
+import { ReactNode, useState, useEffect, Suspense, useMemo, createContext, useRef } from 'react';
+import { EventBus, EventTypes, switchTheme } from '@/utils/event';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -33,12 +32,10 @@ export default function BasicLayOut(props: { children: ReactNode }) {
   const Middle = useMediaQuery('(min-width: 1200px) and (max-width: 1440px)')
   const Big = useMediaQuery('(min-width: 1440px)')
   const [layoutScreen, setLayoutScreen] = useState({ width: 0, height: 0 })
-
+  const timer = useRef<any>(null)
   const [isShowMange, setShowManage] = useState(false)
   const [themeMode, setThemeMode] = useState('dark')
   const [loadInit, setLoadInit] = useState(false)
-  const path = usePathname()
-  const router = useRouter()
   const StyledBox = styled(Box)(({ theme }) => ({
     paddingTop: 80,
     fontSize: 16,
@@ -99,11 +96,19 @@ export default function BasicLayOut(props: { children: ReactNode }) {
   }
 
   useEffect(() => {
-    NProgress.start()
-    setTimeout(() => {
-      NProgress.done()
-    }, 500);
-  }, [router])
+    if (timer && timer.current) {
+      clearTimeout(timer.current)
+    }
+    const changeRoute = () => {
+      NProgress.start()
+      timer.current = setTimeout(() => {
+        NProgress.done()
+      }, 800);
+    }
+    changeRoute()
+
+    EventBus.addListener(EventTypes.ChangeRoute, changeRoute)
+  }, [])
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
       <ThemeProvider theme={ThemeProps}>
