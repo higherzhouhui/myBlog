@@ -22,14 +22,20 @@ const names = [
   'MUI',
   'STYLED-COMPONENT',
   'IONIC',
+  'Prisma',
+  'SSR',
+  'NodeJs',
+  'WEBPACK',
+  'NGINX',
+  'SSL',
+  'TELEGRAM',
+  'GITHUB',
+  'TOOL',
+  'SERVER',
   '人生思考',
   '代码人生',
   '谁的青春不迷茫',
   '我的青葱岁月',
-  'Prisma',
-  'SSR',
-  'NodeJs',
-  'webpack'
 ];
 const ITEM_HEIGHT = 42;
 const ITEM_PADDING_TOP = 1;

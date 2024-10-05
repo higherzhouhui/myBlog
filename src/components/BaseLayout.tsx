@@ -1,7 +1,7 @@
 "use client"
 import BackGroundComp from '@/components/Background';
 import { ReactNode, useState, useEffect, Suspense, useMemo, createContext } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { switchTheme } from '@/utils/event';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
@@ -38,6 +38,7 @@ export default function BasicLayOut(props: { children: ReactNode }) {
   const [themeMode, setThemeMode] = useState('dark')
   const [loadInit, setLoadInit] = useState(false)
   const path = usePathname()
+  const router = useRouter()
   const StyledBox = styled(Box)(({ theme }) => ({
     paddingTop: 80,
     fontSize: 16,
@@ -102,7 +103,7 @@ export default function BasicLayOut(props: { children: ReactNode }) {
     setTimeout(() => {
       NProgress.done()
     }, 500);
-  }, [path])
+  }, [router])
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
       <ThemeProvider theme={ThemeProps}>
