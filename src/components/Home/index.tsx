@@ -1,8 +1,20 @@
 'use client';
 import React, { useEffect, useRef } from "react";
-import { Box, Button, ButtonGroup, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Modal, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import BusinessIcon from '@mui/icons-material/Business';
+import ChatIcon from '@mui/icons-material/Chat';
+import GitHubIcon from "@mui/icons-material/GitHub";
+import TelegramIcon from "@mui/icons-material/Telegram";
+import Image from 'next/image';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+};
 
 const menuList = [
   { name: '文章', path: '/blog' },
@@ -16,17 +28,38 @@ const menuList = [
 
 
 export default function Home() {
+  const [open, setOpen] = useState(false)
   const router = useRouter()
   const text = '欢迎来到风中追风的Blog！'
   const handleMenuClick = (path: string) => {
     router.push(path)
   }
-
+  const [tabList, setTabList] = useState([
+    {
+      icon: <ChatIcon color="primary" />, link: '', type: 'modal', img: '/static/images/vx.png',
+    },
+    {
+      icon: <TelegramIcon color="primary" />, link: 'https://t.me/cloudljj',
+    },
+    {
+      icon: <GitHubIcon color="primary" />, link: 'https://github.com/higherzhouhui',
+    },
+    {
+      icon: <BusinessIcon color="primary" />, link: 'https://www.jizaoji.top',
+    },
+  ])
   return (
-    <Box sx={{ mb: 5 }}>
+    <Box>
       <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
         <Typewriter text={text} style={{ height: '30px', lineHeight: '30px', margin: '20px 0', fontSize: '22px', fontWeight: 'bold' }} />
-        <img src={'/static/images/money.png'} alt="bg" style={{ width: '750px', objectFit: 'contain', maxWidth: '100%', borderRadius: '4px' }} />
+        <img src={'/static/images/iwork.png'} alt="bg" style={{ width: '750px', objectFit: 'contain', maxWidth: '100%', borderRadius: '4px' }} />
+        <Stack direction={'row'} sx={{ gap: 2, justifyContent: 'center', mt: 4 }}>
+          {
+            tabList.map(item => {
+              return item.type ? <Box onClick={() => setOpen(true)} key={item.link} sx={{ cursor: 'pointer' }}>{item.icon}</Box> : <a href={item.link} key={item.link} target="_blank">{item.icon}</a>
+            })
+          }
+        </Stack>
         <ButtonGroup color="secondary" aria-label="Medium-sized button group" sx={{ mt: 4 }}>
           {
             menuList.map(item => {
@@ -35,6 +68,16 @@ export default function Home() {
           }
         </ButtonGroup>
       </Box>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Image src='/static/images/vx.png' width={375} height={450} alt="vx" />
+        </Box>
+      </Modal>
     </Box >
   );
 }

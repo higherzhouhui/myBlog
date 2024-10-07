@@ -37,9 +37,11 @@ export default function BasicLayOut(props: { children: ReactNode }) {
   const [themeMode, setThemeMode] = useState('dark')
   const [loadInit, setLoadInit] = useState(false)
   const StyledBox = styled(Box)(({ theme }) => ({
-    paddingTop: 80,
     fontSize: 16,
     position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    paddingTop: 80,
   }));
 
   const ThemeProps: any = useMemo(() => {
@@ -55,7 +57,6 @@ export default function BasicLayOut(props: { children: ReactNode }) {
   }, [themeMode, loadInit])
 
   const StyledRoot = styled(Box)(({ theme }) => ({
-    minHeight: '100vh',
     backgroundColor: theme.palette.mode == 'dark' ? '#0b1120' : 'rgba(255,255,255,0.8)'
   }));
 
@@ -103,7 +104,7 @@ export default function BasicLayOut(props: { children: ReactNode }) {
       NProgress.start()
       timer.current = setTimeout(() => {
         NProgress.done()
-      }, 800);
+      }, 1000);
     }
     changeRoute()
 
@@ -119,12 +120,12 @@ export default function BasicLayOut(props: { children: ReactNode }) {
           {
             (Sm || Middle || Big) ? <StyledRoot>
               <Header theme={themeMode} handleSwitchTheme={handleSwitchTheme} />
-              <StyledBox>
+              <StyledBox sx={{ minHeight: '100vh' }}>
                 <Suspense fallback={<Loading />}>
-                  <Box sx={{ flex: 1, height: '100%', maxWidth: Big ? 1400 : Middle ? 1160 : '100%', width: '100%', margin: '0 auto' }}>
+                  <Box sx={{ flex: 1, maxWidth: Big ? 1400 : Middle ? 1160 : '100%', width: '100%', margin: '0 auto' }}>
                     {props.children}
-                    <Footer />
                   </Box>
+                  <Footer />
                 </Suspense>
               </StyledBox>
             </StyledRoot> : <Loading />

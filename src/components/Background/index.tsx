@@ -9,8 +9,8 @@ export default function BackGroundComp() {
 
   const [init, setInit] = useState(false);
   const [loadInit, setLoadInit] = useState(false)
-  const [type, setType] = useState<any>('Colors')
-  const [myTheme, setMyTheme] = useState('dark')
+  const [type, setType] = useState<any>('')
+  const [myTheme, setMyTheme] = useState('')
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
@@ -26,16 +26,15 @@ export default function BackGroundComp() {
   }, [])
 
 
-  const ColorsTheme: any = useMemo(() => {
-    if (loadInit) {
-      const typeObj: any = {
-        Colors,
-        AmongUs,
-        Confetti,
-        Explosions,
-        FireWorks,
-      }
-      console.log(myTheme, type)
+  const colorsTheme: any = useMemo(() => {
+    const typeObj: any = {
+      Colors,
+      AmongUs,
+      Confetti,
+      Explosions,
+      FireWorks,
+    }
+    if (loadInit && myTheme && type) {
       const c = typeObj[type]
       if (myTheme == 'dark') {
         c.background.color.value = '#0b1120'
@@ -44,7 +43,6 @@ export default function BackGroundComp() {
       }
       return c
     }
-
   }, [myTheme, type, loadInit])
 
   useEffect(() => {
@@ -66,7 +64,7 @@ export default function BackGroundComp() {
       {
         init ? <Particles
           id="tsparticles"
-          options={ColorsTheme}
+          options={colorsTheme}
         /> : null
       }
     </>

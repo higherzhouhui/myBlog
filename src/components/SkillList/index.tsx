@@ -46,7 +46,7 @@ const itemData = [
     title: 'NEXTJS',
   },
   {
-    img: 'https://tangjiusheng.com/d/file/image/20200715/1594806943103728.jpg',
+    img: 'https://p2.itc.cn/images01/20220610/e7acc6acee844d8c828c1e9436a5a993.png',
     title: 'REACT',
   },
   {

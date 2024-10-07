@@ -6,6 +6,7 @@ import BusinessIcon from '@mui/icons-material/Business';
 import SchoolIcon from '@mui/icons-material/School';
 import LaptopWindowsIcon from '@mui/icons-material/LaptopWindows';
 import GitHubIcon from "@mui/icons-material/GitHub";
+import TelegramIcon from "@mui/icons-material/Telegram";
 import Image from 'next/image'
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
@@ -55,6 +56,7 @@ const imageList = [
   '/static/images/swiper/4.png',
   '/static/images/swiper/5.png',
   '/static/images/swiper/6.png',
+  '/static/images/swiper/7.png',
 ]
 
 export default function AboutComp() {
@@ -67,6 +69,9 @@ export default function AboutComp() {
   const [tabList, setTabList] = useState([
     {
       icon: <ChatIcon color="primary" />, link: '', type: 'modal', img: '/static/images/vx.png',
+    },
+    {
+      icon: <TelegramIcon color="primary" />, link: 'https://t.me/cloudljj',
     },
     {
       icon: <GitHubIcon color="primary" />, link: 'https://github.com/higherzhouhui',
@@ -172,8 +177,8 @@ export default function AboutComp() {
   return (
     <Grid container={Sm ? false : true} sx={{ padding: Sm ? '0 12px' : '12px 0' }}>
       <GridStyles sx={{ borderRadius: 2, p: 2 }} item xs={3.25}>
-        <Box sx={{ textAlign: 'center', mb: 1 }}>
-          <Box sx={{ position: 'relative', height: 80, width: 80, margin: '0 auto' }}>
+        <Box sx={{ textAlign: 'center', mb: 2 }}>
+          <Box sx={{ position: 'relative', height: 80, width: 80, margin: '0 auto', borderRadius: '50%', overflow: 'hidden', mb: 1 }}>
             <Image src='/static/images/avatar4.png' layout="fill" alt="bg" sizes="100" />
           </Box>
           <Typography color={'primary'}>风中追风</Typography>
@@ -187,12 +192,12 @@ export default function AboutComp() {
           }
         </Stack>
         <Divider />
-        <Box sx={{ mt: 1 }}>
+        <Box sx={{ mt: 2 }}>
           <Typography component={'div'} sx={{ color: 'primary.dark', display: 'flex', alignItems: 'center', mb: 1 }}><SchoolIcon sx={{ mr: 1 }} />毕业院校(2013-2017)：</Typography>
           <Divider />
-          <Typography sx={{ fontSize: 14, mt: 1, color: 'primary.light' }}>陕西科技大学——计算机系——物联网工程</Typography>
+          <Typography sx={{ fontSize: 14, mt: 2, color: 'primary.light' }}>陕西科技大学 —— 计算机系 —— 物联网工程</Typography>
         </Box>
-        <Box sx={{ mt: 1 }}>
+        <Box sx={{ mt: 2 }}>
           <Typography component={'div'} sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 1, color: 'primary.dark', }}><SettingsAccessibilityIcon sx={{ mr: 1 }} />标签：</Typography>
           <Divider />
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 2, justifyContent: 'space-between' }}>
@@ -218,7 +223,6 @@ export default function AboutComp() {
             }
           </Box> */}
         </Box>
-
       </GridStyles>
       <Grid item xs={0.25} sx={{ mb: Sm ? 2 : 0 }} />
       <GridStyles sx={{ borderRadius: 2, overflow: 'hidden' }} item xs={8.5}>

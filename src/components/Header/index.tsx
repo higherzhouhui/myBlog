@@ -63,7 +63,7 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
   const [currentPath, setCurrentPath] = useState('/')
   const [scrollDis, setScrollTop] = useState(0)
   const [isShowHeader, setIsShowHeader] = useState(true)
-  const [type, setType] = useState('Colors')
+  const [type, setType] = useState('Explosions')
   const { Sm, Middle, Big } = useContext(MediaQueryContext);
   const [open, setOpen] = React.useState(false);
 
@@ -151,7 +151,7 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
 
 
   useEffect(() => {
-    const storageType = localStorage.getItem('storageType') || 'Colors'
+    const storageType = localStorage.getItem('storageType') || 'Explosions'
     setType(storageType)
     switchBgStyle({ type: storageType })
     onScroll()
