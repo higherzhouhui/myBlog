@@ -74,9 +74,8 @@ export default function Home() {
         <Typewriter
           text={text}
           style={{
-            height: "30px",
             lineHeight: "30px",
-            margin: "30px 0",
+            margin: "20px 0",
             fontSize: "22px",
             fontWeight: "bold",
           }}
