@@ -176,3 +176,17 @@ body {
     transform: translateY(-100%) translateX(500%);
   }
 }
+
+.translateSelectLanguage{
+  position: fixed;
+  top:100px;
+  left:50px;
+  z-index: 1005;
+}
+
+@media (max-width: 500px) {
+  .translateSelectLanguage {
+    top:65px!important;
+    right: 10px!important;
+  }
+}
