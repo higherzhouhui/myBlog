@@ -27,6 +27,7 @@ import "@/app/globals.css";
 import "./style.css";
 import { usePathname, useSearchParams } from "next/navigation";
 import translate from "i18n-jsautotranslate";
+import { initializeAnalytics, trackPageView } from "@/utils/analytics";
 
 export const MediaQueryContext = createContext<AppContextProps>({
   Sm: false,
@@ -83,6 +84,7 @@ export default function BasicLayOut(props: { children: ReactNode }) {
     setThemeMode(storageTheme);
     switchTheme({ theme: storageTheme });
     setLoadInit(true);
+    initializeAnalytics();
   }, []);
 
   useEffect(() => {
@@ -124,13 +126,9 @@ export default function BasicLayOut(props: { children: ReactNode }) {
     setTimeout(() => {
       translate.execute();
     }, 2000);
-
+    trackPageView(pathname);
     EventBus.addListener(EventTypes.ChangeRoute, changeRoute);
   }, [pathname, searchParams]);
-
-  useEffect(() => {
-    // window.translate = translate; //方便审核元素用控制台调试
-  }, []);
 
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
