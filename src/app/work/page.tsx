@@ -74,6 +74,12 @@ export default function MediaCard() {
       logo: "/static/images/fork.png",
     },
     {
+      title: "CAPSID",
+      label: ["Nextjs", "React"],
+      link: "https://capsid.vercel.app/",
+      logo: "/static/images/capsid.png",
+    },
+    {
       title: "AI METASPACE DAO",
       label: ["web3.js", "Nextjs", "React", "Pwa", "SSR", "TailwindCss"],
       link: "https://insta-gilt-nu.vercel.app/",
