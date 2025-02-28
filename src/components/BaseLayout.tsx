@@ -121,10 +121,11 @@ export default function BasicLayOut(props: { children: ReactNode }) {
       }, 1000);
     };
     changeRoute();
-    translate.service.use("client.edge"); //翻译通道
-    translate.whole.enableAll(); //整体翻译
+    const t = translate as any;
+    t.service.use("client.edge"); //翻译通道
+    t.whole.enableAll(); //整体翻译
     setTimeout(() => {
-      translate.execute();
+      t.execute();
     }, 2000);
     trackPageView(pathname);
     EventBus.addListener(EventTypes.ChangeRoute, changeRoute);
