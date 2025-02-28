@@ -1,5 +1,7 @@
 import { Metadata, Viewport } from "next";
 import BasicLayOut from "@/components/BaseLayout";
+import { Suspense } from "react";
+import Loading from "@/components/Loading";
 export const metadata: Metadata = {
   title: "风中追风的博客",
   description:
@@ -36,7 +38,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       <link rel="manifest" href="/manifest.json" />
       <link rel="icon" href="/favicon.ico" />
       <body>
-        <BasicLayOut>{props.children}</BasicLayOut>
+        <Suspense fallback={<Loading />}>
+          <BasicLayOut>{props.children}</BasicLayOut>
+        </Suspense>
       </body>
     </html>
   );
