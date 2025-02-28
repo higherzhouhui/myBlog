@@ -60,7 +60,7 @@ export default function MediaCard() {
       logo: "/static/images/hmstr.png",
     },
     {
-      title: "frenPet链游",
+      title: "PET链游",
       label: [
         "Nextjs",
         "React",
@@ -70,7 +70,7 @@ export default function MediaCard() {
         "Etherjs",
         "sol/web3",
       ],
-      link: "https://frent-app.vercel.app/",
+      link: "https://nexio-seven.vercel.app/",
       logo: "/static/images/fork.png",
     },
     {
