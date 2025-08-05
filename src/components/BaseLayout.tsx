@@ -9,7 +9,7 @@ import {
   createContext,
   useRef,
 } from "react";
-import { EventBus, EventTypes, switchTheme } from "@/utils/event";
+import { switchTheme } from "@/utils/event";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -20,14 +20,14 @@ import Loading from "@/components/Loading";
 import { Box, styled, useMediaQuery } from "@mui/material";
 import BasicSpeedDial from "@/components/SpeedDial";
 import { Toaster } from "react-hot-toast";
-import NProgress from "nprogress";
 import { AppContextProps } from "@/interface/common";
-import "nprogress/nprogress.css"; //这个样式必须引入
 import "@/app/globals.css";
 import "./style.css";
 import { usePathname, useSearchParams } from "next/navigation";
 import translate from "i18n-jsautotranslate";
 import { initializeAnalytics, trackPageView } from "@/utils/analytics";
+import BreadcrumbSchema from "@/components/SEO/BreadcrumbSchema";
+import RouteProgress from "@/components/RouteProgress";
 
 export const MediaQueryContext = createContext<AppContextProps>({
   Sm: false,
@@ -42,7 +42,6 @@ export default function BasicLayOut(props: { children: ReactNode }) {
   const Middle = useMediaQuery("(min-width: 1200px) and (max-width: 1440px)");
   const Big = useMediaQuery("(min-width: 1440px)");
   const [layoutScreen, setLayoutScreen] = useState({ width: 0, height: 0 });
-  const timer = useRef<any>(null);
   const [isShowMange, setShowManage] = useState(false);
   const [themeMode, setThemeMode] = useState("dark");
   const [loadInit, setLoadInit] = useState(false);
@@ -94,13 +93,6 @@ export default function BasicLayOut(props: { children: ReactNode }) {
     });
   }, [Sm, Middle, Big]);
 
-  NProgress.configure({
-    easing: "ease", // 动画方式
-    speed: 500, // 递增进度条的速度
-    showSpinner: false, // 是否显示加载ico
-    trickleSpeed: 200, // 自动递增间隔
-    minimum: 0.3, // 初始化时的最小百分比
-  });
 
   const handleSwitchTheme = (e: any) => {
     const value = e.target.checked;
@@ -111,16 +103,6 @@ export default function BasicLayOut(props: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    if (timer && timer.current) {
-      clearTimeout(timer.current);
-    }
-    const changeRoute = () => {
-      NProgress.start();
-      timer.current = setTimeout(() => {
-        NProgress.done();
-      }, 1000);
-    };
-    changeRoute();
     const t = translate as any;
     t.service.use("client.edge"); //翻译通道
     t.whole.enableAll(); //整体翻译
@@ -128,12 +110,13 @@ export default function BasicLayOut(props: { children: ReactNode }) {
       t.execute();
     }, 2000);
     trackPageView(pathname);
-    EventBus.addListener(EventTypes.ChangeRoute, changeRoute);
   }, [pathname, searchParams]);
 
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
       <ThemeProvider theme={ThemeProps}>
+        <RouteProgress />
+        <BreadcrumbSchema />
         <BackGroundComp />
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />

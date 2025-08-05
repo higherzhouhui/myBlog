@@ -28,6 +28,7 @@ import { Autoplay } from 'swiper/modules';
 import { MediaQueryContext } from "@/components/BaseLayout";
 import 'swiper/css';
 import Loading from "@/components/Loading";
+import SEO from "@/components/SEO";
 
 const style = {
   position: 'absolute',
@@ -174,146 +175,158 @@ export default function AboutComp() {
   useEffect(() => {
 
   }, [])
+
+  const personData = {
+    name: "风中追风",
+    jobTitle: "全栈开发者", 
+    description: "8年工作经验，科班出身，精通前端三要素，从事web前端相关工作经验丰富",
+    education: [],
+    company: "自由职业者"
+  };
+
   return (
-    <Grid container={Sm ? false : true} sx={{ padding: Sm ? '0 12px' : '12px 0' }}>
-      <GridStyles sx={{ borderRadius: 2, p: 2 }} item xs={3.25}>
-        <Box sx={{ textAlign: 'center', mb: 2 }}>
-          <Box sx={{ position: 'relative', height: 80, width: 80, margin: '0 auto', borderRadius: '50%', overflow: 'hidden', mb: 1 }}>
-            <Image src='/static/images/avatar4.png' layout="fill" alt="bg" sizes="100" />
+    <>
+      <SEO type="person" data={personData} />
+      <Grid container={Sm ? false : true} sx={{ padding: Sm ? '0 12px' : '12px 0' }}>
+        <GridStyles sx={{ borderRadius: 2, p: 2 }} item xs={3.25}>
+          <Box sx={{ textAlign: 'center', mb: 2 }}>
+            <Box sx={{ position: 'relative', height: 80, width: 80, margin: '0 auto', borderRadius: '50%', overflow: 'hidden', mb: 1 }}>
+              <Image src='/static/images/avatar4.png' layout="fill" alt="bg" sizes="100" />
+            </Box>
+            <Typography color={'primary'}>风中追风</Typography>
           </Box>
-          <Typography color={'primary'}>风中追风</Typography>
-        </Box>
-        <Alert icon={false} severity="success">我曾踏足山巅，也曾进入低谷，二者都让我受益良多，攀登的过程虽然漫长，但巅峰的风景却是值得的，失败始终是最好的导师，掌控命运，否则命运将掌控你。</Alert>
-        <Stack direction={'row'} sx={{ gap: 2, justifyContent: 'center', mt: 2 }}>
-          {
-            tabList.map(item => {
-              return item.type ? <Box onClick={() => setOpen(true)} key={item.link} sx={{ cursor: 'pointer' }}>{item.icon}</Box> : <a href={item.link} key={item.link} target="_blank">{item.icon}</a>
-            })
-          }
-        </Stack>
-        <Divider />
-        <Box sx={{ mt: 2 }}>
-          <Typography component={'div'} sx={{ color: 'primary.dark', display: 'flex', alignItems: 'center', mb: 1 }}><SchoolIcon sx={{ mr: 1 }} />毕业院校(2013-2017)：</Typography>
-          <Divider />
-          <Typography sx={{ fontSize: 14, mt: 2, color: 'primary.light' }}>陕西科技大学 —— 计算机系 —— 物联网工程</Typography>
-        </Box>
-        <Box sx={{ mt: 2 }}>
-          <Typography component={'div'} sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 1, color: 'primary.dark', }}><SettingsAccessibilityIcon sx={{ mr: 1 }} />标签：</Typography>
-          <Divider />
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 2, justifyContent: 'space-between' }}>
+          <Alert icon={false} severity="success">我曾踏足山巅，也曾进入低谷，二者都让我受益良多，攀登的过程虽然漫长，但巅峰的风景却是值得的，失败始终是最好的导师，掌控命运，否则命运将掌控你。</Alert>
+          <Stack direction={'row'} sx={{ gap: 2, justifyContent: 'center', mt: 2 }}>
             {
-              labelList.map((item, index) => {
-                return <Button variant={'contained'} color={colorList[Math.floor(Math.random() * 6)]} size="small" key={item}>{item}</Button>
+              tabList.map(item => {
+                return item.type ? <Box onClick={() => setOpen(true)} key={item.link} sx={{ cursor: 'pointer' }}>{item.icon}</Box> : <a href={item.link} key={item.link} target="_blank">{item.icon}</a>
               })
             }
-          </Box>
-          <Box sx={{ position: 'relative', width: '100%', height: 0, paddingBottom: '135%' }} onClick={() => setSkillOpen(!skillOpen)}>
-            <Image src='/static/images/skill.png' fill alt="skill" />
-          </Box>
-        </Box>
-        <Box sx={{ mt: 1 }}>
-          <Typography component={'div'} sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 1, color: 'primary.dark', }}><LaptopWindowsIcon sx={{ mr: 1 }} />技能：</Typography>
+          </Stack>
           <Divider />
-          <SkillList />
-          {/* <Box>
+          <Box sx={{ mt: 2 }}>
+            <Typography component={'div'} sx={{ color: 'primary.dark', display: 'flex', alignItems: 'center', mb: 1 }}><SchoolIcon sx={{ mr: 1 }} />毕业院校(2013-2017)：</Typography>
+            <Divider />
+            <Typography sx={{ fontSize: 14, mt: 2, color: 'primary.light' }}>陕西科技大学 —— 计算机系 —— 物联网工程</Typography>
+          </Box>
+          <Box sx={{ mt: 2 }}>
+            <Typography component={'div'} sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 1, color: 'primary.dark', }}><SettingsAccessibilityIcon sx={{ mr: 1 }} />标签：</Typography>
+            <Divider />
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 2, justifyContent: 'space-between' }}>
+              {
+                labelList.map((item, index) => {
+                  return <Button variant={'contained'} color={colorList[Math.floor(Math.random() * 6)]} size="small" key={item}>{item}</Button>
+                })
+              }
+            </Box>
+            <Box sx={{ position: 'relative', width: '100%', height: 0, paddingBottom: '135%' }} onClick={() => setSkillOpen(!skillOpen)}>
+              <Image src='/static/images/skill.png' fill alt="skill" />
+            </Box>
+          </Box>
+          <Box sx={{ mt: 1 }}>
+            <Typography component={'div'} sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 1, color: 'primary.dark', }}><LaptopWindowsIcon sx={{ mr: 1 }} />技能：</Typography>
+            <Divider />
+            <SkillList />
+            {/* <Box>
             {
               skillList.map(item => {
                 return <Button variant={'contained'} color={colorList[Math.floor(Math.random() * 5)]} size="small" key={item} sx={{ mb: 1, mt: 1, mr: '3px' }}>{item}</Button>
               })
             }
           </Box> */}
-        </Box>
-      </GridStyles>
-      <Grid item xs={0.25} sx={{ mb: Sm ? 2 : 0 }} />
-      <GridStyles sx={{ borderRadius: 2, overflow: 'hidden' }} item xs={8.5}>
-        <Box sx={{ position: 'relative', height: Sm ? 120 : 300 }}>
-          <Swiper
-            loop
-            centeredSlides={true}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
-            }}
-            modules={[Autoplay]}
-          >
-            {imageList.map((item, index: number) => (
-              <SwiperSlide key={index} style={{ width: '100%', height: Sm ? '150px' : '300px', position: 'relative' }}>
-                <Image src={item} fill alt="bg" />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </Box>
-        <Timeline position={Sm ? 'right' : 'alternate-reverse'}>
-          {
-            workList.reverse().map(item => {
-              return <TimelineItem key={item.time}>
-                <TimelineOppositeContent
-                  sx={{ m: 'auto 0' }}
-                  align="right"
-                  variant="body2"
-                  color="text.secondary"
-                >
-                  <Typography>{item.time}</Typography>
-                  <Typography sx={{ fontSize: 15, cursor: 'pointer' }} color={'primary.dark'} onClick={() => { handleShowCompany(item.link) }}>
-                    {item.company}
-                  </Typography>
-                </TimelineOppositeContent>
-                <TimelineSeparator>
-                  <TimelineConnector />
-                  <TimelineDot>
+          </Box>
+        </GridStyles>
+        <Grid item xs={0.25} sx={{ mb: Sm ? 2 : 0 }} />
+        <GridStyles sx={{ borderRadius: 2, overflow: 'hidden' }} item xs={8.5}>
+          <Box sx={{ position: 'relative', height: Sm ? 120 : 300 }}>
+            <Swiper
+              loop
+              centeredSlides={true}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              modules={[Autoplay]}
+            >
+              {imageList.map((item, index: number) => (
+                <SwiperSlide key={index} style={{ width: '100%', height: Sm ? '150px' : '300px', position: 'relative' }}>
+                  <Image src={item} fill alt="bg" />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </Box>
+          <Timeline position={Sm ? 'right' : 'alternate-reverse'}>
+            {
+              workList.reverse().map(item => {
+                return <TimelineItem key={item.time}>
+                  <TimelineOppositeContent
+                    sx={{ m: 'auto 0' }}
+                    align="right"
+                    variant="body2"
+                    color="text.secondary"
+                  >
+                    <Typography>{item.time}</Typography>
+                    <Typography sx={{ fontSize: 15, cursor: 'pointer' }} color={'primary.dark'} onClick={() => { handleShowCompany(item.link) }}>
+                      {item.company}
+                    </Typography>
+                  </TimelineOppositeContent>
+                  <TimelineSeparator>
+                    <TimelineConnector />
+                    <TimelineDot>
+                      {
+                        item.icon
+                      }
+                    </TimelineDot>
+                    <TimelineConnector />
+                  </TimelineSeparator>
+                  <TimelineContent sx={{ py: '12px', px: 2 }}>
+                    <Typography color='primary' sx={{ fontSize: 15 }}>{item.pos}</Typography>
                     {
-                      item.icon
+                      item.content.map((cList, index) => {
+                        return <Typography color='secondary.dark' key={cList}>
+                          {index + 1}、{cList}
+                        </Typography>
+                      })
                     }
-                  </TimelineDot>
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent sx={{ py: '12px', px: 2 }}>
-                  <Typography color='primary' sx={{ fontSize: 15 }}>{item.pos}</Typography>
-                  {
-                    item.content.map((cList, index) => {
-                      return <Typography color='secondary.dark' key={cList}>
-                        {index + 1}、{cList}
-                      </Typography>
-                    })
-                  }
-                </TimelineContent>
-              </TimelineItem>
-            })
-          }
-        </Timeline>
-        <Box sx={{ position: 'relative', width: '100%', height: 0, paddingBottom: '47%' }}>
-          <Image src={'/static/images/team.png'} layout="fill" alt="team" />
-        </Box>
-      </GridStyles>
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Image src='/static/images/vx.png' width={375} height={450} alt="vx" />
-        </Box>
-      </Modal>
-      <Modal
-        open={skillOpen}
-        onClose={() => setSkillOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Image src='/static/images/skill.png' width={Sm ? 375 : 500} height={Sm ? 450 : 650} alt="vx" />
-        </Box>
-      </Modal>
-      <Modal open={companyVisible} onClose={() => setCompanyVisible(false)} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description"
-      >
-        <Box sx={iframeStyle}>
-          <iframe src={iframeSrc} width={width > 1100 ? 1100 : width} height={height > 700 ? 700 : height} id="companyIframe" />
-          {
-            iframeLoading ? <Loading /> : null
-          }
-        </Box>
-      </Modal>
-    </Grid >
+                  </TimelineContent>
+                </TimelineItem>
+              })
+            }
+          </Timeline>
+          <Box sx={{ position: 'relative', width: '100%', height: 0, paddingBottom: '47%' }}>
+            <Image src={'/static/images/team.png'} layout="fill" alt="team" />
+          </Box>
+        </GridStyles>
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Image src='/static/images/vx.png' width={375} height={450} alt="vx" />
+          </Box>
+        </Modal>
+        <Modal
+          open={skillOpen}
+          onClose={() => setSkillOpen(false)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Image src='/static/images/skill.png' width={Sm ? 375 : 500} height={Sm ? 450 : 650} alt="vx" />
+          </Box>
+        </Modal>
+        <Modal open={companyVisible} onClose={() => setCompanyVisible(false)} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description"
+        >
+          <Box sx={iframeStyle}>
+            <iframe src={iframeSrc} width={width > 1100 ? 1100 : width} height={height > 700 ? 700 : height} id="companyIframe" />
+            {
+              iframeLoading ? <Loading /> : null
+            }
+          </Box>
+        </Modal>
+      </Grid >
+    </>
   );
 }

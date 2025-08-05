@@ -7,7 +7,7 @@ import { clearTimeout } from "timers";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import Link from "next/link";
 import Image from "next/image"
-import { changeRoute, switchBgStyle } from "@/utils/event";
+import { switchBgStyle } from "@/utils/event";
 import { MediaQueryContext } from "@/components/BaseLayout";
 import { MenuBook, Home, Menu as MenuIcon, Computer, CameraAlt, Assignment, PermContactCalendar, BrightnessHigh, Camera } from "@mui/icons-material";
 
@@ -92,7 +92,6 @@ export const Header = memo(({ theme, handleSwitchTheme }: { theme: string, handl
   const router = useRouter()
   const path = usePathname()
   const handleMenuClick = (path: string) => {
-    changeRoute()
     toggleDrawer(false)
     router.push(path)
   }
