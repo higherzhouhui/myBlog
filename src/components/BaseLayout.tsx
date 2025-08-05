@@ -28,6 +28,7 @@ import "./style.css";
 import { usePathname, useSearchParams } from "next/navigation";
 import translate from "i18n-jsautotranslate";
 import { initializeAnalytics, trackPageView } from "@/utils/analytics";
+import BreadcrumbSchema from "@/components/SEO/BreadcrumbSchema";
 
 export const MediaQueryContext = createContext<AppContextProps>({
   Sm: false,
@@ -134,6 +135,7 @@ export default function BasicLayOut(props: { children: ReactNode }) {
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
       <ThemeProvider theme={ThemeProps}>
+        <BreadcrumbSchema />
         <BackGroundComp />
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
